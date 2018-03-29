@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import HelloFromVux from '@/components/HelloFromVux'
+import home from '@/views/index'
+import noPage from '@/views/404'
 
 Vue.use(Router)
 
@@ -15,8 +15,12 @@ export default new Router({
     }
   },
   routes: [{
+    path: '*',
+    name: 'noPage',
+    component: noPage
+  }, {
     path: '/',
-    name: 'HelloFromVux',
-    component: HelloFromVux
-  }]
+    name: 'home',
+    component: home
+  }, ]
 })
