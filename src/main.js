@@ -14,6 +14,14 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 Vue.use(VueAxios, axios)
 
+router.beforeEach(function (to, from, next) {
+  store.commit('updateLoadingStatus', {isLoading: true})
+  next()
+})
+
+router.afterEach(function (to) {
+  store.commit('updateLoadingStatus', {isLoading: false})
+})
 
 FastClick.attach(document.body)
 
