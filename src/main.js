@@ -6,21 +6,17 @@ import router from './router'
 import App from './App'
 import store from './store'
 
+// AjaxPlugin 插件依赖于 axios，组件内使用this.$http 调用
 import { AjaxPlugin } from 'vux'
 Vue.use(AjaxPlugin)
 
-// axios
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-Vue.use(VueAxios, axios)
-
-router.beforeEach(function (to, from, next) {
-  store.commit('updateLoadingStatus', {isLoading: true})
+router.beforeEach(function(to, from, next) {
+  store.commit('updateLoadingStatus', { isLoading: true })
   next()
 })
 
-router.afterEach(function (to) {
-  store.commit('updateLoadingStatus', {isLoading: false})
+router.afterEach(function(to) {
+  store.commit('updateLoadingStatus', { isLoading: false })
 })
 
 FastClick.attach(document.body)

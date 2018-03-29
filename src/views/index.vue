@@ -13,6 +13,15 @@ export default {
       showMenu: false
     }
   },
+  created() {
+    this.$http.get('https://www.easy-mock.com/mock/5abc9f432a81eb026059a2ac/api/select')
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  },
   computed: {
 
   },
