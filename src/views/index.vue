@@ -1,16 +1,21 @@
 <template>
   <div>
-    <divider>zh-CN: 我是有底线的</divider>
-    <router-link to="/404">我是404</router-link>
+    <div style="padding:20px;">
+    <button-tab v-model="tabItemActive">
+      <button-tab-item @on-item-click="consoleIndex()">热拍中</button-tab-item>
+      <button-tab-item @on-item-click="consoleIndex()">预拍</button-tab-item>
+      <button-tab-item @on-item-click="consoleIndex()">已拍结</button-tab-item>
+    </button-tab>
+    </div>
   </div>
 </template>
 <script>
-import { Divider } from 'vux'
+import { Divider, ButtonTab, ButtonTabItem } from 'vux'
 
 export default {
   data() {
     return {
-      showMenu: false
+      tabItemActive: 0
     }
   },
   created() {
@@ -22,11 +27,18 @@ export default {
         console.log(err)
       })
   },
+  methods: {
+    consoleIndex() {
+      console.log('click', this.tabItemActive)
+    }
+  },
   computed: {
 
   },
   components: {
-    Divider
+    Divider,
+    ButtonTab,
+    ButtonTabItem
   }
 }
 

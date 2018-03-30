@@ -1,8 +1,9 @@
 <template>
   <div id="app">
     <loading v-model="isLoading"></loading>
-    <router-view></router-view>
-    <input type="text" v-model="isLoading">
+    <transition @after-enter="$vux.bus && $vux.bus.$emit('vux:after-view-enter')" :name="viewTransition" :css="!!direction">
+      <router-view class="router-view"></router-view>
+    </transition>
   </div>
 </template>
 <script>
