@@ -11,7 +11,9 @@ import { mapState } from 'vuex'
 export default {
   name: 'app',
   computed: {
-    ...mapState(['isLoading'])
+    ...mapState({
+      isLoading: state => state.isLoading,
+    })
   },
   components: {
     Loading

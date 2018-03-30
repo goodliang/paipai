@@ -3,16 +3,16 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-let store = new Vuex.Store({
-  state: {
-    isLoading: false
-  },
+const state = {
+  isLoading: false,
+  direction: 'forward'
+}
+export default new Vuex.Store({
+  state,
   mutations: {
-    updateLoadingStatus (state, payload) {
+    updateLoadingStatus(state, payload) {
       state.isLoading = payload.isLoading
     }
   },
   action: {}
 })
-
-export default store
