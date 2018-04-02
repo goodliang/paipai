@@ -26,10 +26,10 @@
             <p>{{item.title}}</p>
           </div>
           <div class="goods-item-price">
-            <div class="item"><span class="text-muted f14" v-if="stateActive === 'complete'">成交价：</span><span class="text-muted f14" v-else>当前价：</span><span class="text-red">¥
+            <div class="item vux-1px-r"><span class="text-muted f14" v-if="stateActive === 'complete'">成交价：</span><span class="text-muted f14" v-else>当前价：</span><span class="text-red">¥
             <countup :start-val="item.startPrice" :end-val="item.nowPrice" :duration="2" class="demo1"></countup></span>
             </div>
-            <div class="item"><span class="text-muted f14">起拍价：</span><span class="text-info">¥{{item.startPrice}}</span></div>
+            <div class="item vux-1px-r"><span class="text-muted f14">起拍价：</span><span class="text-info">¥{{item.startPrice}}</span></div>
           </div>
         </div>
       </div>
@@ -129,7 +129,7 @@ export default {
     }
     .goods-item-price {
       display: flex;
-      padding-top: 5px;
+      padding-top: 10px;
       .item {
         flex: 1;
       }
@@ -141,8 +141,11 @@ export default {
 }
 
 .vux-1px-b:after {
-  border-bottom: 1px solid #f4f4f4;
-  color: #f4f4f4;
+  border-bottom: 1px solid #f1f1f1;
+  color: #f1f1f1;
 }
-
+.vux-1px-r:after{
+  border-right: 1px solid #f1f1f1;
+  color: #f1f1f1;
+}
 </style>
