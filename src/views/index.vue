@@ -1,10 +1,12 @@
 <template>
   <div>
-    <tab :line-width="1" custom-bar-width="60px">
-      <tab-item selected @on-item-click="createdDate">热拍中</tab-item>
-      <tab-item @on-item-click="createdDate">预拍</tab-item>
-      <tab-item @on-item-click="createdDate">已拍结</tab-item>
-    </tab>
+    <div class="fixed-tab" v-transfer-dom>
+      <tab :line-width="1" custom-bar-width="60px">
+        <tab-item selected @on-item-click="createdDate">热拍中</tab-item>
+        <tab-item @on-item-click="createdDate">预拍</tab-item>
+        <tab-item @on-item-click="createdDate">已拍结</tab-item>
+      </tab>
+    </div>
     <div class="goods-list" v-if="hasContent">
       <div class="goods-item" v-for='(item,index) in goods'>
         <div class="goods-item-head">
@@ -87,6 +89,10 @@ export default {
 
 </script>
 <style lang="less" rel="stylesheet/less">
+.goods-list {
+  margin-top: 54px;
+}
+
 .goods-item {
   margin: 10px;
   .goods-item-head {
