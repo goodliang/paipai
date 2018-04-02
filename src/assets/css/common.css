@@ -142,3 +142,9 @@
   text-align: center;
   padding-left: 4px;
 }
+.no-content{
+	text-align: center;
+	padding: 15px;
+	color:#999;
+	font-size: 14px;
+}

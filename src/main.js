@@ -10,23 +10,12 @@ import { sync } from 'vuex-router-sync'
 sync(store, router)
 
 // AjaxPlugin 插件依赖于 axios，组件内使用this.$http 调用
-import { AjaxPlugin,TransferDom,Countup,Clocker} from 'vux'
+import { AjaxPlugin,TransferDom,Countup,Clocker,Loading} from 'vux'
 Vue.use(AjaxPlugin)
 Vue.directive('transfer-dom', TransferDom)
 Vue.component('countup', Countup)
 Vue.component('clocker', Clocker)
-
-
-
-//loading
-router.beforeEach(function(to, from, next) {
-  store.commit('updateLoadingStatus', { isLoading: true })
-  next()
-})
-
-router.afterEach(function(to) {
-  store.commit('updateLoadingStatus', { isLoading: false })
-})
+Vue.component('loading', Loading)
 
 // 用于消除click移动浏览器上物理点击与事件触发之间的300毫秒延迟
 FastClick.attach(document.body)

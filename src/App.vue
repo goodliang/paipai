@@ -1,21 +1,16 @@
 <template>
   <div id="app">
-    <loading v-model="isLoading"></loading>
       <router-view class="router-view"></router-view>
   </div>
 </template>
 <script>
-import { Loading } from 'vux'
-import { mapState } from 'vuex'
 export default {
   name: 'app',
   computed: {
-    ...mapState({
-      isLoading: state => state.isLoading,
-    })
+   
   },
   components: {
-    Loading
+ 
   }
 }
 
@@ -26,5 +21,4 @@ export default {
 body {
   background-color: #fbf9fe;
 }
-
 </style>
