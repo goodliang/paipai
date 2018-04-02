@@ -3,14 +3,20 @@ import FastClick from 'fastclick'
 import router from './router'
 import App from './App'
 import store from './store'
+import './assets/css/common.css'
 
 //  把router功能放到vuex的state中 例：store.state.route.path
 import { sync } from 'vuex-router-sync'
 sync(store, router)
 
 // AjaxPlugin 插件依赖于 axios，组件内使用this.$http 调用
-import { AjaxPlugin } from 'vux'
+import { AjaxPlugin,TransferDom,Countup,Clocker} from 'vux'
 Vue.use(AjaxPlugin)
+Vue.directive('transfer-dom', TransferDom)
+Vue.component('countup', Countup)
+Vue.component('clocker', Clocker)
+
+
 
 //loading
 router.beforeEach(function(to, from, next) {

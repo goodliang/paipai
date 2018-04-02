@@ -1,0 +1,144 @@
+@charset "UTF-8";
+
+
+/**
+ * 
+ * @authors Your Name (you@example.org)
+ * @date    2018-04-02 12:00:25
+ * @version $Id$
+ */
+
+
+/*共用*/
+
+.iconfont {
+  line-height: 1;
+}
+
+.f10 {
+  font-size: 0.625rem !important;
+}
+
+.f12 {
+  font-size: 0.75rem !important;
+}
+
+.f13 {
+  font-size: 0.8125rem !important;
+}
+
+.f14 {
+  font-size: 0.875rem !important;
+}
+
+.f15 {
+  font-size: 0.9375rem !important;
+}
+
+.f16 {
+  font-size: 1rem !important;
+}
+
+.f18 {
+  font-size: 1.125rem !important;
+}
+
+.f20 {
+  font-size: 1.25rem !important;
+}
+
+.f24 {
+  font-size: 1.5rem !important;
+}
+
+.text-left {
+  text-align: left
+}
+
+.text-right {
+  text-align: right
+}
+
+.text-center {
+  text-align: center
+}
+
+.text-justify {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.text-red {
+  color: #d4282d;
+}
+
+.text-default {
+  color: #333;
+}
+
+.text-info {
+  color: #666;
+}
+
+.text-muted {
+  color: #999;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.p-sm {
+  padding: 10px;
+}
+
+.p-md {
+  padding: 15px;
+}
+
+.p-n {
+  padding: 0;
+}
+
+.pt-n {
+  padding-top: 0;
+}
+
+.pb-n {
+  padding-bottom: 0;
+}
+
+.mt-n {
+  margin-top: 0 !important;
+}
+
+.countDown {
+  font-size: 12px;
+  background: rgba(255,255,255,0.9);
+  color: #282c35;
+  padding: 1px 5px;
+  border-radius: 1px;
+}
+.countDownTit{
+	color:#666;
+}
+.countDown .day {
+  background-color: #000;
+  color: #fff;
+  text-align: center;
+  display: inline-block;
+  padding: 0 3px;
+  border-radius: 3px;
+}
+
+.countDown .interval {
+  text-align: center;
+  padding-left: 4px;
+}

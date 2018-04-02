@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <loading v-model="isLoading"></loading>
-    <transition @after-enter="$vux.bus && $vux.bus.$emit('vux:after-view-enter')" :name="viewTransition" :css="!!direction">
       <router-view class="router-view"></router-view>
-    </transition>
   </div>
 </template>
 <script>
@@ -24,7 +22,7 @@ export default {
 </script>
 <style lang="less">
 @import '~vux/src/styles/reset.less';
-
+@import '~vux/src/styles/1px.less';
 body {
   background-color: #fbf9fe;
 }
