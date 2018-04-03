@@ -1,37 +1,33 @@
 <template>
   <div>
-    <div class="fixed-tab" v-transfer-dom>
-      <x-header>This is the page title.</x-header>
-    </div>
-    <div class="goods-list" v-if="hasContent">
-      <div class="goods-item" v-for='(item,index) in goods'>
-        <div class="goods-item-head">
-          <img :src="item.img" width="100%">
-          <div class="countDown">
-            <span class="countDownTit" v-if="stateActive === 'ongoing'">距结束：</span>
-            <span class="countDownTit" v-if="stateActive === 'preheating'">距开始：</span>
-            <span class="countDownTit" v-if="stateActive === 'complete'">已拍结</span>
-            <template v-if="stateActive !== 'complete'">
-              <clocker :time="item.endTime"></clocker>
-            </template>
-          </div>
+    <div class="goods-item">
+      <div class="goods-item-head">
+        <img :src="detail.img" width="100%">
+        <div class="countDown">
+          <span class="countDownTit">距结束：</span>
+          <clocker :time="detail.endTime"></clocker>
         </div>
-        <div class="goods-item-footer">
-          <div class="goods-item-info vux-1px-b">
-            <h3 class="text-justify"><span>{{item.author}}</span><small class="text-muted f12 fwn">{{item.type}}</small></h3>
-            <p>{{item.title}}</p>
+      </div>
+      <div class="goods-item-footer">
+        <div class="goods-item-info vux-1px-b">
+          <h3 class="text-justify"><span>{{detail.author}}</span><small class="text-muted f12 fwn">{{detail.type}}</small></h3>
+          <p>{{detail.title}}</p>
+        </div>
+        <div class="goods-item-price">
+          <div class="item vux-1px-r"><span class="text-info">¥{{detail.addPrice}}</span>
+            <br><span class="text-muted f13">加价</span></div>
+          <div class="item vux-1px-r"><span class="text-red">¥
+            <countup :end-val="1000" :duration="2" ></countup></span>
+            <br><span class="text-muted f13">起拍价</span>
           </div>
-          <div class="goods-item-price">
-            <div class="item vux-1px-r"><span class="text-muted f14" v-if="stateActive === 'complete'">成交价：</span><span class="text-muted f14" v-else>当前价：</span><span class="text-red">¥
-            <countup :start-val="item.startPrice" :end-val="item.nowPrice" :duration="2" class="demo1"></countup></span>
-            </div>
-            <div class="item"><span class="text-muted f14">起拍价：</span><span class="text-info">¥{{item.startPrice}}</span></div>
-          </div>
+          <div class="item"><span class="text-info">¥{{detail.reference}}</span>
+            <br><span class="text-muted f13">参考价</span></div>
         </div>
       </div>
     </div>
-    <div class="no-content" v-else>
-      暂无内容
+    <div class="goods-detail">
+      <div class="goods-detail-content" v-html="detail.detail">
+      </div>
     </div>
     <div v-transfer-dom>
       <loading v-model="isLoading"></loading>
@@ -39,35 +35,28 @@
   </div>
 </template>
 <script>
-import { Tab, TabItem } from 'vux'
-
 export default {
   data() {
     return {
       isLoading: true,
-      hasContent: false,
-      state: ['ongoing', 'preheating', 'complete'], //进行中，预拍，已结束
-      goods: [],
-      stateActive: ''
+      detail: '',
+      id: '',
+      doStart: false
     }
   },
   created() {
-    this.createdDate(0)
+    this.createdDate()
   },
   mounted() {
-
+    console.log()
   },
   methods: {
-    createdDate(index) {
+    createdDate() {
       this.isLoading = true
-      this.stateActive = this.state[index]
-      this.$http.get('https://www.easy-mock.com/mock/5abc9f432a81eb026059a2ac/api/list/' + this.stateActive)
+      this.$http.get('https://www.easy-mock.com/mock/5abc9f432a81eb026059a2ac/api/view/' + this.$route.params.id)
         .then((res) => {
-          this.goods = res.data.data
+          this.detail = res.data.data
           this.isLoading = false
-          if (this.goods.length) {
-            this.hasContent = true
-          }
         })
         .catch((err) => {
           console.log(err)
@@ -75,22 +64,22 @@ export default {
     }
   },
   computed: {
-
+    isNum() {
+      return parseInt(this.detail.startPrice);
+    }
   },
   components: {
-    Tab,
-    TabItem
+
   }
 }
 
 </script>
-<style lang="less" rel="stylesheet/less">
+<style lang="less" rel="stylesheet/less" scoped>
 .goods-list {
-  margin-top: 54px;
+  margin-top: 44px;
 }
 
 .goods-item {
-  margin: 10px;
   .goods-item-head {
     position: relative;
     overflow: hidden;
@@ -128,20 +117,23 @@ export default {
       padding-top: 10px;
       .item {
         flex: 1;
-      }
-      .item:last-child {
-        text-align: right;
+        text-align: center;
+        line-height: 1.4;
       }
     }
   }
 }
 
-.vux-1px-b:after {
-  border-bottom: 1px solid #f1f1f1;
-  color: #f1f1f1;
+.goods-detail {
+  margin-top: 10px;
+  background: #fff;
+  color: #333;
+  font-size: 14px;
+  line-height: 1.8;
+  overflow: hidden;
+  .goods-detail-content {
+    margin: 10px;
+  }
 }
-.vux-1px-r:after{
-  border-right: 1px solid #f1f1f1;
-  color: #f1f1f1;
-}
+
 </style>

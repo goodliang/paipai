@@ -1,6 +1,7 @@
 @charset "UTF-8";
 
 
+
 /**
  * 
  * @authors Your Name (you@example.org)
@@ -121,14 +122,16 @@
 
 .countDown {
   font-size: 12px;
-  background: rgba(255,255,255,0.9);
+  background: rgba(255, 255, 255, 0.9);
   color: #282c35;
   padding: 1px 5px;
   border-radius: 1px;
 }
-.countDownTit{
-	color:#666;
+
+.countDownTit {
+  color: #666;
 }
+
 .countDown .day {
   background-color: #000;
   color: #fff;
@@ -142,15 +145,31 @@
   text-align: center;
   padding-left: 4px;
 }
-.no-content{
-	text-align: center;
-	padding: 15px;
-	color:#999;
-	font-size: 14px;
+
+.no-content {
+  text-align: center;
+  padding: 15px;
+  color: #999;
+  font-size: 14px;
 }
-.fixed-tab{
-	position: fixed;
-	left:0;
-	right:0;
-	top:0;
+
+.fixed-tab {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
 }
+
+.vux-1px-b:after {
+  border-bottom: 1px solid #f1f1f1 !important;
+  color: #f1f1f1!important;
+}
+
+.vux-1px-r:after {
+  border-right: 1px solid #f1f1f1!important;
+  color: #f1f1f1!important;
+}
+.goods-detail-content img {
+    display: block;
+    width: 100% !important;
+  }

@@ -88,7 +88,7 @@ export default {
 }
 
 </script>
-<style lang="less" rel="stylesheet/less">
+<style lang="less" rel="stylesheet/less" scoped>
 .goods-list {
   margin-top: 54px;
 }
@@ -140,15 +140,4 @@ export default {
     }
   }
 }
-
-.vux-1px-b:after {
-  border-bottom: 1px solid #f1f1f1;
-  color: #f1f1f1;
-}
-
-.vux-1px-r:after {
-  border-right: 1px solid #f1f1f1;
-  color: #f1f1f1;
-}
-
 </style>
