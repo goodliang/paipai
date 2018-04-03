@@ -1,14 +1,10 @@
 <template>
   <div>
     <div class="fixed-tab" v-transfer-dom>
-      <tab :line-width="1" custom-bar-width="60px">
-        <tab-item selected @on-item-click="createdDate">热拍中</tab-item>
-        <tab-item @on-item-click="createdDate">预拍</tab-item>
-        <tab-item @on-item-click="createdDate">已拍结</tab-item>
-      </tab>
+      <x-header>This is the page title.</x-header>
     </div>
     <div class="goods-list" v-if="hasContent">
-      <router-link :to="'/detail/'+item.id" class="goods-item" v-for='(item,index) in goods'>
+      <div class="goods-item" v-for='(item,index) in goods'>
         <div class="goods-item-head">
           <img :src="item.img" width="100%">
           <div class="countDown">
@@ -16,13 +12,13 @@
             <span class="countDownTit" v-if="stateActive === 'preheating'">距开始：</span>
             <span class="countDownTit" v-if="stateActive === 'complete'">已拍结</span>
             <template v-if="stateActive !== 'complete'">
-              <clocker :time="item.endTime" format='%D : %H : %M : %S '></clocker>
+              <clocker :time="item.endTime"></clocker>
             </template>
           </div>
         </div>
         <div class="goods-item-footer">
           <div class="goods-item-info vux-1px-b">
-            <h3 class="text-justify"><span class="text-default">{{item.author}}</span><small class="text-muted f12 fwn">{{item.type}}</small></h3>
+            <h3 class="text-justify"><span>{{item.author}}</span><small class="text-muted f12 fwn">{{item.type}}</small></h3>
             <p>{{item.title}}</p>
           </div>
           <div class="goods-item-price">
@@ -32,7 +28,7 @@
             <div class="item"><span class="text-muted f14">起拍价：</span><span class="text-info">¥{{item.startPrice}}</span></div>
           </div>
         </div>
-      </router-link>
+      </div>
     </div>
     <div class="no-content" v-else>
       暂无内容
@@ -95,7 +91,6 @@ export default {
 
 .goods-item {
   margin: 10px;
-  display:block;
   .goods-item-head {
     position: relative;
     overflow: hidden;
