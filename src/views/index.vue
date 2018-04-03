@@ -8,7 +8,7 @@
       </tab>
     </div>
     <div class="goods-list" v-if="hasContent">
-      <router-link :to="'/detail/'+item.id" class="goods-item" v-for='(item,index) in goods'>
+      <router-link :to="'/detail/'+item.id" class="goods-item" v-for='(item,index) in goods' :key='index'>
         <div class="goods-item-head">
           <img :src="item.img" width="100%">
           <div class="countDown">
@@ -95,7 +95,7 @@ export default {
 
 .goods-item {
   margin: 10px;
-  display:block;
+  display: block;
   .goods-item-head {
     position: relative;
     overflow: hidden;
@@ -145,8 +145,10 @@ export default {
   border-bottom: 1px solid #f1f1f1;
   color: #f1f1f1;
 }
-.vux-1px-r:after{
+
+.vux-1px-r:after {
   border-right: 1px solid #f1f1f1;
   color: #f1f1f1;
 }
+
 </style>
