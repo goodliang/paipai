@@ -17,7 +17,7 @@
           <div class="item vux-1px-r"><span class="text-info">¥{{detail.addPrice}}</span>
             <br><span class="text-muted f13">加价</span></div>
           <div class="item vux-1px-r"><span class="text-red">¥
-            <countup :end-val="startPrice" :duration="2" ></countup></span>
+            <countup :end-val="startPrice" :duration="1" ></countup></span>
             <br><span class="text-muted f13">起拍价</span>
           </div>
           <div class="item"><span class="text-info">¥{{detail.reference}}</span>
