@@ -3,10 +3,10 @@
     <div class="goods-item">
       <div class="goods-item-head">
         <img :src="detail.img" width="100%">
-        <div class="countDown">
+        <!-- <div class="countDown">
           <span class="countDownTit">距结束：</span>
           <clocker :time="detail.endTime"></clocker>
-        </div>
+        </div> -->
       </div>
       <div class="goods-item-footer">
         <div class="goods-item-info vux-1px-b">
@@ -17,7 +17,7 @@
           <div class="item vux-1px-r"><span class="text-info">¥{{detail.addPrice}}</span>
             <br><span class="text-muted f13">加价</span></div>
           <div class="item vux-1px-r"><span class="text-red">¥
-            <countup :end-val="1000" :duration="2" ></countup></span>
+            <countup :end-val="startPrice" :duration="2" ></countup></span>
             <br><span class="text-muted f13">起拍价</span>
           </div>
           <div class="item"><span class="text-info">¥{{detail.reference}}</span>
@@ -41,21 +41,24 @@ export default {
       isLoading: true,
       detail: '',
       id: '',
-      doStart: false
+      doStart: false,
+      startPrice:0
     }
   },
   created() {
     this.createdDate()
   },
   mounted() {
-    console.log()
+
   },
   methods: {
     createdDate() {
       this.isLoading = true
       this.$http.get('https://www.easy-mock.com/mock/5abc9f432a81eb026059a2ac/api/view/' + this.$route.params.id)
         .then((res) => {
-          this.detail = res.data.data
+          this.detail = res.data.data,
+          document.title = this.detail.title
+          this.startPrice = this.detail.startPrice
           this.isLoading = false
         })
         .catch((err) => {

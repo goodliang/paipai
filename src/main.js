@@ -18,6 +18,13 @@ Vue.component('clocker', Clocker)
 Vue.component('loading', Loading)
 Vue.component('x-header', XHeader)
 Vue.component('x-button', XButton)
+
+//title
+Vue.directive('title', {
+  inserted: function (el, binding) {
+    document.title = el.dataset.title
+  }
+})
 // 用于消除click移动浏览器上物理点击与事件触发之间的300毫秒延迟
 FastClick.attach(document.body)
 
