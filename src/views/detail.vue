@@ -2,7 +2,7 @@
   <div>
     <div class="goods-item">
       <div class="goods-item-head">
-        <img :src="detail.img" width="100%">
+        <img :src="detail.pic_url" width="100%">
         <!-- <div class="countDown">
           <span class="countDownTit">距结束：</span>
           <clocker :time="detail.endTime"></clocker>
@@ -14,19 +14,19 @@
           <p>{{detail.title}}</p>
         </div>
         <div class="goods-item-price">
-          <div class="item vux-1px-r"><span class="text-info">¥{{detail.addPrice}}</span>
+          <div class="item vux-1px-r"><span class="text-info">¥{{detail.incr_price}}</span>
             <br><span class="text-muted f13">加价</span></div>
           <div class="item vux-1px-r"><span class="text-red">¥
             <countup :end-val="startPrice" :duration="1" ></countup></span>
             <br><span class="text-muted f13">起拍价</span>
           </div>
-          <div class="item"><span class="text-info">¥{{detail.reference}}</span>
+          <div class="item"><span class="text-info">¥{{detail.market_price}}</span>
             <br><span class="text-muted f13">参考价</span></div>
         </div>
       </div>
     </div>
     <div class="goods-detail">
-      <div class="goods-detail-content" v-html="detail.detail">
+      <div class="goods-detail-content" v-html="detail.description">
       </div>
     </div>
     <div v-transfer-dom>
@@ -42,7 +42,8 @@ export default {
       detail: '',
       id: '',
       doStart: false,
-      startPrice:0
+      startPrice:0,
+      incr_price:0
     }
   },
   created() {
@@ -54,12 +55,13 @@ export default {
   methods: {
     createdDate() {
       this.isLoading = true
-      this.$http.get('https://www.easy-mock.com/mock/5abc9f432a81eb026059a2ac/api/view/' + this.$route.params.id)
+      this.$http.get('/api/getgoodInfo?id=' + this.$route.params.id)
         .then((res) => {
           this.detail = res.data.data,
           document.title = this.detail.title
-          this.startPrice = this.detail.startPrice
+          this.startPrice = this.detail.start_price
           this.isLoading = false
+          this.incr_price = this.detail.incr_price
         })
         .catch((err) => {
           console.log(err)
@@ -68,7 +70,7 @@ export default {
   },
   computed: {
     isNum() {
-      return parseInt(this.detail.startPrice);
+      return parseInt(this.detail.incr_price);
     }
   },
   components: {
