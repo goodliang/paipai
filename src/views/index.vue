@@ -10,11 +10,11 @@
     <div class="goods-list" v-if="hasContent">
       <router-link :to="'/detail/'+item.id" class="goods-item" v-for='(item,index) in goods' :key='index'>
         <div class="goods-item-head">
-          <img :src="item.img" width="100%">
+          <img :src="item.pic_url" width="100%">
           <div class="countDown">
-            <span class="countDownTit" v-if="stateActive === 'ongoing'">距结束：</span>
-            <span class="countDownTit" v-if="stateActive === 'preheating'">距开始：</span>
-            <span class="countDownTit" v-if="stateActive === 'complete'">已拍结</span>
+            <span class="countDownTit" v-if="stateActive === '0'">距结束：</span>
+            <span class="countDownTit" v-if="stateActive === '1'">距开始：</span>
+            <span class="countDownTit" v-if="stateActive === '2'">已拍结</span>
             <template v-if="stateActive !== 'complete'">
               <clocker :time="item.endTime" format='%D : %H : %M : %S '></clocker>
             </template>
@@ -26,10 +26,10 @@
             <p>{{item.title}}</p>
           </div>
           <div class="goods-item-price">
-            <div class="item vux-1px-r"><span class="text-muted f14" v-if="stateActive === 'complete'">成交价：</span><span class="text-muted f14" v-else>当前价：</span><span class="text-red">¥
-            <countup :start-val="item.startPrice" :end-val="item.nowPrice" :duration="1" class="demo1"></countup></span>
+            <div class="item vux-1px-r"><span class="text-muted f14" v-if="stateActive === '2'">成交价：</span><span class="text-muted f14" v-else>当前价：</span><span class="text-red">¥
+            <countup :start-val="item.start_price" :end-val="item.last_price" :duration="1" class="demo1"></countup></span>
             </div>
-            <div class="item"><span class="text-muted f14">起拍价：</span><span class="text-info">¥{{item.startPrice}}</span></div>
+            <div class="item"><span class="text-muted f14">起拍价：</span><span class="text-info">¥{{item.start_price}}</span></div>
           </div>
         </div>
       </router-link>
@@ -50,7 +50,7 @@ export default {
     return {
       isLoading: true,
       hasContent: false,
-      state: ['ongoing', 'preheating', 'complete'], //进行中，预拍，已结束
+      state: ['0', '1', '2'], //进行中，预拍，已结束
       goods: [],
       stateActive: ''
     }
@@ -65,7 +65,7 @@ export default {
     createdDate(index) {
       this.isLoading = true
       this.stateActive = this.state[index]
-      this.$http.get('https://www.easy-mock.com/mock/5abc9f432a81eb026059a2ac/api/list/' + this.stateActive)
+      this.$http.get('/api/getGoodList?status=' + this.stateActive)
         .then((res) => {
           this.goods = res.data.data
           this.isLoading = false
@@ -96,6 +96,7 @@ export default {
 .goods-item {
   margin: 10px;
   display: block;
+  box-shadow: 1px 1px 3px #eee;
   .goods-item-head {
     position: relative;
     overflow: hidden;
@@ -110,6 +111,7 @@ export default {
     >img {
       display: block;
       vertical-align: top;
+      border-radius:3px 3px 0 0;
     }
   }
   .goods-item-footer {
@@ -130,8 +132,10 @@ export default {
     }
     .goods-item-price {
       display: flex;
-      padding-top: 10px;
-      .item {
+    margin: 0 -10px -10px;
+    padding: 5px 10px;
+    background: #f8f8f8;
+          .item {
         flex: 1;
       }
       .item:last-child {
