@@ -12,12 +12,14 @@
         <div class="goods-item-head">
           <img :src="item.pic_url" width="100%">
           <div class="countDown">
-            <span class="countDownTit" v-if="stateActive === '0'">距结束：</span>
-            <span class="countDownTit" v-if="stateActive === '1'">距开始：</span>
+            <span class="countDownTit" v-if="stateActive === '0'">距结束：
+              <clocker :time="new Date(item.end_time*1000).toLocaleDateString()" format='%D 天 %H 时 %M 分 %S 秒 '></clocker>
+            </span>
+            <span class="countDownTit" v-if="stateActive === '1'">距开始：
+    <clocker :time="new Date(item.start_time*1000).toLocaleDateString()" format='%D : %H : %M : %S '></clocker>
+            </span>
             <span class="countDownTit" v-if="stateActive === '2'">已拍结</span>
-            <template v-if="stateActive !== 'complete'">
-              <clocker :time="item.endTime" format='%D : %H : %M : %S '></clocker>
-            </template>
+            
           </div>
         </div>
         <div class="goods-item-footer">
