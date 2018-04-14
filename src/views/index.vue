@@ -16,7 +16,7 @@
               <clocker :time="new Date(item.end_time*1000).toLocaleDateString()" format='%D 天 %H 时 %M 分 %S 秒 '></clocker>
             </span>
             <span class="countDownTit" v-if="stateActive === '1'">距开始：
-    <clocker :time="new Date(item.start_time*1000).toLocaleDateString()" format='%D : %H : %M : %S '></clocker>
+    <clocker :time="new Date(item.start_time*1000).toLocaleDateString()" format='%D 天 %H 时 %M 分 %S 秒'></clocker>
             </span>
             <span class="countDownTit" v-if="stateActive === '2'">已拍结</span>
             
