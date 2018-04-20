@@ -38,6 +38,7 @@
     </div>
     <div class="no-content" v-else>
       暂无内容
+
     </div>
     <div v-transfer-dom>
       <loading v-model="isLoading"></loading>
@@ -93,6 +94,10 @@ export default {
 <style lang="less" rel="stylesheet/less" scoped>
 .goods-list {
   margin-top: 54px;
+}
+
+.no-content{
+  margin-top: 100px
 }
 
 .goods-item {

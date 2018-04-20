@@ -3,9 +3,23 @@
     <div class="goods-item">
       <div class="goods-item-head">
         <img :src="detail.pic_url" width="100%">
-        <!-- <div class="countDown">
+
+
+           <div class="countDown">
+            <span class="countDownTit" v-if="detail.status === 0">距结束：
+              <clocker :time="new Date(detail.end_time*1000).toLocaleDateString()" format='%D 天 %H 时 %M 分 %S 秒 '></clocker>
+            </span>
+            <span class="countDownTit" v-if="detail.status === 1">距开始：
+    <clocker :time="new Date(detail.start_time*1000).toLocaleDateString()" format='%D 天 %H 时 %M 分 %S 秒'></clocker>
+            </span>
+            <span class="countDownTit" v-if="detail.status === 2 ">已拍结</span>
+            
+          </div>
+
+
+       <!--  <div class="countDown">
           <span class="countDownTit">距结束：</span>
-          <clocker :time="detail.endTime"></clocker>
+          <clocker :time="detail.end_time"></clocker>
         </div> -->
       </div>
       <div class="goods-item-footer">
@@ -17,11 +31,12 @@
           <div class="item vux-1px-r"><span class="text-info">¥{{detail.incr_price}}</span>
             <br><span class="text-muted f13">加价</span></div>
           <div class="item vux-1px-r"><span class="text-red">¥
-            <countup :end-val="startPrice" :duration="1" ></countup></span>
-            <br><span class="text-muted f13">起拍价</span>
+           <countup :end-val="detail.last_price" :duration="0.5" ></countup>
+          </span>
+            <br><span class="text-muted f13">当前价</span>
           </div>
-          <div class="item"><span class="text-info">¥{{detail.market_price}}</span>
-            <br><span class="text-muted f13">参考价</span></div>
+          <div class="item"><span class="text-info">¥{{detail.start_price}}</span>
+            <br><span class="text-muted f13">起拍价</span></div>
         </div>
       </div>
     </div>
@@ -39,34 +54,41 @@ export default {
   data() {
     return {
       isLoading: true,
-      detail: '',
+      detail: {
+        last_price:0
+      },
       id: '',
       doStart: false,
       startPrice:0,
       incr_price:0
     }
   },
+  beforeCreate(){
+
+      this.isLoading = true
+      this.$http.get('/api/getgoodInfo?id=' + this.$route.params.id)
+        .then((res) => {
+          this.detail = res.data.data;
+
+
+          document.title = this.detail.title
+          this.isLoading = false
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+
+    
+
+
+  },
   created() {
-    this.createdDate()
   },
   mounted() {
 
   },
   methods: {
-    createdDate() {
-      this.isLoading = true
-      this.$http.get('/api/getgoodInfo?id=' + this.$route.params.id)
-        .then((res) => {
-          this.detail = res.data.data,
-          document.title = this.detail.title
-          this.startPrice = this.detail.start_price
-          this.isLoading = false
-          this.incr_price = this.detail.incr_price
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
+   
   },
   computed: {
     isNum() {
