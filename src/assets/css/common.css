@@ -173,6 +173,7 @@
 
 .goods-detail-content img {
   display: block;
+  height: auto !important;
   width: 100% !important;
 }
 .goods-item{
