@@ -108,13 +108,13 @@ export default {
     position: relative;
     overflow: hidden;
     .countDown {
-       position: absolute;
+      position: absolute;
       bottom: 0px;
       left: 0px;
       width: 100%;
       padding: 5px 10px;
-      color:#fff;
-      background: rgba(0,0,0,0.5)
+      color: #fff;
+      background: rgba(0, 0, 0, 0.5)
     }
     .goods-item-type {
       position: absolute;
