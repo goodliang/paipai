@@ -2,22 +2,20 @@
   <div>
     <div class="goods-item">
       <div class="goods-item-head">
+        <router-link to="/" class="backIcion">
+          <x-icon type="ios-arrow-back" size="30"></x-icon>
+        </router-link>
         <img :src="detail.pic_url" width="100%">
-
-
-           <div class="countDown">
-            <span class="countDownTit" v-if="detail.status === 0">距结束：
+        <div class="countDown">
+          <span class="countDownTit" v-if="detail.status === 0">距结束：
               <clocker :time="new Date(detail.end_time*1000).toLocaleDateString()" format='%D 天 %H 时 %M 分 %S 秒 '></clocker>
             </span>
-            <span class="countDownTit" v-if="detail.status === 1">距开始：
+          <span class="countDownTit" v-if="detail.status === 1">距开始：
     <clocker :time="new Date(detail.start_time*1000).toLocaleDateString()" format='%D 天 %H 时 %M 分 %S 秒'></clocker>
             </span>
-            <span class="countDownTit" v-if="detail.status === 2 ">已拍结</span>
-            
-          </div>
-
-
-       <!--  <div class="countDown">
+          <span class="countDownTit" v-if="detail.status === 2 ">已拍结</span>
+        </div>
+        <!--  <div class="countDown">
           <span class="countDownTit">距结束：</span>
           <clocker :time="detail.end_time"></clocker>
         </div> -->
@@ -55,40 +53,39 @@ export default {
     return {
       isLoading: true,
       detail: {
-        last_price:0
+        last_price: 0
       },
       id: '',
       doStart: false,
-      startPrice:0,
-      incr_price:0
+      startPrice: 0,
+      incr_price: 0
     }
   },
-  beforeCreate(){
+  beforeCreate() {
 
-      this.isLoading = true
-      this.$http.get('/api/getgoodInfo?id=' + this.$route.params.id)
-        .then((res) => {
-          this.detail = res.data.data;
+    this.isLoading = true
+    this.$http.get('/api/getgoodInfo?id=' + this.$route.params.id)
+      .then((res) => {
+        this.detail = res.data.data;
 
 
-          document.title = this.detail.title
-          this.isLoading = false
-        })
-        .catch((err) => {
-          console.log(err)
-        })
+        document.title = this.detail.title
+        this.isLoading = false
+      })
+      .catch((err) => {
+        console.log(err)
+      })
 
-    
+
 
 
   },
-  created() {
-  },
+  created() {},
   mounted() {
 
   },
   methods: {
-   
+
   },
   computed: {
     isNum() {
@@ -111,9 +108,13 @@ export default {
     position: relative;
     overflow: hidden;
     .countDown {
-      position: absolute;
-      left: 8px;
-      top: 8px;
+       position: absolute;
+      bottom: 0px;
+      left: 0px;
+      width: 100%;
+      padding: 5px 10px;
+      color:#fff;
+      background: rgba(0,0,0,0.5)
     }
     .goods-item-type {
       position: absolute;
@@ -160,6 +161,20 @@ export default {
   overflow: hidden;
   .goods-detail-content {
     margin: 10px;
+  }
+}
+
+.backIcion {
+  background: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 9;
+  height: 30px;
+  width: 30px;
+  border-radius: 15px;
+  .vux-x-icon {
+    fill: #fff;
   }
 }
 

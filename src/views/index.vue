@@ -19,7 +19,6 @@
     <clocker :time="new Date(item.start_time*1000).toLocaleDateString()" format='%D 天 %H 时 %M 分 %S 秒'></clocker>
             </span>
             <span class="countDownTit" v-if="stateActive === '2'">已拍结</span>
-            
           </div>
         </div>
         <div class="goods-item-footer">
@@ -38,7 +37,6 @@
     </div>
     <div class="no-content" v-else>
       暂无内容
-
     </div>
     <div v-transfer-dom>
       <loading v-model="isLoading"></loading>
@@ -96,7 +94,7 @@ export default {
   margin-top: 54px;
 }
 
-.no-content{
+.no-content {
   margin-top: 100px
 }
 
@@ -107,10 +105,15 @@ export default {
   .goods-item-head {
     position: relative;
     overflow: hidden;
+    max-height: 300px;
     .countDown {
       position: absolute;
-      left: 8px;
-      top: 8px;
+      bottom: 0px;
+      left: 0px;
+      width: 100%;
+      padding: 5px 10px;
+      color:#fff;
+      background: rgba(0,0,0,0.5)
     }
     .goods-item-type {
       position: absolute;
@@ -118,7 +121,7 @@ export default {
     >img {
       display: block;
       vertical-align: top;
-      border-radius:3px 3px 0 0;
+      border-radius: 3px 3px 0 0;
     }
   }
   .goods-item-footer {
@@ -139,10 +142,9 @@ export default {
     }
     .goods-item-price {
       display: flex;
-    margin: 0 -10px -10px;
-    padding: 5px 10px;
-    background: #f8f8f8;
-          .item {
+      margin: 0 -10px -10px;
+      padding: 10px;
+      .item {
         flex: 1;
       }
       .item:last-child {
@@ -151,4 +153,5 @@ export default {
     }
   }
 }
+
 </style>
