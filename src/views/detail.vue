@@ -99,57 +99,14 @@ export default {
 
 </script>
 <style lang="less" rel="stylesheet/less" scoped>
-.goods-list {
-  margin-top: 44px;
+.goods-item {
+  margin:0px;
 }
 
-.goods-item {
-  .goods-item-head {
-    position: relative;
-    overflow: hidden;
-    .countDown {
-      position: absolute;
-      bottom: 0px;
-      left: 0px;
-      width: 100%;
-      padding: 5px 10px;
-      color: #fff;
-      background: rgba(0, 0, 0, 0.5)
-    }
-    .goods-item-type {
-      position: absolute;
-    }
-    >img {
-      display: block;
-      vertical-align: top;
-    }
-  }
-  .goods-item-footer {
-    background: #fff;
-    padding: 10px;
-    .goods-item-info {
-      padding-bottom: 5px;
-      h3 {
-        font-size: 16px;
-        small {
-          font-weight: normal;
-        }
-      }
-      p {
-        color: #666;
-        font-size: 14px;
-      }
-    }
-    .goods-item-price {
-      display: flex;
-      padding-top: 10px;
-      .item {
-        flex: 1;
-        text-align: center;
-        line-height: 1.4;
-      }
-    }
-  }
+.goods-item-price .item {
+  flex: 1;
+  text-align: center;
+  line-height: 1.4;
 }
 
 .goods-detail {
