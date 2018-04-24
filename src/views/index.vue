@@ -34,6 +34,7 @@
           </div>
         </div>
       </router-link>
+      <p class="text-muted p-sm text-center" v-show="noMore">没有更多了</p>
     </div>
     <div class="no-content" v-else>
       暂无内容
@@ -44,7 +45,7 @@
   </div>
 </template>
 <script>
-import { Tab, TabItem } from 'vux'
+import { LoadMore, Tab, TabItem } from 'vux'
 
 export default {
   data() {
@@ -53,20 +54,28 @@ export default {
       hasContent: false,
       state: ['0', '1', '2'], //进行中，预拍，已结束
       goods: [],
-      stateActive: ''
+      stateActive: '',
+      page: 0,
+      fetching: true,
+      noMore: false,
     }
   },
   created() {
     this.createdDate(0)
   },
   mounted() {
-
+    window.addEventListener("scroll", this.handleScroll);
   },
   methods: {
     createdDate(index) {
+      this.page = 0;
+      this.fetching = true;
+      this.noMore = false;
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
       this.isLoading = true
       this.stateActive = this.state[index]
-      this.$http.get('/api/getGoodList?status=' + this.stateActive)
+      this.$http.get('/api/getGoodList?status=' + this.stateActive + '&page=' + this.page)
         .then((res) => {
           this.goods = res.data.data
           this.isLoading = false
@@ -77,6 +86,34 @@ export default {
         .catch((err) => {
           console.log(err)
         })
+    },
+    handleScroll() {
+      let that = this
+      let heightTop = document.documentElement.scrollTop || document.body.scrollTop;
+      // 判断是否滚动到底部  
+      if (heightTop + window.innerHeight >= document.body.offsetHeight) {
+        // 如果开关打开则加载数据  
+        if (this.fetching == true) {
+          console.log('2222')
+          // 将开关关闭  
+          this.fetching = false;
+          this.page++
+            console.log(this.goods)
+          this.$http.get('/api/getGoodList?status=' + this.stateActive + '&page=' + this.page)
+            .then(function(res) {
+              if (res.data.data.length > 0) {
+                that.goods = that.goods.concat(res.data.data)
+                // 数据更新完毕，将开关打开  
+                that.fetching = true;
+              } else {
+                that.noMore = true
+              }
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+        }
+      }
     }
   },
   computed: {
@@ -84,7 +121,11 @@ export default {
   },
   components: {
     Tab,
-    TabItem
+    TabItem,
+    LoadMore
+  },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.handleScroll);
   }
 }
 
@@ -97,4 +138,5 @@ export default {
 .no-content {
   margin-top: 100px
 }
+
 </style>
