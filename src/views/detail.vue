@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="container">
     <div class="goods-item">
       <div class="goods-item-head">
-        <router-link to="/" class="backIcion">
+        <router-link to="/index" class="backIcion">
           <x-icon type="ios-arrow-back" size="30"></x-icon>
         </router-link>
         <img :src="detail.pic_url" width="100%">
@@ -47,7 +47,8 @@
     </div>
   </div>
 </template>
-<script>
+<script> 
+
 export default {
   data() {
     return {

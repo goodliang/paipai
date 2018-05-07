@@ -1,6 +1,7 @@
 <template>
   <div id="app">
       <router-view class="router-view"></router-view>
+      <footer-bar/>
   </div>
 </template>
 <script>
