@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import home from '@/views/index'
 import detail from '@/views/detail'
 import noPage from '@/views/404'
+import payPromise from '@/views/pay_promise'
 
 Vue.use(Router)
 
@@ -29,6 +30,12 @@ export default new Router({
       path: '/detail/:id',
       name: 'detail',
       component: detail
+    },    
+    {
+      path: '/pay_promise/:id',
+      name: 'payPromise',
+      component: payPromise
     }
+
   ]
 })

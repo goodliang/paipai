@@ -10,8 +10,14 @@ import { sync } from 'vuex-router-sync'
 sync(store, router)
 
 // AjaxPlugin 插件依赖于 axios，组件内使用this.$http 调用
-import { AjaxPlugin,TransferDom,Countup,Clocker,Loading,XHeader,XButton} from 'vux'
+import { AjaxPlugin,TransferDom,Card,Toast,Countup,Clocker,Loading,XHeader,XButton,Actionsheet} from 'vux'
 Vue.use(AjaxPlugin)
+Vue.component('toast', Toast)
+Vue.component('toast', Toast)
+Vue.component('card', Card)
+
+Vue.component('actionsheet', Actionsheet)
+
 Vue.directive('transfer-dom', TransferDom)
 Vue.component('countup', Countup)
 Vue.component('clocker', Clocker)

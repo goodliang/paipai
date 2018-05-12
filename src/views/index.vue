@@ -42,10 +42,14 @@
     <div v-transfer-dom>
       <loading v-model="isLoading"></loading>
     </div>
+
+   
+
   </div>
 </template>
 <script>
 import { LoadMore, Tab, TabItem } from 'vux'
+import tabBar from '../conponent/tabbar.vue'
 
 export default {
   data() {

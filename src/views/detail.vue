@@ -42,12 +42,47 @@
       <div class="goods-detail-content" v-html="detail.description">
       </div>
     </div>
-    <div v-transfer-dom>
-      <loading v-model="isLoading"></loading>
+    <div class="w50">      
+      <x-button type="primary" @click.native="show">出 价</x-button>
     </div>
+        <div class="price_history">
+  <divider>出价记录</divider>
+          <ul>
+            <li>11111</li>
+          </ul>
+        </div>
+
+
+
+
+  <!--   <div v-transfer-dom>
+      <loading v-model="isLoading"></loading>
+    </div> -->
+<!--出价弹窗-->
+     <popup v-model="showPrice" height="30%">
+        <div class="popup1">
+          <p>领先价:999</p>
+          <p><input id="input-price" v-model="offerPirce"  autofocus="autofocus" type="number" name=""></p>
+          <div class="w50">      
+      <x-button type="primary" @click.native="offer">出 价</x-button>
+    </div>
+        </div>
+      </popup>
+
+    <toast v-model="novali" type="warn" text="请填写出价金额"></toast>
+
+     <actionsheet @on-click-menu="menuClick" v-model="nopromise" :menus="menus1"  show-cancel>
+      <p slot="header" v-html="'<small style=\'padding:10px\'>保证金将扣除并赔付给卖家保证金将扣除并赔付给卖家</small>'"></p>
+    </actionsheet>
+
+
+
   </div>
 </template>
 <script>
+import { Divider } from 'vux'
+import { Popup } from 'vux'
+
 export default {
   data() {
     return {
@@ -58,7 +93,16 @@ export default {
       id: '',
       doStart: false,
       startPrice: 0,
-      incr_price: 0
+      incr_price: 0,
+      showPrice:false,
+      offerPirce:'',//出价金额
+      novali:false,
+      nopromise:true,
+       menus1: {
+        menu1: '<span style="color:green">支付保证金</span>'
+      }
+
+
     }
   },
   beforeCreate() {
@@ -67,17 +111,12 @@ export default {
     this.$http.get('/api/getgoodInfo?id=' + this.$route.params.id)
       .then((res) => {
         this.detail = res.data.data;
-
-
         document.title = this.detail.title
         this.isLoading = false
       })
       .catch((err) => {
         console.log(err)
       })
-
-
-
 
   },
   created() {},
@@ -86,19 +125,72 @@ export default {
   },
   methods: {
 
+    menuClick(key){
+      if('menu1' == key){
+        this.$router.push('/pay_promise/'+this.$route.params.id)
+      }
+    },
+
+    //出价动作
+    offer(){
+      if(this.offerPirce.length<1)
+      {
+       this.novali = true
+       return
+
+      }
+      this.showPrice = false
+      //提交出价接口
+      //
+      //    this.$http.get('/api/price_history').then((res)=>{
+
+      //       //重刷出价记录
+      //       if(res.data.errorno == 0){
+      //         this.priceHistory()
+      //       }
+      //       
+
+      // })
+      
+
+
+    },
+
+    show(){
+      this.showPrice = true
+    },
+
+    gavePrice(){
+
+    },
+
+    priceHistory(){
+      this.$http.get('/api/price_history').then((res)=>{
+
+        this.historyData= res.data
+
+      })
+    },
+
   },
   computed: {
     isNum() {
       return parseInt(this.detail.incr_price);
     }
   },
-  components: {
-
+ components: {
+    Divider,
+    Popup
   }
 }
 
 </script>
 <style lang="less" rel="stylesheet/less" scoped>
+.w50{
+  width: 50%;
+  text-align: center;
+  margin: 0 auto
+}
 .goods-item {
   margin:0px;
 }
