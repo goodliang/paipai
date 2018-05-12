@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="container">
     <div class="goods-item">
       <div class="goods-item-head">
-        <router-link to="/" class="backIcion">
+        <router-link to="/index" class="backIcion">
           <x-icon type="ios-arrow-back" size="30"></x-icon>
         </router-link>
         <img :src="detail.pic_url" width="100%">
@@ -79,9 +79,13 @@
 
   </div>
 </template>
+<<<<<<< HEAD
 <script>
 import { Divider } from 'vux'
 import { Popup } from 'vux'
+=======
+<script> 
+>>>>>>> 40978c215125ffd3f97ca8bb66dd982b1899df3b
 
 export default {
   data() {

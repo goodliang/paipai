@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="fixed-tab" v-transfer-dom>
       <tab :line-width="1" custom-bar-width="60px">
         <tab-item selected @on-item-click="createdDate">热拍中</tab-item>
@@ -135,10 +135,6 @@ export default {
 
 </script>
 <style lang="less" rel="stylesheet/less" scoped>
-.goods-list {
-  margin-top: 54px;
-}
-
 .no-content {
   margin-top: 100px
 }
