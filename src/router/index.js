@@ -3,9 +3,7 @@ import Router from 'vue-router'
 import home from '@/views/index'
 import detail from '@/views/detail'
 import noPage from '@/views/404'
-<<<<<<< HEAD
 import payPromise from '@/views/pay_promise'
-=======
 import infoView from '@/views/infoView'
 // 个人中心
 import myOrder from '@/views/myOrder'
@@ -19,7 +17,6 @@ import price from '@/views/price'
 import info from '@/views/info'
 import found from '@/views/found'
 import userCenter from '@/views/userCenter'
->>>>>>> 40978c215125ffd3f97ca8bb66dd982b1899df3b
 
 Vue.use(Router)
 
@@ -33,12 +30,13 @@ export default new Router({
       return { x: 0, y: 0 }
     }
   },
-  routes: [{
-      path: '*',
-      name: 'noPage',
-      component: noPage
-    },
+  routes: [
     {
+      path: '/',
+      name: 'home',
+      component: home
+    },
+      {
       path: '/index',
       name: 'home',
       component: home
@@ -47,13 +45,11 @@ export default new Router({
       path: '/detail/:id',
       name: 'detail',
       component: detail
-<<<<<<< HEAD
     },    
     {
       path: '/pay_promise/:id',
       name: 'payPromise',
       component: payPromise
-=======
     },
     {
       path: '/price',
@@ -104,8 +100,11 @@ export default new Router({
       path: '/infoView/:id',
       name: 'infoView',
       component: infoView
->>>>>>> 40978c215125ffd3f97ca8bb66dd982b1899df3b
-    }
+    },{
+      path: '*',
+      name: 'noPage',
+      component: noPage
+    },
 
   ]
 })

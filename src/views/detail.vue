@@ -71,21 +71,17 @@
 
     <toast v-model="novali" type="warn" text="请填写出价金额"></toast>
 
-     <actionsheet @on-click-menu="menuClick" v-model="nopromise" :menus="menus1"  show-cancel>
-      <p slot="header" v-html="'<small style=\'padding:10px\'>保证金将扣除并赔付给卖家保证金将扣除并赔付给卖家</small>'"></p>
+     <actionsheet @on-click-menu="menuClick" v-model="ispromise" :menus="menus1"  show-cancel>
+      <p slot="header" > 保证金{{promisePirce}}元<br/>将扣除并赔付给卖家保证金将扣除并赔付给卖家</p>
     </actionsheet>
 
 
 
   </div>
 </template>
-<<<<<<< HEAD
 <script>
 import { Divider } from 'vux'
 import { Popup } from 'vux'
-=======
-<script> 
->>>>>>> 40978c215125ffd3f97ca8bb66dd982b1899df3b
 
 export default {
   data() {
@@ -99,9 +95,11 @@ export default {
       startPrice: 0,
       incr_price: 0,
       showPrice:false,
+      promisePirce:200,
       offerPirce:'',//出价金额
       novali:false,
-      nopromise:true,
+      ispromise:false,
+      hasPaypromise:false,
        menus1: {
         menu1: '<span style="color:green">支付保证金</span>'
       }
@@ -117,6 +115,8 @@ export default {
         this.detail = res.data.data;
         document.title = this.detail.title
         this.isLoading = false
+
+        this.hasPaypromise = true
       })
       .catch((err) => {
         console.log(err)
@@ -125,6 +125,8 @@ export default {
   },
   created() {},
   mounted() {
+
+    this.priceHistory()
 
   },
   methods: {
@@ -137,31 +139,36 @@ export default {
 
     //出价动作
     offer(){
+
+
       if(this.offerPirce.length<1)
       {
        this.novali = true
        return
 
       }
-      this.showPrice = false
-      //提交出价接口
-      //
-      //    this.$http.get('/api/price_history').then((res)=>{
+      
+     this.$http.post('/api/setGoodOffer',{id:this.$route.params.id,price:this.offerPirce}).then((res)=>{
 
-      //       //重刷出价记录
-      //       if(res.data.errorno == 0){
-      //         this.priceHistory()
-      //       }
-      //       
+            //重刷出价记录
+            if(res.data.errorno == 0){
+              this.priceHistory()
+            }
+            
 
-      // })
+      })
       
 
 
     },
 
     show(){
-      this.showPrice = true
+      //判断是否出价
+      if(!this.hasPaypromise){
+        this.ispromise = true
+      }else{
+        this.showPrice = true
+      }
     },
 
     gavePrice(){
@@ -169,7 +176,9 @@ export default {
     },
 
     priceHistory(){
-      this.$http.get('/api/price_history').then((res)=>{
+      this.$http.get('/api/getGoodOfferList?id='+this.$route.params.id).then((res)=>{
+
+        console.log('出价列表',res.data)
 
         this.historyData= res.data
 

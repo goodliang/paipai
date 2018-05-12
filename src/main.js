@@ -11,11 +11,8 @@ sync(store, router)
 
 Vue.component('footer-bar',footerBar)
 // AjaxPlugin 插件依赖于 axios，组件内使用this.$http 调用
-<<<<<<< HEAD
-import { AjaxPlugin,TransferDom,Card,Toast,Countup,Clocker,Loading,XHeader,XButton,Actionsheet} from 'vux'
-=======
-import { AjaxPlugin,TransferDom,Countup,Clocker,Loading,XHeader,XButton,Group,CellBox,Cell,XInput,Popup} from 'vux'
->>>>>>> 40978c215125ffd3f97ca8bb66dd982b1899df3b
+
+import { AjaxPlugin,TransferDom,Card,Toast,Countup,Clocker,Loading,XHeader,XButton,Actionsheet,Group,CellBox,Cell,XInput,Popup} from 'vux'
 Vue.use(AjaxPlugin)
 Vue.component('toast', Toast)
 Vue.component('toast', Toast)
