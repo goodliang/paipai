@@ -12,6 +12,13 @@ sync(store, router)
 Vue.component('footer-bar',footerBar)
 // AjaxPlugin 插件依赖于 axios，组件内使用this.$http 调用
 
+// 微信JSDK
+import { WechatPlugin } from 'vux'
+Vue.use(WechatPlugin)
+
+// cookie
+Vue.use(require('vue-cookies'))
+
 import { AjaxPlugin,TransferDom,Card,Toast,Countup,Clocker,Loading,XHeader,XButton,Actionsheet,Group,CellBox,Cell,XInput,Popup} from 'vux'
 Vue.use(AjaxPlugin)
 Vue.component('toast', Toast)
@@ -37,6 +44,32 @@ Vue.directive('title', {
     document.title = el.dataset.title
   }
 })
+
+//检测登录
+router.beforeEach((to, from, next) => {
+  if(!store.state.user.id && to.path != '/author'){
+    // 第一次进入项目
+    window.$cookies.set('beforeLoginUrl', to.fullPath) // 保存用户进入的url
+    next('/author')
+    return false
+  }
+  next()
+})
+
+// 登录后跳转方法
+Vue.prototype.goBeforeLoginUrl = () => {
+  let url = window.$cookies.get('beforeLoginUrl')
+  if(!url || url.indexOf('/author') != -1){
+    router.push('/index')
+  }else{
+    if(url == '/'){
+      url = '/index'
+    }
+    router.push(url)
+    window.$cookies.set('beforeLoginUrl', '')
+  }
+}
+
 // 用于消除click移动浏览器上物理点击与事件触发之间的300毫秒延迟
 FastClick.attach(document.body)
 

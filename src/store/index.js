@@ -5,7 +5,8 @@ Vue.use(Vuex)
 
 const state = {
   isLoading: false,
-  direction: 'forward'
+  direction: 'forward',
+  user:{}
 }
 export default new Vuex.Store({
   state,
