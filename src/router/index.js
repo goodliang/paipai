@@ -5,6 +5,7 @@ import detail from '@/views/detail'
 import noPage from '@/views/404'
 import payPromise from '@/views/pay_promise'
 import infoView from '@/views/infoView'
+import author from '@/components/author'
 // 个人中心
 import myOrder from '@/views/myOrder'
 import waitPay from '@/views/waitPay'
@@ -30,13 +31,12 @@ export default new Router({
       return { x: 0, y: 0 }
     }
   },
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: home
+  routes: [{
+      path: '/author',
+      name: 'author',
+      component: author
     },
-      {
+    {
       path: '/index',
       name: 'home',
       component: home
@@ -45,7 +45,7 @@ export default new Router({
       path: '/detail/:id',
       name: 'detail',
       component: detail
-    },    
+    },
     {
       path: '/pay_promise/:id',
       name: 'payPromise',
@@ -100,7 +100,7 @@ export default new Router({
       path: '/infoView/:id',
       name: 'infoView',
       component: infoView
-    },{
+    }, {
       path: '*',
       name: 'noPage',
       component: noPage
