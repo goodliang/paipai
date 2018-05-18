@@ -31,18 +31,20 @@ export default {
   methods: {
     login() {
       let url = this.webUrl + '/api/userinfo'
-      // 通过cookie中保存的token 获取用户信息
-      this.$http.get(url).then(response => {
-        response = response.data
+      // 通过cookie中保存的token 获取用户信息s
+      this.$http.get('/api/userinfo', {
+        token: this.$cookies.get('token')
+      }).then(response => {
+        response = response.data.data
         if (response) {
           // 保存用户登录状态(Vuex)
-          this.$store.commit('user', response)
+          this.$store.commit('userInfo', response);
           setTimeout(() => {
             this.goBeforeLoginUrl() // 页面恢复(进入用户一开始请求的页面)
           }, 2000)
         } else {
           this.$alert('服务器撸猫去惹 :(', 'wrong')
-          if (this.$cookies.get('user')) {
+          if (this.$cookies.get('token')) {
             // 跳转到微信授权页面
             window.location.href = this.webUrl + '/passport/wxLogin'
           }

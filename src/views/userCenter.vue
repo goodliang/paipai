@@ -1,9 +1,9 @@
 <template>
   <div>
-    <blur :blur-amount=40 :url="head">
+    <blur :blur-amount=40 :url="headPic">
       <div class="head-main">
-        <img :src="head" class="user-head">
-        <p class="user-name">九亿万少女的梦</p>
+        <img :src="headPic" class="user-head">
+        <p class="user-name">{{nickname}}</p>
       </div>
     </blur>
     <div class="group-area">
@@ -39,14 +39,21 @@ import { Blur } from 'vux'
 export default {
   data() {
     return {
-      head: 'https://o3e85j0cv.qnssl.com/hot-chocolate-1068703__340.jpg'
     }
   },
   beforeCreate() {},
-  created() {},
+  created() {
+  },
   mounted() {},
   methods: {},
-  computed: {},
+  computed: {
+    headPic(){
+      return this.$store.state.user.pic
+    },
+    nickname(){
+      return this.$store.state.user.nick
+    }
+  },
   components: {
     Blur
   }
