@@ -116,7 +116,7 @@ export default {
         document.title = this.detail.title
         this.isLoading = false
 
-        this.hasPaypromise = true
+        // this.hasPaypromise = true
       })
       .catch((err) => {
         console.log(err)
@@ -147,8 +147,12 @@ export default {
        return
 
       }
+
+var params = new URLSearchParams();
+params.append('id', this.$route.params.id);       //你要传给后台的参数值 key/value
+params.append('price', this.offerPirce);
       
-     this.$http.post('/api/setGoodOffer',{id:this.$route.params.id,price:this.offerPirce}).then((res)=>{
+     this.$http.post('/api/setGoodOffer',params).then((res)=>{
 
             //重刷出价记录
             if(res.data.errorno == 0){

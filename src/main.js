@@ -13,6 +13,8 @@ Vue.component('footer-bar',footerBar)
 // AjaxPlugin 插件依赖于 axios，组件内使用this.$http 调用
 
 import { AjaxPlugin,TransferDom,Card,Toast,Countup,Clocker,Loading,XHeader,XButton,Actionsheet,Group,CellBox,Cell,XInput,Popup} from 'vux'
+
+
 Vue.use(AjaxPlugin)
 Vue.component('toast', Toast)
 Vue.component('toast', Toast)
