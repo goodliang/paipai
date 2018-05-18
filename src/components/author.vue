@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-transfer-dom>
-      <loading :show="true" text="微信授权中..."></loading>
+      <loading :show="true" text="正在登录..."></loading>
     </div>
   </div>
 </template>
