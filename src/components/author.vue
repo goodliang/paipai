@@ -31,15 +31,13 @@ export default {
   methods: {
     login() {
       let url = this.webUrl + '/api/userinfo'
-      alert(222)
       // 通过cookie中保存的token 获取用户信息
       this.$http.get(url).then(response => {
-
+        response = response.data
         if (response) {
           // 保存用户登录状态(Vuex)
           this.$store.commit('user', response)
           setTimeout(() => {
-
             this.goBeforeLoginUrl() // 页面恢复(进入用户一开始请求的页面)
           }, 2000)
         } else {
