@@ -17,7 +17,7 @@ export default {
   },
   created() {
     // 检测会员有没有登录
-    if (!this.$cookies.get('user')) {
+    if (!this.$cookies.get('token')) {
       let ua = window.navigator.userAgent.toLowerCase()
       if (ua.match(/MicroMessenger/i) == 'micromessenger') {
         // 跳转到微信授权页面
