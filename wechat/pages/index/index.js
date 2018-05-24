@@ -2,6 +2,7 @@ Page({
   data: {
     url: "",
     canIUse: wx.canIUse('web-view'),
+    title: "微艺拍"
   },
   onLoad: function (options) {
     var _this = this;
@@ -14,26 +15,23 @@ Page({
     }
     
     if(options.return_url){
-      _this.url = decodeURIComponent(options.return_url);
+      _this.data.url = decodeURIComponent(options.return_url);
     }else{
-      _this.url = "https://pai.arthongzhen.com";
+      _this.data.url = "https://pai.arthongzhen.com";
     }
 
     //加载web-view
     _this.setData({
-      url: _this.url
+      url: _this.data.url
     })
   
   },
 
-  getViewMsg: function (e) {
-    console.log(e)
-  },
-
   onShareAppMessage: function (res) { //转发
     var webViewUrl = encodeURIComponent(res.webViewUrl);
+    
     return {
-      title: 'paipai',
+      title: this.data.title,
       path: '/pages/index/index?return_url=' + webViewUrl,
       success: function (res) {
         // 转发成功
@@ -42,6 +40,7 @@ Page({
         // 转发失败
       }
     }
+    
   }
 
 })
