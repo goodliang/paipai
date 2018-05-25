@@ -2,18 +2,18 @@
   <div>
     <div class="goods-item">
       <div class="goods-item-head">
-        <router-link to="/" class="backIcion">
+        <router-link to="/" class="backIcion" replace>
           <x-icon type="ios-arrow-back" size="30"></x-icon>
         </router-link>
         <img :src="detail.pic_url" width="100%">
         <div class="countDown">
-          <span class="countDownTit" v-if="detail.status === 0">距结束：
-              <clocker :time="new Date(detail.end_time*1000).toLocaleDateString()" format='%D 天 %H 时 %M 分 %S 秒 '></clocker>
+          <span class="countDownTit" v-if="detail.pai_status === 0">距结束：
+              <clocker :time="detail.end_time_fmt" format='%D 天 %H 时 %M 分 %S 秒 '></clocker>
             </span>
-          <span class="countDownTit" v-if="detail.status === 1">距开始：
-    <clocker :time="new Date(detail.start_time*1000).toLocaleDateString()" format='%D 天 %H 时 %M 分 %S 秒'></clocker>
+          <span class="countDownTit" v-if="detail.pai_status === 1">距开始：
+    <clocker :time="detail.start_time_fmt" format='%D 天 %H 时 %M 分 %S 秒'></clocker>
             </span>
-          <span class="countDownTit" v-if="detail.status === 2 ">已拍结</span>
+          <span class="countDownTit" v-if="detail.pai_status === 2 ">已拍结</span>
         </div>
         <!--  <div class="countDown">
           <span class="countDownTit">距结束：</span>
@@ -23,7 +23,7 @@
       <div class="goods-item-footer">
         <div class="goods-item-info vux-1px-b">
           <h3 class="text-justify"><span>{{detail.author}}</span><small class="text-muted f12 fwn">{{detail.type}}</small></h3>
-          <p>{{detail.title}}</p>
+          <p>{{detail.title}} </p>
         </div>
         <div class="goods-item-price">
           <div class="item vux-1px-r"><span class="text-info">¥{{detail.incr_price}}</span>
