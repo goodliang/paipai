@@ -10,11 +10,11 @@
   </div>
 </template>
 <script>
-import { ChinaAddressData, XAddress, XInput, Selector, PopupPicker } from 'vux'
+import { XAddress, ChinaAddressV4Data, XInput, Selector, PopupPicker } from 'vux'
 export default {
   data() {
     return {
-      addressData: ChinaAddressData,
+      addressData: ChinaAddressV4Data,
       addressValue: ['广东省', '深圳市', '南山区'],
       name: '',
       phone: '',

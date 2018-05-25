@@ -32,9 +32,7 @@ export default {
     login() {
       let url = this.webUrl + '/api/userinfo'
       // 通过cookie中保存的token 获取用户信息s
-      this.$http.get('/api/userinfo', {
-        token: this.$cookies.get('token')
-      }).then(response => {
+      this.$http.get('/api/userinfo').then(response => {
         response = response.data.data
         if (response) {
           // 保存用户登录状态(Vuex)
@@ -43,11 +41,11 @@ export default {
             this.goBeforeLoginUrl() // 页面恢复(进入用户一开始请求的页面)
           }, 2000)
         } else {
-          this.$alert('服务器撸猫去惹 :(', 'wrong')
-          if (this.$cookies.get('token')) {
-            // 跳转到微信授权页面
-            window.location.href = this.webUrl + '/passport/wxLogin'
-          }
+          alert('服务器撸猫去惹 :(', 'wrong')
+          // if (this.$cookies.get('token')) {
+          //   // 跳转到微信授权页面
+          //   window.location.href = this.webUrl + '/passport/wxLogin'
+          // }
         }
       })
     }

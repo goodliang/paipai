@@ -1,34 +1,37 @@
 <template>
   <div class="container">
-    <div class="">
-      <div class="goods-item" @click="show =true">
-        <div class="goods-item-head"><img src="http://test.apa7.cc/uploads/////aa5ec502676c0c1ee8fbaa2cb7c72fed.jpg" width="100%">
+    <div class="" v-if="hasContent">
+      <div class="goods-item" @click="addressInfo(item.address)" v-for='(item,index) in goods' :key='index'>
+        <div class="goods-item-head"><img :src="item.pic_url" width="100%">
         </div>
         <div class="goods-item-footer">
           <div class="goods-item-info vux-1px-b">
-            <h3 class="text-justify"><span class="text-default">姚佳</span><small class="text-muted f12 fwn">现代仿品</small></h3>
-            <p> 釉里红龙纹梅瓶-仿品</p>
+            <h3 class="text-justify"><span class="text-default">{{item.author}}</span><small class="text-muted f12 fwn">{{item.category}}</small></h3>
+            <p>{{item.title}}</p>
           </div>
           <div class="goods-item-price">
             <div class="item vux-1px-r"><span class="text-muted f14">成交价：</span><span class="text-red">¥
-          <span>1000</span></span>
+          <span>{{item.last_price}}</span></span>
             </div>
-            <div class="item"><span class="text-muted f14">起拍价：</span><span class="text-info">¥1000</span></div>
+            <div class="item"><span class="text-muted f14">起拍价：</span><span class="text-info">¥{{item.start_price
+}}</span></div>
           </div>
         </div>
       </div>
     </div>
+    <div class="no-content" v-else>
+      暂无内容
+    </div>
+    <div v-transfer-dom>
+      <loading v-model="isLoading"></loading>
+    </div>
     <div v-transfer-dom>
       <popup v-model="show">
         <group title="收货地址">
-          <cell-box>
-            北京市朝阳区紫潭大厦606
-          </cell-box>
-          <cell-box>
-            姚小小
-          </cell-box>
-          <cell is-link title="1369104311" value="修改">
-          </cell>
+          <x-input title="姓名" type="text" placeholder="必填" v-model="address.name"></x-input>
+          <x-input title="手机号码" type="tel" placeholder="必填" v-model="address.telephone"></x-input>
+         <!--  <x-address title="收货地址" v-model="addressValue" raw-value :list="addressData" value-text-align="right" label-align="justify"></x-address> -->
+          <x-input type="tel" placeholder="详细地址（如街道门牌号）" v-model="address.address"></x-input>
         </group>
         <group>
           <cell title="成交价：" value="¥1000"></cell>
@@ -38,25 +41,95 @@
           </cell>
         </group>
         <div class="p-sm">
-          <x-button type="warn">立即支付</x-button>
+          <x-button type="primary">立即支付</x-button>
         </div>
       </popup>
     </div>
   </div>
 </template>
 <script>
+import { XAddress, ChinaAddressV4Data, XInput, Selector, PopupPicker } from 'vux'
 export default {
   data() {
     return {
-      show: false
+      show: false,
+      isLoading: true,
+      hasContent: false,
+      goods: [],
+      page: 0,
+      fetching: true,
+      noMore: false,
+      address:'',
     }
   },
-  beforeCreate() {},
-  created() {},
-  mounted() {},
-  methods: {},
-  computed: {},
-  components: {}
+  created() {
+    this.createdDate()
+  },
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll);
+  },  
+  methods: {
+    createdDate() {
+      this.page = 0;
+      this.fetching = true;
+      this.noMore = false;
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+      this.isLoading = true
+      this.$http.get('/api/waitingPay?page=' + this.page)
+        .then((res) => {
+          this.goods = res.data.data
+          this.isLoading = false
+          if (this.goods.length) {
+            this.hasContent = true
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    },
+    handleScroll() {
+      let that = this
+      let heightTop = document.documentElement.scrollTop || document.body.scrollTop;
+      // 判断是否滚动到底部  
+      if (heightTop + window.innerHeight >= document.body.offsetHeight) {
+        // 如果开关打开则加载数据  
+        if (this.fetching == true) {
+          // 将开关关闭  
+          this.fetching = false;
+          this.page++
+            this.$http.get('/api/waitingPay?page=' + this.page)
+            .then(function(res) {
+              if (res.data.data.length > 0) {
+                that.goods = that.goods.concat(res.data.data)
+                // 数据更新完毕，将开关打开  
+                that.fetching = true;
+              } else {
+                that.noMore = true
+              }
+            })
+            .catch(function(error) {
+              console.log(error);
+            });
+        }
+      }
+    },
+    addressInfo(data){
+      this.show = true;
+      this.address = data
+    }
+  },
+  computed: {
+
+  },
+  components: {
+    Selector,
+    PopupPicker,
+    XAddress,
+  },
+  beforeDestroy() {
+    window.removeEventListener("scroll", this.handleScroll);
+  }
 }
 
 </script>

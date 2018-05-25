@@ -19,7 +19,7 @@ Vue.use(WechatPlugin)
 // cookie
 Vue.use(require('vue-cookies'))
 
-import { AjaxPlugin,TransferDom,Card,Toast,Countup,Clocker,Loading,XHeader,XButton,Actionsheet,Group,CellBox,Cell,XInput,Popup} from 'vux'
+import { AjaxPlugin,TransferDom,Card,Toast,Countup,Clocker,Loading,XHeader,XButton,Actionsheet,Group,CellBox,Cell,XInput,Popup,LoadMore} from 'vux'
 
 
 Vue.use(AjaxPlugin)
@@ -40,6 +40,7 @@ Vue.component('cell', Cell)
 Vue.component('group', Group)
 Vue.component('x-input', XInput)
 Vue.component('popup', Popup)
+Vue.component('load-more', LoadMore)
 //title
 Vue.directive('title', {
   inserted: function (el, binding) {
