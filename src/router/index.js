@@ -18,12 +18,18 @@ export default new Router({
   routes: [{
       path: '*',
       name: 'noPage',
-      component: noPage
+      component: noPage,
+      meta: {
+        title: '找不到页面了'
+      }
     },
     {
       path: '/',
       name: 'home',
-      component: home
+      component: home,
+      meta: {
+        title: ''
+      }
     },
     {
       path: '/detail/:id',

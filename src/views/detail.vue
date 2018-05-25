@@ -67,9 +67,7 @@ export default {
     this.$http.get('/api/getgoodInfo?id=' + this.$route.params.id)
       .then((res) => {
         this.detail = res.data.data;
-
-
-        document.title = this.detail.title
+        document.title = this.detail.title +'_弘真艺拍';
         this.isLoading = false
       })
       .catch((err) => {
@@ -80,7 +78,9 @@ export default {
 
 
   },
-  created() {},
+  created() {
+
+  },
   mounted() {
 
   },

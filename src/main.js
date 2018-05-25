@@ -20,10 +20,11 @@ Vue.component('x-header', XHeader)
 Vue.component('x-button', XButton)
 
 //title
-Vue.directive('title', {
-  inserted: function (el, binding) {
-    document.title = el.dataset.title
-  }
+router.beforeEach((to, from, next) => {
+    let title = '弘真艺拍'
+    title = to.meta && to.meta.title ? to.meta.title + ' - ' + title : title;
+    document.title = title;
+    next()
 })
 // 用于消除click移动浏览器上物理点击与事件触发之间的300毫秒延迟
 FastClick.attach(document.body)
