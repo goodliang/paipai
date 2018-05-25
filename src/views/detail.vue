@@ -41,14 +41,31 @@
     <div class="goods-detail">
       <div class="goods-detail-content" v-html="detail.description">
       </div>
-    </div>
-    <div class="w50">      
+          <div class="w40">      
       <x-button type="primary" @click.native="show">出 价</x-button>
     </div>
+    <br>
+    </div>
+
         <div class="price_history">
   <divider>出价记录</divider>
-          <ul>
-            <li>11111</li>
+         
+        <ul  v-if="historyData.length" v-cloak>
+            <li class="userList" v-for="(user,index) in historyData" :key="user.id">
+              <div class="avatar">
+              <img width="40" height="40" src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3511298686,563448208&fm=173&app=25&f=JPEG?w=218&h=146&s=F008BE560E735A94623575770300E06C">
+              </div>
+              <div class="nickname">
+                <p>{{user.u_nick}}</p>
+                 <p>¥{{user.price}}</p>
+              </div>
+               <div class="time">
+                <p v-if="0 === index">领先</p>
+                <p v-else>出局</p>
+                 <p>{{user.offer_time_fmt}}</p>
+              </div>
+
+            </li>
           </ul>
         </div>
 
@@ -100,6 +117,8 @@ export default {
       novali:false,
       ispromise:false,
       hasPaypromise:false,
+      historyData:[],
+      list:[],
        menus1: {
         menu1: '<span style="color:green">支付保证金</span>'
       }
@@ -127,6 +146,12 @@ export default {
   mounted() {
 
     this.priceHistory()
+
+          setTimeout(()=>{
+        this.list = [{id: 6, uid: 1, offer_time: 1526195610, price: 29000, u_nick: "红叶.舞秋山", u_head_fmt: "0"},{id: 6, uid: 1, offer_time: 1526195610, price: 29000, u_nick: "红叶.舞秋山", u_head_fmt: "0"}]
+
+        console.log(this.list)
+      },3000)
 
   },
   methods: {
@@ -182,10 +207,9 @@ params.append('price', this.offerPirce);
     priceHistory(){
       this.$http.get('/api/getGoodOfferList?id='+this.$route.params.id).then((res)=>{
 
-        console.log('出价列表',res.data)
 
-        this.historyData= res.data
-
+        this.historyData = JSON.parse(JSON.stringify(res.data.data))
+        console.log('出价列表', res.data)
       })
     },
 
@@ -203,8 +227,32 @@ params.append('price', this.offerPirce);
 
 </script>
 <style lang="less" rel="stylesheet/less" scoped>
+[v-cloak]{
+  display: none;
+}
+.userList{
+  display:flex;justify-content:space-between;
+  padding: 10px 15px;
+  border-bottom:1px solid #ddd;
+  font-size: 12px
+
+}
 .w50{
   width: 50%;
+  text-align: center;
+  margin: 0 auto
+}
+.avatar{
+  flex-grow:0.5
+}
+.nickname{
+  flex-grow:2
+}
+.time{
+  flex-grow:1.5
+}
+.w40{
+  width: 40%;
   text-align: center;
   margin: 0 auto
 }

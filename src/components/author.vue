@@ -42,10 +42,10 @@ export default {
           }, 2000)
         } else {
           alert('服务器撸猫去惹 :(', 'wrong')
-          // if (this.$cookies.get('token')) {
-          //   // 跳转到微信授权页面
-          //   window.location.href = this.webUrl + '/passport/wxLogin'
-          // }
+          if (this.$cookies.get('token')) {
+            // 跳转到微信授权页面
+            window.location.href = this.webUrl + '/passport/wxLogin'
+          }
         }
       })
     }
