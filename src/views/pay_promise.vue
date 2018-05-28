@@ -1,26 +1,29 @@
 <template>
   <div>
-  <card :header="{title:'拍卖信息'}" 
-  :footer="{title: '起拍价:¥'+info.start_price +' 加价:¥'+info.incr_price+'/次' }">
-      <p slot="content" class="card-padding">
-      	<img :src="info.pic_url" width="40"> 
-        {{info.title}}
-        本次出价 {{}}
-      </p>
-    </card>  
+      <card :header="{title: '支付保证金 (保证金可在拍卖结束后申请退款或用于下次竞拍)' }" >
+      <p slot="content" class="card-padding" style="padding: 20px">
 
-    <br><br>
+         金额：<span style="color: #f00">¥100.00</span>
 
-      <card :header="{title: '拍卖保证金: ¥'+ info.security_deposit +' （正常交易可退）' }" >
-      <p slot="content" class="card-padding">
-       <input type="checkbox" name="" checked="checked">	微信支付 
-      	
+        
+
       </p>
     </card> 
 
    <br>
-         <x-button type="primary" @click.native="pay"><acronym></acronym>安全支付</x-button>
 
+   <div class="vux-check-icon" style="padding: 0 10px">
+
+          <i class="weui-icon weui_icon_success weui-icon-success" style=""></i> <i class="weui-icon weui_icon_success_circle weui-icon-success-circle" style="display: none;"></i>  <span> 微信支付 </span></div>
+
+          <br>
+          <br>
+
+   <div style="width: 80%; margin: 0 auto">
+     <x-button type="primary" @click.native="pay"><acronym></acronym>安全支付</x-button>
+   </div>
+        
+         
 </div>
 
 </template>
@@ -76,11 +79,6 @@ export default {
 	  },
     mounted(){
       document.title = "支付保证金"
-          this.$http.get('/api/getgoodInfo?id=' + this.$route.params.id)
-          .then((res) => {
-            console.log(res)
-            this.info = res.data.data
-          })
 
     }
 	  
