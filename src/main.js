@@ -9,7 +9,7 @@ import footerBar from '@/components/footer'
 import { sync } from 'vuex-router-sync'
 sync(store, router)
 
-Vue.component('footer-bar',footerBar)
+Vue.component('footer-bar', footerBar)
 // AjaxPlugin 插件依赖于 axios，组件内使用this.$http 调用
 
 // 微信JSDK
@@ -19,7 +19,7 @@ Vue.use(WechatPlugin)
 // cookie
 Vue.use(require('vue-cookies'))
 
-import { AjaxPlugin,TransferDom,Card,Toast,Countup,Clocker,Loading,XHeader,XButton,Actionsheet,Group,CellBox,Cell,XInput,Popup,LoadMore} from 'vux'
+import { AjaxPlugin, TransferDom, Card, Toast, Countup, Clocker, Loading, XHeader, XButton, Actionsheet, Group, CellBox, Cell, XInput, Popup, LoadMore } from 'vux'
 
 
 Vue.use(AjaxPlugin)
@@ -43,23 +43,26 @@ Vue.component('popup', Popup)
 Vue.component('load-more', LoadMore)
 //title
 Vue.directive('title', {
-  inserted: function (el, binding) {
+  inserted: function(el, binding) {
     document.title = el.dataset.title
   }
 })
-function getQueryString(name) { 
-    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
-    var r = window.location.search.substr(1).match(reg); 
-    if (r != null) return unescape(r[2]); 
-    return null; 
+
+function getQueryString(name) {
+  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+  var r = window.location.search.substr(1).match(reg);
+  if (r != null) return unescape(r[2]);
+  return null;
 }
-let token  = getQueryString('token')
+let token = getQueryString('token')
 //检测登录
 router.beforeEach((to, from, next) => {
-  if(token){
-    window.$cookies.set('token', token)
-  }else{
-    
+  if (token) {
+    if (!window.$cookies.get('token')) {
+       window.$cookies.set('token', token)
+    }
+  } else {
+
   }
   next()
 })
