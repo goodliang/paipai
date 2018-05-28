@@ -1,0 +1,87 @@
+page{
+  background-color: #f2f2f2;
+  color: #333;
+}
+.header-tips{
+  height: 75rpx;
+  line-height: 75rpx;
+  background-color: #fcc;
+  font-size: 30rpx;
+  color: #633;
+  text-align: center;
+}
+.order-details{
+  background-color:#fff;
+}
+.order-list{
+  padding: 0 20rpx 0 150rpx;
+  position: relative;
+  background-color: #fff;
+}
+.left-lable{
+  position: absolute;
+  left: 20rpx;
+  top: 0;
+  height: 100rpx;
+  line-height: 100rpx;
+  width: 130rpx;
+  font-size: 32rpx;
+}
+.right-desc{
+  text-align: right;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 30rpx;
+  color: #999;
+}
+.bottom-line{
+  height: 1px;
+  margin: 0 20rpx;
+  background-color: #e7e7e7;
+}
+.wx-pay{
+  position: relative;
+  height: 100rpx;
+  padding-right:20rpx; 
+  background-color: #fff;
+  line-height: 100rpx;
+  text-align: right;
+}
+.wx-pay>image{
+  position: absolute;
+  left: 28rpx;
+  top: 21rpx;
+  height: 58rpx;
+  width: 62rpx;
+}
+.wx-icon{
+  font-size: 32rpx;
+  text-indent: 130rpx;
+  line-height: 100rpx;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.pay-button{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+.pay-button>button{
+  margin: 40rpx;
+  background-color: #f00;
+}
+
+
+
+
+
+.red-strong{
+  font-weight:bold;
+  color: #f00;
+  font-size:30rpx;
+}
+.margin-bottom20{
+  margin-bottom:20rpx;
+}

@@ -1,0 +1,51 @@
+<view class="containter">
+  <view class='header-tips'>支付剩余时间： {{payTime}}</view>
+  <view class='order-details margin-bottom20'>
+    <view class='order-list'>
+      <view class='left-lable'>订单编号</view>
+      <view class='right-desc'>{{orderNo}}</view>
+    </view>
+    <view class='bottom-line'></view>
+    <view class='order-list'>
+      <view class='left-lable'>订单总额</view>
+      <view class='right-desc'>￥{{orderTotal}}</view>
+    </view>
+    <view class='bottom-line'></view>
+    <view class='order-list'>
+      <view class='left-lable'>已优惠</view>
+      <view class='right-desc'>￥{{discounted}}</view>
+    </view>
+    <view class='bottom-line'></view>
+    <view class='order-list'>
+      <view class='left-lable'>还需支付</view>
+      <view class='right-desc red-strong'>￥{{payMoney}}</view>
+    </view>
+  </view>
+  <view class='wx-pay'>
+    <image class='wx-pay-icon' mode="aspectFit" src="../../img/wxpay-icon.png"></image>
+    <view class='wx-icon'>微信支付</view>
+    <icon type='success' size='16' color='#f00'/>
+  </view>
+  <view class='pay-button'>
+    <button type="warn" bindtap="topayMoney">确认支付</button>
+  </view>
+
+</view>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
