@@ -7,6 +7,8 @@ Page({
   },
   onLoad: function (options) {
     var _this = this;
+    wx.showLoading()
+
     if (!_this.data.canIUse) { //低版本兼容处理
       wx.showModal({
         content: '您的微信客户端版本过低，请升级到最新版本',
@@ -22,7 +24,7 @@ Page({
       } else {
         _this.data.url = "http://localhost:8080/index?token=" + token;
       }
-      console.log(_this.data.url)
+      wx.hideLoading()
 
       //加载web-view
       _this.setData({
