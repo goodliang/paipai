@@ -7,13 +7,13 @@
         </router-link>
         <img :src="detail.pic_url" width="100%">
         <div class="countDown">
-          <span class="countDownTit" v-if="detail.status === 0">距结束：
-              <clocker :time="new Date(detail.end_time*1000).toLocaleDateString()" format='%D 天 %H 时 %M 分 %S 秒 '></clocker>
+          <span class="countDownTit" v-if="detail.pai_status === 0">距结束：
+              <clocker :time="detail.end_time_fmt" format='%D 天 %H 时 %M 分 %S 秒 '></clocker>
             </span>
-          <span class="countDownTit" v-if="detail.status === 1">距开始：
-    <clocker :time="new Date(detail.start_time*1000).toLocaleDateString()" format='%D 天 %H 时 %M 分 %S 秒'></clocker>
+          <span class="countDownTit" v-if="detail.pai_status === 1">距开始：
+    <clocker :time="detail.start_time_fmt" format='%D 天 %H 时 %M 分 %S 秒'></clocker>
             </span>
-          <span class="countDownTit" v-if="detail.status === 2 ">已拍结</span>
+          <span class="countDownTit" v-if="detail.pai_status === 2 ">已拍结</span>
         </div>
         <!--  <div class="countDown">
           <span class="countDownTit">距结束：</span>
@@ -188,8 +188,20 @@ params.append('price', this.offerPirce);
               this.showPrice = false;
 
               this.priceHistory()
-            }else{
-             this.showPrice = false;
+              //未登录
+            } else if(res.data.errno == 4002){
+
+              this.$vux.toast.text(res.data.message, 'top')
+              this.showPrice = false;
+              wx.miniProgram.navigateTo({url: '/pages/index/index?return_url='+encodeURIComponent(location.href)})
+
+              //需要交保证金
+            }else if(res.data.security_deposit){
+
+
+            }
+
+            else{
              this.$vux.toast.text(res.data.message, 'top')
 
 

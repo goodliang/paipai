@@ -1,7 +1,7 @@
 {
   "pages":[
-    "pages/pay/pay",
-    "pages/index/index"
+    "pages/index/index",
+    "pages/pay/pay"
   ],
   "window":{
     "backgroundTextStyle":"light",

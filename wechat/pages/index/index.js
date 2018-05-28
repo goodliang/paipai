@@ -15,12 +15,14 @@ Page({
       })
     }
 
+
     util.loginIn(function(token){
       if (options.return_url) {
         _this.data.url = decodeURIComponent(options.return_url) + "?token=" + token;
       } else {
         _this.data.url = "http://localhost:8080/index?token=" + token;
       }
+      console.log(_this.data.url)
 
       //加载web-view
       _this.setData({
