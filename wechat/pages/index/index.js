@@ -2,7 +2,7 @@ Page({
   data: {
     url: "",
     canIUse: wx.canIUse('web-view'),
-    title: "微艺拍"
+    title: "弘真艺拍"
   },
   onLoad: function (options) {
     var _this = this;
