@@ -176,10 +176,11 @@ export default {
 
 var params = new URLSearchParams();
 params.append('id', this.$route.params.id);       //你要传给后台的参数值 key/value
-params.append('token', this.$route.query.token);
 params.append('price', this.offerPirce);
+
+var token = this.$route.query.token || window.$cookies.get('token') 
       
-     this.$http.post('/api/setGoodOffer',params).then((res)=>{
+     this.$http.post('/api/setGoodOffer?3rd_session='+token,params).then((res)=>{
 
             //重刷出价记录
             if(res.data.errno == 1000){
@@ -196,8 +197,9 @@ params.append('price', this.offerPirce);
               this.showPrice = false;
               wx.miniProgram.navigateTo({url: '/pages/index/index?return_url='+encodeURIComponent(location.href)})
               //需要交保证金
-            }else if(res.data.security_deposit){
+            }else if(res.data.errno = 3005){
 
+              this.$router.push('/pay_promise')
 
             }
 
