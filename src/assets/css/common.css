@@ -322,3 +322,8 @@ body{
 .goodsStatus.grey{
   background:#999;
 }
+
+.bottomLayer .weui-btn{
+  border-radius:0px;
+  line-height: 50px;
+}

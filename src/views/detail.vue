@@ -44,9 +44,8 @@
     
     <div class="bottomLayer">     
       <div class="price">
-      <span>¥{{detail.last_price }} </span>
-          <br/>
-        当前价
+      <span class="text-red">¥{{detail.last_price }} </span> 
+        <p class="text-muted f14">当前价</p>
      </div>
      <div class="button">
        <x-button type="primary" @click.native="show">出 价</x-button>
@@ -257,17 +256,24 @@ params.append('price', this.offerPirce);
   position: fixed;
   bottom: 0;
   left: 0;
-  height: 45px;
   width: 100%;
   background: #fff;
   display: flex;
-}
-.bottomLayer .price{
-  flex-grow: 1
-}
-
-.bottomLayer .button{
-  flex-grow: 2
+  border-top: 1px solid #eee;
+  z-index: 99;
+  .price{
+    flex-grow: 1;
+    line-height: 1.2;
+    padding-left: 10px;
+    span{
+      font-size: 16px;
+      padding:5px 0;
+      display: inline-block;
+    }
+  }
+    .button{
+    flex-grow: 2
+  }
 }
 .w50{
   width: 50%;
