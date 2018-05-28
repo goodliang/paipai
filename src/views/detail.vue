@@ -176,6 +176,7 @@ export default {
 
 var params = new URLSearchParams();
 params.append('id', this.$route.params.id);       //你要传给后台的参数值 key/value
+params.append('token', this.$route.query.token);
 params.append('price', this.offerPirce);
       
      this.$http.post('/api/setGoodOffer',params).then((res)=>{
@@ -194,7 +195,6 @@ params.append('price', this.offerPirce);
               this.$vux.toast.text(res.data.message, 'top')
               this.showPrice = false;
               wx.miniProgram.navigateTo({url: '/pages/index/index?return_url='+encodeURIComponent(location.href)})
-
               //需要交保证金
             }else if(res.data.security_deposit){
 
