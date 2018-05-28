@@ -82,22 +82,13 @@
       <loading v-model="isLoading"></loading>
     </div> -->
 <!--出价弹窗-->
-     <popup v-model="showPrice" height="30%">
-        <div class="popup1">
-
-          <a class="mint-cell mint-field"><!----> 
-            <span class="mint-cell-text">领先价</span> {{detail.last_price}}
-          </a>
-
-
-
-<!--           <mt-field label="出价" placeholder="请输入用户名"></mt-field>
- -->
-          <p><input id="input-price" v-model="offerPirce"  autofocus="autofocus" type="number" name=""></p>
-          <div class="w50">      
-      <x-button type="primary" @click.native="offer">出 价</x-button>
-    </div>
-        </div>
+     <popup v-model="showPrice" >
+        <group>
+        <group-title slot="title">当前价：¥{{detail.last_price}}</group-title>
+          <x-input title="出价" placeholder="每次加价不低于50"  id="input-price" v-model="offerPirce"  autofocus="autofocus" type="tel"></x-input>
+        </group>
+        <div class="f12 text-muted text-right" style="padding-top:5px; ">出价即表示同意《弘真艺拍竞拍服务协议》</div>
+        <div style="padding:15px;"> <x-button type="primary" @click.native="offer">出 价</x-button></div>   
       </popup>
 
     <toast v-model="novali" type="warn" text="请填写出价金额"></toast>
@@ -111,8 +102,7 @@
   </div>
 </template>
 <script>
-import { Divider } from 'vux'
-import { Popup } from 'vux'
+import { Divider,Popup,GroupTitle } from 'vux'
 
 export default {
   data() {
@@ -236,7 +226,8 @@ params.append('price', this.offerPirce);
   },
  components: {
     Divider,
-    Popup
+    Popup,
+    GroupTitle
   }
 }
 
