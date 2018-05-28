@@ -19,15 +19,13 @@ Vue.use(WechatPlugin)
 // cookie
 Vue.use(require('vue-cookies'))
 
-import { AjaxPlugin,ToastPlugin,TransferDom,Card,Toast,Countup,Clocker,Loading,XHeader,XButton,Actionsheet,Group,CellBox,Cell,XInput,Popup,LoadMore} from 'vux'
+import { AjaxPlugin,TransferDom,Card,Toast,Countup,Clocker,Loading,XHeader,XButton,Actionsheet,Group,CellBox,Cell,XInput,Popup,LoadMore} from 'vux'
 
 
 Vue.use(AjaxPlugin)
 Vue.component('toast', Toast)
-Vue.use(ToastPlugin)
-
+Vue.component('toast', Toast)
 Vue.component('card', Card)
-
 
 Vue.component('actionsheet', Actionsheet)
 
@@ -49,32 +47,22 @@ Vue.directive('title', {
     document.title = el.dataset.title
   }
 })
-
+function getQueryString(name) { 
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); 
+    var r = window.location.search.substr(1).match(reg); 
+    if (r != null) return unescape(r[2]); 
+    return null; 
+}
+let token  = getQueryString('token')
 //检测登录
 router.beforeEach((to, from, next) => {
-  // if(!store.state.user.id && to.path != '/author'){
-  //   // 第一次进入项目
-  //   window.$cookies.set('beforeLoginUrl', to.fullPath) // 保存用户进入的url
-  //   next('/author')
-  //   return false
-  // }
+  if(token){
+    window.$cookies.set('token', token)
+  }else{
+    
+  }
   next()
 })
-
-// 登录后跳转方法
-Vue.prototype.goBeforeLoginUrl = () => {
-  let url = window.$cookies.get('beforeLoginUrl')
-  if(!url || url.indexOf('/author') != -1){
-    router.push('/index')
-  }else{
-    if(url == '/'){
-      url = '/index'
-    }
-    router.push(url)
-    window.$cookies.set('beforeLoginUrl', '')
-  }
-}
-
 // 用于消除click移动浏览器上物理点击与事件触发之间的300毫秒延迟
 FastClick.attach(document.body)
 

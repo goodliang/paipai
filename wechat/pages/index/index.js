@@ -19,7 +19,7 @@ Page({
       if (options.return_url) {
         _this.data.url = decodeURIComponent(options.return_url) + "?token=" + token;
       } else {
-        _this.data.url = "http://192.168.2.108:8080/index?token=" + token;
+        _this.data.url = "http://localhost:8080/index?token=" + token;
       }
 
       //加载web-view
