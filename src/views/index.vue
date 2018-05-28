@@ -42,9 +42,7 @@
     <div v-transfer-dom>
       <loading v-model="isLoading"></loading>
     </div>
-
-   
-
+   <footer-bar/>
   </div>
 </template>
 <script>
