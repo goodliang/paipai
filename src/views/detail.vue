@@ -188,8 +188,16 @@ params.append('price', this.offerPirce);
               this.showPrice = false;
 
               this.priceHistory()
+              //未登录
+            } else if(res.data.errno == 4002){
+
+              this.$vux.toast.text(res.data.message, 'top')
+              this.showPrice = false;
+
+              wx.miniProgram.navigateTo({url: '/wechat'})
+
+
             }else{
-             this.showPrice = false;
              this.$vux.toast.text(res.data.message, 'top')
 
 

@@ -47,7 +47,7 @@ export default new Router({
       component: detail
     },
     {
-      path: '/pay_promise/:id',
+      path: '/pay_promise',
       name: 'payPromise',
       component: payPromise
     },
