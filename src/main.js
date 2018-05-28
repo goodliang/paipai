@@ -19,11 +19,11 @@ Vue.use(WechatPlugin)
 // cookie
 Vue.use(require('vue-cookies'))
 
-import { AjaxPlugin,TransferDom,Card,Toast,Countup,Clocker,Loading,XHeader,XButton,Actionsheet,Group,CellBox,Cell,XInput,Popup,LoadMore} from 'vux'
+import { AjaxPlugin,TransferDom,Card,Toast,ToastPlugin,Countup,Clocker,Loading,XHeader,XButton,Actionsheet,Group,CellBox,Cell,XInput,Popup,LoadMore} from 'vux'
 
 
 Vue.use(AjaxPlugin)
-Vue.component('toast', Toast)
+Vue.use(ToastPlugin)
 Vue.component('toast', Toast)
 Vue.component('card', Card)
 
