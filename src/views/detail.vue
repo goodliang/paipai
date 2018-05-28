@@ -41,10 +41,19 @@
     <div class="goods-detail">
       <div class="goods-detail-content" v-html="detail.description">
       </div>
-          <div class="w40">      
-      <x-button type="primary" @click.native="show">出 价</x-button>
+    
+    <div class="bottomLayer">     
+      <div class="price">
+      <span>¥{{detail.last_price }} </span>
+          <br/>
+        当前价
+     </div>
+     <div class="button">
+       <x-button type="primary" @click.native="show">出 价</x-button>
+     </div>
+      
     </div>
-    <br>
+  
     </div>
 
         <div class="price_history">
@@ -60,16 +69,14 @@
                  <p>¥{{user.price}}</p>
               </div>
                <div class="time">
-                <p v-if="0 === index">领先</p>
-                <p v-else>出局</p>
-                 <p>{{user.offer_time_fmt}}</p>
+                <p v-if="0 === index"> <img width="30" src="/static/img/first.jpg"></p>
+                <p v-else><img width="30" src="/static/img/out.jpg"></p>
+                 <p style="color: #666">{{user.offer_time_fmt}}</p>
               </div>
 
             </li>
           </ul>
         </div>
-
-
 
 
   <!--   <div v-transfer-dom>
@@ -78,7 +85,15 @@
 <!--出价弹窗-->
      <popup v-model="showPrice" height="30%">
         <div class="popup1">
-          <p>领先价:999</p>
+
+          <a class="mint-cell mint-field"><!----> 
+            <span class="mint-cell-text">领先价</span> {{detail.last_price}}
+          </a>
+
+
+
+<!--           <mt-field label="出价" placeholder="请输入用户名"></mt-field>
+ -->
           <p><input id="input-price" v-model="offerPirce"  autofocus="autofocus" type="number" name=""></p>
           <div class="w50">      
       <x-button type="primary" @click.native="offer">出 价</x-button>
@@ -89,7 +104,7 @@
     <toast v-model="novali" type="warn" text="请填写出价金额"></toast>
 
      <actionsheet @on-click-menu="menuClick" v-model="ispromise" :menus="menus1"  show-cancel>
-      <p slot="header" > 保证金{{promisePirce}}元<br/>将扣除并赔付给卖家保证金将扣除并赔付给卖家</p>
+      <p slot="header" > 保证金{{security_deposit}}元<br/>将扣除并赔付给卖家保证金将扣除并赔付给卖家</p>
     </actionsheet>
 
 
@@ -112,7 +127,7 @@ export default {
       startPrice: 0,
       incr_price: 0,
       showPrice:false,
-      promisePirce:200,
+      security_deposit:0,
       offerPirce:'',//出价金额
       novali:false,
       ispromise:false,
@@ -135,6 +150,8 @@ export default {
         document.title = this.detail.title
         this.isLoading = false
 
+        this.offerPirce = this.detail.last_price +this.detail.incr_price
+
         // this.hasPaypromise = true
       })
       .catch((err) => {
@@ -147,11 +164,6 @@ export default {
 
     this.priceHistory()
 
-          setTimeout(()=>{
-        this.list = [{id: 6, uid: 1, offer_time: 1526195610, price: 29000, u_nick: "红叶.舞秋山", u_head_fmt: "0"},{id: 6, uid: 1, offer_time: 1526195610, price: 29000, u_nick: "红叶.舞秋山", u_head_fmt: "0"}]
-
-        console.log(this.list)
-      },3000)
 
   },
   methods: {
@@ -180,8 +192,18 @@ params.append('price', this.offerPirce);
      this.$http.post('/api/setGoodOffer',params).then((res)=>{
 
             //重刷出价记录
-            if(res.data.errorno == 0){
+            if(res.data.errno == 1000){
+              this.$vux.toast.show({
+               text: '出价成功'
+              })
+              this.showPrice = false;
+
               this.priceHistory()
+            }else{
+             this.showPrice = false;
+             this.$vux.toast.text(res.data.message, 'top')
+
+
             }
             
 
@@ -193,11 +215,8 @@ params.append('price', this.offerPirce);
 
     show(){
       //判断是否出价
-      if(!this.hasPaypromise){
-        this.ispromise = true
-      }else{
         this.showPrice = true
-      }
+      
     },
 
     gavePrice(){
@@ -206,10 +225,7 @@ params.append('price', this.offerPirce);
 
     priceHistory(){
       this.$http.get('/api/getGoodOfferList?id='+this.$route.params.id).then((res)=>{
-
-
         this.historyData = JSON.parse(JSON.stringify(res.data.data))
-        console.log('出价列表', res.data)
       })
     },
 
@@ -236,6 +252,22 @@ params.append('price', this.offerPirce);
   border-bottom:1px solid #ddd;
   font-size: 12px
 
+}
+.bottomLayer{
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 45px;
+  width: 100%;
+  background: #fff;
+  display: flex;
+}
+.bottomLayer .price{
+  flex-grow: 1
+}
+
+.bottomLayer .button{
+  flex-grow: 2
 }
 .w50{
   width: 50%;
