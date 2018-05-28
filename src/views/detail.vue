@@ -199,7 +199,7 @@ var token = this.$route.query.token || window.$cookies.get('token')
               //需要交保证金
             }else if(res.data.errno = 3005){
 
-              this.$router.push('/pay_promise')
+              this.$router.push('/pay_promise/'+res.data.data.security_deposit)
 
             }
 
