@@ -52,12 +52,12 @@ Vue.directive('title', {
 
 //检测登录
 router.beforeEach((to, from, next) => {
-  if(!store.state.user.id && to.path != '/author'){
-    // 第一次进入项目
-    window.$cookies.set('beforeLoginUrl', to.fullPath) // 保存用户进入的url
-    next('/author')
-    return false
-  }
+  // if(!store.state.user.id && to.path != '/author'){
+  //   // 第一次进入项目
+  //   window.$cookies.set('beforeLoginUrl', to.fullPath) // 保存用户进入的url
+  //   next('/author')
+  //   return false
+  // }
   next()
 })
 
