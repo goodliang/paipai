@@ -19,10 +19,23 @@ Vue.use(WechatPlugin)
 // cookie
 Vue.use(require('vue-cookies'))
 
+function getQueryString(name) {
+  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+  var r = window.location.search.substr(1).match(reg);
+  if (r != null) return unescape(r[2]);
+  return null;
+}
+let token = getQueryString('token')
+
+
+
 import { AjaxPlugin,TransferDom,Card,Toast,ToastPlugin,Countup,Clocker,Loading,XHeader,XButton,Actionsheet,Group,CellBox,Cell,XInput,Popup,LoadMore} from 'vux'
 
 
 Vue.use(AjaxPlugin)
+
+Vue.prototype.$http.defaults.headers.common['3rd_session'] = token;
+
 Vue.use(ToastPlugin)
 Vue.component('toast', Toast)
 Vue.component('card', Card)
@@ -48,18 +61,14 @@ Vue.directive('title', {
   }
 })
 
-function getQueryString(name) {
-  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-  var r = window.location.search.substr(1).match(reg);
-  if (r != null) return unescape(r[2]);
-  return null;
-}
-let token = getQueryString('token')
+
 //检测登录
 router.beforeEach((to, from, next) => {
   if (token) {
     if (!window.$cookies.get('token')) {
        window.$cookies.set('token', token)
+       window.$cookies.set('3rd_session', token)
+
     }
   } else {
 

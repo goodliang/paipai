@@ -18,6 +18,14 @@ module.exports = {
             pathRewrite: {
               '^/api': '/api'
             }
+          },
+                '/pay': {
+            target: 'http://test.apa7.cc',
+
+        changeOrigin:true,
+            pathRewrite: {
+              '^/pay': '/pay'
+            }
           }
         },
 

@@ -159,7 +159,7 @@ export default {
 
     menuClick(key){
       if('menu1' == key){
-        this.$router.push('/pay_promise/'+this.$route.params.id)
+        this.$router.push('/pay_promise/'+this.$route.params.id+'/'+ this.$route.params.good_id)
       }
     },
 
@@ -199,7 +199,7 @@ var token = this.$route.query.token || window.$cookies.get('token')
               //需要交保证金
             }else if(res.data.errno = 3005){
 
-              this.$router.push('/pay_promise/'+res.data.data.security_deposit)
+    this.$router.push('/pay_promise/'+res.data.data.security_deposit+'/'+this.$route.params.id)
 
             }
 
