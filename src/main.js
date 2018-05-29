@@ -51,9 +51,7 @@ Vue.directive('title', {
 //检测登录
 router.beforeEach((to, from, next) => {
   if (to.query.token) {
-    if (!window.$cookies.get('token')) {
-       window.$cookies.set('token', token)
-    }
+     window.$cookies.set('token', token)
   } else {
 
   }
