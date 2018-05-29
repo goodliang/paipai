@@ -48,16 +48,9 @@ Vue.directive('title', {
   }
 })
 
-function getQueryString(name) {
-  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-  var r = window.location.search.substr(1).match(reg);
-  if (r != null) return unescape(r[2]);
-  return null;
-}
-let token = getQueryString('token')
 //检测登录
 router.beforeEach((to, from, next) => {
-  if (token) {
+  if (to.query.token) {
     if (!window.$cookies.get('token')) {
        window.$cookies.set('token', token)
     }
