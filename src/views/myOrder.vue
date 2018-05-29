@@ -11,15 +11,16 @@
       <router-link :to="'/detail/'+item.id" class="goods-item" v-for='(item,index) in goods' :key='index'>
         <div class="goods-item-head">
           <img :src="item.pic_url" width="100%">
-           <span class="goodsStatus red" v-html="offer_status(item.offer_status)"></span>
-          <div class="countDown">
-            <span class="countDownTit" v-if="stateActive === '0'">距结束：
+           <template v-if="stateActive === '0'">
+              <span class="goodsStatus" :class="offerColor" v-html="offer_status(item.offer_status)"></span>
+           </template>
+           <template v-if="stateActive === '1'">
+              <span class="goodsStatus" v-html="pay_status(item.pay_status)"></span>
+           </template>
+          <div class="countDown" v-if="stateActive === '0'">
+            <span class="countDownTit">距结束：
               <clocker :time="new Date(item.end_time*1000).toLocaleDateString()" format='%D 天 %H 时 %M 分 %S 秒 '></clocker>
             </span>
-            <span class="countDownTit" v-if="stateActive === '1'">距开始：
-    <clocker :time="new Date(item.start_time*1000).toLocaleDateString()" format='%D 天 %H 时 %M 分 %S 秒'></clocker>
-            </span>
-            <span class="countDownTit" v-if="stateActive === '2'">已拍结</span>
           </div>
         </div>
         <div class="goods-item-footer">
@@ -61,7 +62,9 @@ export default {
       page: 0,
       fetching: true,
       noMore: false,
-      offerStatus:['已出局','暂领先']
+      offerColor:'',
+      offerStatus:['已出局','暂领先'],
+      payStatus:['未付款','已付款']
     }
   },
   created() {
@@ -79,12 +82,14 @@ export default {
       document.body.scrollTop = 0;
       this.isLoading = true
       this.stateActive = this.state[index]
-      this.$http.get('/api/myPai?status=' + this.stateActive + '&page=' + this.page+'&3rd_session=JB2aQRC0isx1UBRVRpmVM4k8eKz6s7A9')
+      this.$http.get('/api/myPai?status=' + this.stateActive + '&page=' + this.page +'&3rd_session=JB2aQRC0isx1UBRVRpmVM4k8eKz6s7A9')
         .then((res) => {
           this.goods = res.data.data
           this.isLoading = false
           if (this.goods.length) {
             this.hasContent = true
+          }else{
+            this.hasContent = false
           }
         })
         .catch((err) => {
@@ -101,8 +106,7 @@ export default {
           // 将开关关闭  
           this.fetching = false;
           this.page++
-            console.log(this.goods)
-          this.$http.get('/api/getGoodList?status=' + this.stateActive + '&page=' + this.page)
+          this.$http.get('/api/getGoodList?status=' + this.stateActive + '&page=' + this.page+'&3rd_session=JB2aQRC0isx1UBRVRpmVM4k8eKz6s7A9')
             .then(function(res) {
               if (res.data.data.length > 0) {
                 that.goods = that.goods.concat(res.data.data)
@@ -119,7 +123,16 @@ export default {
       }
     },
     offer_status(data){
+      if(data === 0){
+        this.offerColor = 'red'
+      }
+      if(data === 1){
+        this.offerColor = 'green'
+      }
       return this.offerStatus[data]
+    },
+    pay_status(data){
+      return this.payStatus[data]
     }
   },
   computed: {
