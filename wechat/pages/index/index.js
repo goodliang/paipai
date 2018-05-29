@@ -17,13 +17,14 @@ Page({
       })
     }
 
-
     util.loginIn(function(token){
       if (options.return_url) {
         _this.data.url = decodeURIComponent(options.return_url);
+        var hash = _this.data.url.split("#")[1];
+        var passname = _this.data.url.split("#")[0];
+
         if (/(\?|&)token=/.test(_this.data.url)){
-          var hash = _this.data.url.split("#")[1];
-          var pathArr = _this.data.url.split("#")[0].split("?");
+          var pathArr = passname.split("?");
           var path = pathArr[0];
           var paramsArr = pathArr[1].split("&");
           for(var i= 0; i<paramsArr.length; i++){
@@ -32,15 +33,17 @@ Page({
             }
           }
           params = paramsArr.join("&");
-          _this.data.url = path + "?" + params + (hash ? "#"+hash: "")
-        // }else if(){
-
+          _this.data.url = path + "?" + params
+        } else if (/\?/.test(_this.data.url)){
+          _this.data.url = passname + "&token=" + token
         }else{
-          _this.data.url = _this.data.url + "?token=" + token;
+          _this.data.url = passname + "?token=" + token;
         }
+
+        _this.data.url = _this.data.url + (hash ? "#" + hash : "")
         
       } else {
-        _this.data.url = "http://localhost:8080/index?token=" + token;
+        _this.data.url = util.httpHost() + "/index?token=" + token;
       }
       wx.hideLoading()
 
@@ -49,7 +52,6 @@ Page({
         url: _this.data.url
       })
     });
-  
   },
 
   onShareAppMessage: function (res) { //转发
