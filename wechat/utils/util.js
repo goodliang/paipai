@@ -1,21 +1,10 @@
-const formatTime = date => {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
-
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+function serviceHOST() {
+  return "http://test.apa7.cc"  //测试
+  // return "https://pai.arthongzhen.com"
 }
-
-const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
-}
-
-function serviceHOST(dev){
-  return dev ? "http://test.apa7.cc" : "https://pai.arthongzhen.com"
+function httpHost(){
+  return "http://localhost:8080"; //本地开发
+  // return "https://pai.arthongzhen.com"
 }
 
 //login in
@@ -34,7 +23,7 @@ function loginIn(callback) {
 //code 换取_sid 3rd_session
 function getRdSession(callback, code) {
   wx.request({
-    url: serviceHOST("dev") + '/passport/wxLogin',
+    url: serviceHOST() + '/passport/wxLogin',
     method: "POST",
     data: {
       "code": code
@@ -46,19 +35,19 @@ function getRdSession(callback, code) {
     success: function (msg) {
       var data = msg.data.data
       if (data["3rd_session"]) {
-        wx.setStorageSync('hz_3rd_session', data['3rd_session']);
+        wx.setStorageSync('3rd_session', data['3rd_session']);
         callback && callback(data['3rd_session'])
       }
     },
     fail: function () {
-      console.log('login error')
+      console.log("login error")
     }
   })
 }
 
 
 module.exports = {
-  formatTime: formatTime,
+  httpHost: httpHost,
   serviceHOST: serviceHOST,
   loginIn: loginIn
 
