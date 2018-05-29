@@ -43,7 +43,7 @@ export default {
 	  	pay(){
 
 
-        var params = new URLSearchParams();
+var params = new URLSearchParams();
 params.append('type', 1);       //你要传给后台的参数值 key/value
 params.append('good_id', this.good_id);
 var token = this.$route.query.token || window.$cookies.get('token') 
@@ -52,7 +52,11 @@ var token = this.$route.query.token || window.$cookies.get('token')
 
           if(res.data.errno ==1000){
 
-                res.data.data.order_number
+             var order_number = res.data.data.order_number
+             //跳转到小程序支付
+             //.....
+             //
+
           }
 
 
