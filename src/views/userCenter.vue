@@ -17,7 +17,7 @@
           </cell>
         </group>
         <group>
-          <cell is-link link="/address">
+          <cell is-link link="/addressList">
             <span slot="title"><span><i class="iconfont icon-genggaishouhuodizhi"></i>收货地址</span></span>
           </cell>
           <cell is-link link="/vip">

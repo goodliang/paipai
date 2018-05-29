@@ -9,6 +9,7 @@ import author from '@/components/author'
 // 个人中心
 import myOrder from '@/views/myOrder'
 import waitPay from '@/views/waitPay'
+import addressList from '@/views/addressList'
 import address from '@/views/address'
 import vip from '@/views/vip'
 import rule from '@/views/rule'
@@ -85,6 +86,11 @@ export default new Router({
       path: '/address',
       name: 'address',
       component: address
+    },
+    {
+      path: '/addressList',
+      name: 'addressList',
+      component: addressList
     },
     {
       path: '/vip',
