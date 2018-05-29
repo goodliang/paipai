@@ -96,7 +96,6 @@ export default {
       if (heightTop + window.innerHeight >= document.body.offsetHeight) {
         // 如果开关打开则加载数据  
         if (this.fetching == true) {
-          console.log('2222')
           // 将开关关闭  
           this.fetching = false;
           this.page++

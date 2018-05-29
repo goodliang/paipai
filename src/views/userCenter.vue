@@ -1,11 +1,11 @@
 <template>
   <div>
-    <blur :blur-amount=40 :url="headPic">
+   <!--  <blur :blur-amount=40 :url="headPic">
       <div class="head-main">
         <img :src="headPic" class="user-head">
         <p class="user-name">{{nickname}}</p>
       </div>
-    </blur>
+    </blur> -->
     <div class="group-area">
       <group>
         <cell is-link link="/myOrder">
