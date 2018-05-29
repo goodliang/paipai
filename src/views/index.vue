@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="fixed-tab" v-transfer-dom>
       <tab :line-width="1" custom-bar-width="60px">
         <tab-item selected @on-item-click="createdDate">热拍中</tab-item>
