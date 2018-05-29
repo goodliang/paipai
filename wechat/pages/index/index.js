@@ -20,7 +20,25 @@ Page({
 
     util.loginIn(function(token){
       if (options.return_url) {
-        _this.data.url = decodeURIComponent(options.return_url) + "?token=" + token;
+        _this.data.url = decodeURIComponent(options.return_url);
+        if (/(\?|&)token=/.test(_this.data.url)){
+          var hash = _this.data.url.split("#")[1];
+          var pathArr = _this.data.url.split("#")[0].split("?");
+          var path = pathArr[0];
+          var paramsArr = pathArr[1].split("&");
+          for(var i= 0; i<paramsArr.length; i++){
+            if(paramsArr[i].split("=")[0] == "token"){
+              paramsArr[i] = "token=" + token;
+            }
+          }
+          params = paramsArr.join("&");
+          _this.data.url = path + "?" + params + (hash ? "#"+hash: "")
+        // }else if(){
+
+        }else{
+          _this.data.url = _this.data.url + "?token=" + token;
+        }
+        
       } else {
         _this.data.url = "http://localhost:8080/index?token=" + token;
       }

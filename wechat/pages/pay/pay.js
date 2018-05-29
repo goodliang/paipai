@@ -5,11 +5,14 @@ Page({
     order_number: '',        //订单号
     token:"",
     tips:"正在支付...",
+    return_url:"",
   },
   onLoad: function (option) {
     var _this = this;
-    _this.data.order_number = option.order_number = 201801011212120001;
-    _this.data.token = wx.getStorageSync('hz_3rd_session');
+    _this.data.order_number = option.order_number;
+    // _this.data.order_number = 201801011212120001;
+    _this.data.token = wx.getStorageSync('3rd_session');
+    _this.data.return_url = option.return_url;
 
     wx.showLoading()
 
@@ -20,7 +23,7 @@ Page({
   topayMoney: function () {
     var _this = this;
     wx.request({//获取支付配置
-      url: util.serviceHOST('dev') + '/pay/getWxPayParam',
+      url: util.serviceHOST() + '/pay/getWxPayParam',
       method: 'GET',
       data: { 
         order_number: _this.data.order_number,
@@ -28,10 +31,14 @@ Page({
       },
       success: function (res) {
         var _res = res.data;
-        if(_res.code == 0){
-          errorAlertMsg('2获取支付信息失败，请搜索“绝味鸭脖”公众号,查看订单详情完成支付！')
-          return;
-        }
+        // if(_res.code != 0){
+        //   errorAlertMsg('获取支付信息失败，请重试',function(){
+        //     wx.navigateTo({
+        //       url: '../index/index?return_url=' + encodeURIComponent(_this.data.return_url)
+        //     })
+        //   })
+        //   return;
+        // }
         wx.requestPayment({ //调取小程序支付
           'timeStamp': _res.data.timeStamp.toString(),
           'nonceStr': _res.data.nonceStr,
@@ -42,7 +49,7 @@ Page({
             //支付成功
             console.log(res)
             wx.navigateTo({
-              url: '../paysuccess/success?orderType=' + _this.data.orderType
+              url: '../index/index?return_url=' + encodeURIComponent(_this.data.return_url)
             })
 
           },

@@ -14,8 +14,9 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
-function serviceHOST(dev){
-  return dev ? "http://test.apa7.cc" : "https://pai.arthongzhen.com"
+function serviceHOST() {
+  return "http://test.apa7.cc"
+  // return "https://pai.arthongzhen.com"
 }
 
 //login in
@@ -34,7 +35,7 @@ function loginIn(callback) {
 //code 换取_sid 3rd_session
 function getRdSession(callback, code) {
   wx.request({
-    url: serviceHOST("dev") + '/passport/wxLogin',
+    url: serviceHOST() + '/passport/wxLogin',
     method: "POST",
     data: {
       "code": code
@@ -46,7 +47,7 @@ function getRdSession(callback, code) {
     success: function (msg) {
       var data = msg.data.data
       if (data["3rd_session"]) {
-        wx.setStorageSync('hz_3rd_session', data['3rd_session']);
+        wx.setStorageSync('3rd_session', data['3rd_session']);
         callback && callback(data['3rd_session'])
       }
     },
