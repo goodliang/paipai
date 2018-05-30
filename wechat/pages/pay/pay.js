@@ -6,12 +6,14 @@ Page({
     token:"",
     tips:"正在支付...",
     return_url:"",
+    error_url:""
   },
   onLoad: function (option) {
     var _this = this;
-    _this.data.return_url = option.return_url;
+    _this.data.return_url = option.return_url;//支付成功回调路径
+    _this.data.error_url = option.error_url;//支付失败返回路径
     _this.data.order_number = option.order_number;
-    // _this.data.order_number = 201801011212120001;
+    // _this.data.order_number = 201805290736421553;
     _this.data.token = wx.getStorageSync('3rd_session');
 
     wx.showLoading()
@@ -31,6 +33,15 @@ Page({
       },
       success: function (res) {
         var _res = res.data;
+        if(!_res.data){
+          errorAlertMsg('获取支付信息失败，请返回重试', function () {
+            _this.setData({
+              tips: "获取支付信息失败，请返回重试"
+            })
+            errorPay(_this.data.error_url)
+          })
+          return;
+        }
         wx.requestPayment({ //调取小程序支付
           'timeStamp': _res.data.timeStamp.toString(),
           'nonceStr': _res.data.nonceStr,
@@ -39,28 +50,36 @@ Page({
           'paySign': _res.data.paySign,
           'success': function (res) {
             //支付成功
-            _this.data.tips = "支付成功"
+            _this.setData({
+              tips: "支付成功"
+            })
             wx.navigateTo({
-              url: '../index/index?return_url=' + encodeURIComponent(_this.data.return_url)
+              url: '../index/index?return_url=' + decodeURIComponent(_this.data.return_url)
             })
 
           },
           'fail': function (res) {
+            console.log(res)
             //支付失败
-            errorAlertMsg('支付失败，请返回重试', function () {
-              wx.navigateTo({
-                url: '../index/index?return_url=' + encodeURIComponent(_this.data.return_url)
+            errorAlertMsg('支付失败，请返回重试', function () { 
+              _this.setData({
+                tips: "支付失败，请返回重试"
               })
+              errorPay(_this.data.error_url) 
             })
 
+          },
+          complete: function(res){
+            console.log(res)
           }
         })
       },
       fail: function(){
         errorAlertMsg('获取支付信息失败，请返回重试', function () {
-          wx.navigateTo({
-            url: '../index/index?return_url=' + encodeURIComponent(_this.data.return_url)
+          _this.setData({
+            tips: "获取支付信息失败，请返回重试"
           })
+          errorPay(_this.data.error_url)
         })
       },
       complete: function(){
@@ -94,6 +113,15 @@ function errorAlertMsg(msg,callback){
       callback && callback()
     }
   })
+}
+
+//失败回调
+function errorPay(error_url){
+  if (error_url) {
+    wx.navigateTo({
+      url: '../index/index?return_url=' + decodeURIComponent(error_url)
+    })
+  }
 }
 
 
