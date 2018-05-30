@@ -9,15 +9,15 @@ Page({
   },
   onLoad: function (option) {
     var _this = this;
+    _this.data.return_url = option.return_url;
     _this.data.order_number = option.order_number;
     // _this.data.order_number = 201801011212120001;
     _this.data.token = wx.getStorageSync('3rd_session');
-    _this.data.return_url = option.return_url;
 
     wx.showLoading()
 
     //去支付
-    this.topayMoney();
+    _this.topayMoney();
 
   },
   topayMoney: function () {
@@ -31,14 +31,6 @@ Page({
       },
       success: function (res) {
         var _res = res.data;
-        // if(_res.code != 0){
-        //   errorAlertMsg('获取支付信息失败，请重试',function(){
-        //     wx.navigateTo({
-        //       url: '../index/index?return_url=' + encodeURIComponent(_this.data.return_url)
-        //     })
-        //   })
-        //   return;
-        // }
         wx.requestPayment({ //调取小程序支付
           'timeStamp': _res.data.timeStamp.toString(),
           'nonceStr': _res.data.nonceStr,
@@ -47,7 +39,7 @@ Page({
           'paySign': _res.data.paySign,
           'success': function (res) {
             //支付成功
-            console.log(res)
+            _this.data.tips = "支付成功"
             wx.navigateTo({
               url: '../index/index?return_url=' + encodeURIComponent(_this.data.return_url)
             })
@@ -55,18 +47,21 @@ Page({
           },
           'fail': function (res) {
             //支付失败
-
-
-          },
-          'complete': function (res) {
-            //失败成功都有回调
-            console.log(res)
+            errorAlertMsg('支付失败，请返回重试', function () {
+              wx.navigateTo({
+                url: '../index/index?return_url=' + encodeURIComponent(_this.data.return_url)
+              })
+            })
 
           }
         })
       },
       fail: function(){
-        errorAlertMsg('1获取支付信息失败，请搜索“绝味鸭脖”公众号,查看订单详情完成支付！')
+        errorAlertMsg('获取支付信息失败，请返回重试', function () {
+          wx.navigateTo({
+            url: '../index/index?return_url=' + encodeURIComponent(_this.data.return_url)
+          })
+        })
       },
       complete: function(){
         wx.hideLoading()
@@ -90,18 +85,11 @@ Page({
   }
 })
 
-
-//金额整数转换
-function getIntNum(num){
-  return parseInt(parseInt(num)/100);
-}
-
 //错误提示信息
 function errorAlertMsg(msg,callback){
   wx.showModal({
     content: msg,
     showCancel: false,
-    confirmColor: '#f00',
     success: function (res) {
       callback && callback()
     }

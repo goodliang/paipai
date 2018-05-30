@@ -76,7 +76,7 @@ export default {
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
       this.isLoading = true
-      this.$http.get('/api/waitingPay?page=' + this.page)
+      this.$http.get('/api/waitingPay?page=' + this.page+'&3rd_session='+this.$store.state.token)
         .then((res) => {
           this.goods = res.data.data
           this.isLoading = false

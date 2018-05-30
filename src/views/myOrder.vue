@@ -1,52 +1,61 @@
 <template>
-  <div class="container">
-    <div class="fixed-tab" v-transfer-dom>
-      <tab :line-width="1" custom-bar-width="60px">
-        <tab-item selected @on-item-click="createdDate">参拍中</tab-item>
-        <tab-item @on-item-click="createdDate">已拍下</tab-item>
-        <tab-item @on-item-click="createdDate">未拍中</tab-item>
-      </tab>
-    </div>
-    <div class="goods-list">
-      <div class="goods-item">
-        <div class="goods-item-head"><img src="http://test.apa7.cc/uploads/////aa5ec502676c0c1ee8fbaa2cb7c72fed.jpg" width="100%">
-          <span class="goodsStatus red">已出局</span>
-        </div>
-        <div class="goods-item-footer">
-          <div class="goods-item-info vux-1px-b">
-            <h3 class="text-justify"><span class="text-default">姚佳</span><small class="text-muted f12 fwn">现代仿品</small></h3>
-            <p> 釉里红龙纹梅瓶-仿品</p>
-          </div>
-          <div class="goods-item-price">
-            <div class="item vux-1px-r"><span class="text-muted f14">成交价：</span><span class="text-red">¥
-          <span>1000</span></span>
-            </div>
-            <div class="item"><span class="text-muted f14">起拍价：</span><span class="text-info">¥1000</span></div>
-          </div>
-        </div>
+  <div>
+     <div class="header" style="position: fixed;background: #fff;">
+      <x-header :left-options="{backText: ''}">我的拍卖</x-header>
+      <div class="button-box vux-1px-t">
+        <button-tab>
+          <button-tab-item selected @on-item-click="createdDate">参拍中</button-tab-item>
+          <button-tab-item @on-item-click="createdDate">已拍下</button-tab-item>
+          <button-tab-item @on-item-click="createdDate">未拍中</button-tab-item>
+        </button-tab>
       </div>
-      <div class="goods-item">
-        <div class="goods-item-head"><img src="http://test.apa7.cc/uploads/////aa5ec502676c0c1ee8fbaa2cb7c72fed.jpg" width="100%">
-          <span class="goodsStatus green">暂领先</span>
-        </div>
-        <div class="goods-item-footer">
-          <div class="goods-item-info vux-1px-b">
-            <h3 class="text-justify"><span class="text-default">姚佳</span><small class="text-muted f12 fwn">现代仿品</small></h3>
-            <p> 釉里红龙纹梅瓶-仿品</p>
-          </div>
-          <div class="goods-item-price">
-            <div class="item vux-1px-r"><span class="text-muted f14">成交价：</span><span class="text-red">¥
-          <span>1000</span></span>
-            </div>
-            <div class="item"><span class="text-muted f14">起拍价：</span><span class="text-info">¥1000</span></div>
-          </div>
-        </div>
-      </div>
+       
     </div>
+    <div class="container" style="padding-top: 96px;">
+      <div class="goods-list" v-if="hasContent" style="margin-top: 0;">
+        <router-link :to="'/detail/'+item.id" class="goods-item" v-for='(item,index) in goods' :key='index'>
+          <div class="goods-item-head">
+            <img :src="item.pic_url" width="100%">
+            <template v-if="stateActive === '0'">
+              <span class="goodsStatus" :class="offerColor" v-html="offer_status(item.offer_status)"></span>
+            </template>
+            <template v-if="stateActive === '1'">
+              <span class="goodsStatus" :class="offerColor" v-html="pay_status(item.pay_status)"></span>
+            </template>
+            <div class="countDown" v-if="stateActive === '0'">
+              <span class="countDownTit">距结束：
+              <clocker :time="new Date(item.end_time*1000).toLocaleDateString()" format='%D 天 %H 时 %M 分 %S 秒 '></clocker>
+            </span>
+            </div>
+          </div>
+          <div class="goods-item-footer">
+            <div class="goods-item-info vux-1px-b">
+              <h3 class="text-justify"><span class="text-default">{{item.author}}</span></h3>
+              <p>{{item.title}}</p>
+            </div>
+            <div class="goods-item-price">
+              <div class="item vux-1px-r"><span class="text-muted f14" v-if="stateActive === '2'">成交价：</span><span class="text-muted f14" v-else>当前价：</span><span class="text-red">¥
+            <countup :start-val="item.start_price" :end-val="item.last_price" :duration="1" class="demo1"></countup></span>
+              </div>
+              <div class="item"><span class="text-muted f14">起拍价：</span><span class="text-info">¥{{item.start_price}}</span></div>
+            </div>
+          </div>
+        </router-link>
+        <p class="text-muted p-sm text-center" v-show="noMore">没有更多了</p>
+      </div>
+      <div class="no-content" v-else>
+        暂无内容
+      </div>
+      <div v-transfer-dom>
+        <loading v-model="isLoading"></loading>
+      </div>
+      <footer-bar/>
+    </div>
+    <footer-bar/>
   </div>
 </template>
 <script>
-import { LoadMore, Tab, TabItem } from 'vux'
+import { LoadMore, Tab, TabItem,ButtonTab, ButtonTabItem } from 'vux'
 import tabBar from '../conponent/tabbar.vue'
 
 export default {
@@ -60,6 +69,10 @@ export default {
       page: 0,
       fetching: true,
       noMore: false,
+      offerColor: '',
+      payColor: '',
+      offerStatus: ['已出局', '暂领先'],
+      payStatus: ['未付款', '已付款']
     }
   },
   created() {
@@ -77,12 +90,14 @@ export default {
       document.body.scrollTop = 0;
       this.isLoading = true
       this.stateActive = this.state[index]
-      this.$http.get('/api/getGoodList?status=' + this.stateActive + '&page=' + this.page)
+      this.$http.get('/api/myPai?status=' + this.stateActive + '&page=' + this.page + '&3rd_session=JB2aQRC0isx1UBRVRpmVM4k8eKz6s7A9')
         .then((res) => {
           this.goods = res.data.data
           this.isLoading = false
           if (this.goods.length) {
             this.hasContent = true
+          } else {
+            this.hasContent = false
           }
         })
         .catch((err) => {
@@ -92,17 +107,14 @@ export default {
     handleScroll() {
       let that = this
       let heightTop = document.documentElement.scrollTop || document.body.scrollTop;
-      console.log(heightTop)
       // 判断是否滚动到底部  
       if (heightTop + window.innerHeight >= document.body.offsetHeight) {
         // 如果开关打开则加载数据  
         if (this.fetching == true) {
-          console.log('2222')
           // 将开关关闭  
           this.fetching = false;
           this.page++
-            console.log(this.goods)
-          this.$http.get('/api/getGoodList?status=' + this.stateActive + '&page=' + this.page)
+            this.$http.get('/api/getGoodList?status=' + this.stateActive + '&page=' + this.page + '&3rd_session=JB2aQRC0isx1UBRVRpmVM4k8eKz6s7A9')
             .then(function(res) {
               if (res.data.data.length > 0) {
                 that.goods = that.goods.concat(res.data.data)
@@ -117,6 +129,24 @@ export default {
             });
         }
       }
+    },
+    offer_status(data) {
+      if (data === 0) {
+        this.offerColor = 'red'
+      }
+      if (data === 1) {
+        this.offerColor = 'green'
+      }
+      return this.offerStatus[data]
+    },
+    pay_status(data) {
+      if (data === 0) {
+        this.payColor = 'red'
+      }
+      if (data === 1) {
+        this.payColor = 'green'
+      }
+      return this.payStatus[data]
     }
   },
   computed: {
@@ -125,14 +155,22 @@ export default {
   components: {
     Tab,
     TabItem,
-    LoadMore
+    LoadMore,
+    ButtonTab,
+    ButtonTabItem
   },
   beforeDestroy() {
     window.removeEventListener("scroll", this.handleScroll);
   }
 }
+
 </script>
 <style lang="less" rel="stylesheet/less" scoped>
-
-
+.no-content {
+  margin-top: 100px
+}
+.button-box{
+  padding: 10px 10%;
+  margin: 0 auto;
+}
 </style>

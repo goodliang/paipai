@@ -6,7 +6,8 @@ Vue.use(Vuex)
 const state = {
   isLoading: false,
   direction: 'forward',
-  user:{}
+  user:{},
+  token:''
 }
 export default new Vuex.Store({
   state,
@@ -14,8 +15,9 @@ export default new Vuex.Store({
     updateLoadingStatus(state, payload) {
       state.isLoading = payload.isLoading
     },
-    userInfo(state, payload){
-    	state.user = payload
+    addToken(state, payload){
+      console.log(payload,'payload_token')
+    	state.token = payload
     }
   },
   action: {}

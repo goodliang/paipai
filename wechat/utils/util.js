@@ -1,21 +1,9 @@
-const formatTime = date => {
-  const year = date.getFullYear()
-  const month = date.getMonth() + 1
-  const day = date.getDate()
-  const hour = date.getHours()
-  const minute = date.getMinutes()
-  const second = date.getSeconds()
-
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
-}
-
-const formatNumber = n => {
-  n = n.toString()
-  return n[1] ? n : '0' + n
-}
-
 function serviceHOST() {
-  return "http://test.apa7.cc"
+  return "http://test.apa7.cc"  //测试
+  // return "https://pai.arthongzhen.com"
+}
+function httpHost(){
+  return "http://localhost:8080"; //本地开发
   // return "https://pai.arthongzhen.com"
 }
 
@@ -52,14 +40,14 @@ function getRdSession(callback, code) {
       }
     },
     fail: function () {
-      console.log('login error')
+      console.log("login error")
     }
   })
 }
 
 
 module.exports = {
-  formatTime: formatTime,
+  httpHost: httpHost,
   serviceHOST: serviceHOST,
   loginIn: loginIn
 

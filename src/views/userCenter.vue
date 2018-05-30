@@ -1,64 +1,53 @@
 <template>
-  <div>
-    <blur :blur-amount=40 :url="headPic">
-      <div class="head-main">
-        <img :src="headPic" class="user-head">
-        <p class="user-name">{{nickname}}</p>
+  <div class="main-body">
+    <div class="container">
+      <blur blur-amount=40 :url="headPic">
+        <div class="head-main">
+          <img src="headPic" class="user-head">
+          <p class="user-name">{{nickname}}</p>
+        </div>
+      </blur>
+      <div class="group-area">
+        <group>
+          <cell is-link link="/myOrder">
+            <span slot="title"><span><i class="iconfont icon-paimaijilu"></i>我的拍卖</span></span>
+          </cell>
+          <cell is-link link="/waitPay">
+            <span slot="title"><span><i class="iconfont icon-fukuan"></i>待付款</span></span>
+          </cell>
+        </group>
+        <group>
+          <cell is-link link="/addressList">
+            <span slot="title"><span><i class="iconfont icon-genggaishouhuodizhi"></i>收货地址</span></span>
+          </cell>
+          <cell is-link link="/vip">
+            <span slot="title"><span><i class="iconfont icon-vip"></i>升级为VIP</span></span>
+          </cell>
+        </group>
+        <group>
+          <cell is-link link="/rule">
+            <span slot="title"><span><i class="iconfont  icon-bianmaguize"></i>拍卖规则</span></span>
+          </cell>
+          <cell is-link>
+            <span slot="title"><span><i class="iconfont icon-kefu"></i>客服</span></span>
+          </cell>
+        </group>
       </div>
-    </blur>
-    <div class="group-area">
-      <group>
-        <cell is-link link="/myOrder">
-          <span slot="title"><span><i class="iconfont icon-paimaijilu"></i>我的拍卖</span></span>
-        </cell>
-        <cell is-link link="/waitPay">
-          <span slot="title"><span><i class="iconfont icon-fukuan"></i>待付款</span></span>
-        </cell>
-      </group>
-      <group>
-        <cell is-link link="/address">
-          <span slot="title"><span><i class="iconfont icon-genggaishouhuodizhi"></i>收货地址</span></span>
-        </cell>
-        <cell is-link link="/vip">
-          <span slot="title"><span><i class="iconfont icon-vip"></i>升级为VIP</span></span>
-        </cell>
-      </group>
-      <group>
-        <cell is-link link="/rule">
-          <span slot="title"><span><i class="iconfont  icon-bianmaguize"></i>拍卖规则</span></span>
-        </cell>
-        <cell is-link>
-          <span slot="title"><span><i class="iconfont icon-kefu"></i>客服</span></span>
-        </cell>
-      </group>
     </div>
+    <footer-bar/>
   </div>
 </template>
 <script>
 import { Blur } from 'vux'
 export default {
   data() {
-    return {
-    }
+    return {}
   },
   beforeCreate() {},
-  created() {
-  },
-  mounted() {
 
-
-        wx.miniProgram.navigateTo({url: '/pages/index/index?return_url='+encodeURIComponent(location.href)})
-
-
-  },
   methods: {},
   computed: {
-    headPic(){
-      return this.$store.state.user.pic
-    },
-    nickname(){
-      return this.$store.state.user.nick
-    }
+
   },
   components: {
     Blur

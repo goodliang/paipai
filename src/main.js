@@ -67,16 +67,10 @@ Vue.directive('title', {
 
 //检测登录
 router.beforeEach((to, from, next) => {
-  let token = to.query.token
-  if (token) {
-    if (!window.$cookies.get('token')) {
+  if (!store.state.token) {
        window.$cookies.set('token', token)
        window.$cookies.set('3rd_session', token)
-
-    }
-
-  } else {
-
+       store.commit('addToken', to.query.token)
   }
   next()
 })

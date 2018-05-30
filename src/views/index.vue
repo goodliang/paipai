@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="fixed-tab" v-transfer-dom>
       <tab :line-width="1" custom-bar-width="60px">
         <tab-item selected @on-item-click="createdDate">热拍中</tab-item>
@@ -96,7 +96,6 @@ export default {
       if (heightTop + window.innerHeight >= document.body.offsetHeight) {
         // 如果开关打开则加载数据  
         if (this.fetching == true) {
-          console.log('2222')
           // 将开关关闭  
           this.fetching = false;
           this.page++

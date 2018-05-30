@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="goods-item">
       <div class="goods-item-head">
         <router-link to="/index" class="backIcion">
