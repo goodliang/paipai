@@ -44,8 +44,7 @@ export default {
     return {}
   },
   beforeCreate() {},
-  created() {},
-  mounted() {},
+
   methods: {},
   computed: {
 
