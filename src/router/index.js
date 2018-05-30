@@ -18,6 +18,8 @@ import price from '@/views/price'
 import info from '@/views/info'
 import found from '@/views/found'
 import userCenter from '@/views/userCenter'
+import paySuccess from '@/views/pay_success'
+
 
 Vue.use(Router)
 
@@ -100,7 +102,13 @@ export default new Router({
       path: '/infoView/:id',
       name: 'infoView',
       component: infoView
-    }, {
+    },
+    {
+      path: '/promise_success/:id',
+      name: 'paySuccess',
+      component: paySuccess
+    },
+     {
       path: '*',
       name: 'noPage',
       component: noPage

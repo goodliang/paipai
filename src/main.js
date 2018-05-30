@@ -27,7 +27,10 @@ function getQueryString(name) {
 }
 let token = getQueryString('token')
 
+import { ButtonTab, ButtonTabItem } from 'vux'
 
+Vue.component('button-tab', ButtonTab)
+Vue.component('button-tab-item', ButtonTabItem)
 
 import { AjaxPlugin,TransferDom,Card,Toast,ToastPlugin,Countup,Clocker,Loading,XHeader,XButton,Actionsheet,Group,CellBox,Cell,XInput,Popup,LoadMore} from 'vux'
 

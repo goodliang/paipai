@@ -44,7 +44,13 @@ export default {
   beforeCreate() {},
   created() {
   },
-  mounted() {},
+  mounted() {
+
+
+        wx.miniProgram.navigateTo({url: '/pages/index/index?return_url='+encodeURIComponent(location.href)})
+
+
+  },
   methods: {},
   computed: {
     headPic(){

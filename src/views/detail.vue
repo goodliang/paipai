@@ -57,15 +57,15 @@
 
         <div class="price_history">
   <divider>出价记录</divider>
-         
-        <ul  v-if="historyData.length" v-cloak>
+
+      <ul  v-if="historyData.length" v-cloak>
             <li class="userList" v-for="(user,index) in historyData" :key="user.id">
               <div class="avatar">
-              <img width="40" height="40" src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=3511298686,563448208&fm=173&app=25&f=JPEG?w=218&h=146&s=F008BE560E735A94623575770300E06C">
+              <img width="40" height="40" :src="user.u_head_fmt">
               </div>
               <div class="nickname">
                 <p>{{user.u_nick}}</p>
-                 <p>¥{{user.price}}</p>
+                 <p class="price">¥{{user.price}}</p>
               </div>
                <div class="time">
                 <p v-if="0 === index"> <img width="30" src="/static/img/first.jpg"></p>
@@ -75,7 +75,7 @@
 
             </li>
           </ul>
-        </div>
+<a href="javascript:" v-if="moreBtn" @click="getMore" class="weui-cell weui-cell_access weui-cell_link"><div class="weui-cell__bd" align="center">查看更多</div></a>        </div>
 
 
   <!--   <div v-transfer-dom>
@@ -85,7 +85,7 @@
      <popup v-model="showPrice" >
         <group>
         <group-title slot="title">当前价：¥{{detail.last_price}}</group-title>
-          <x-input title="出价" placeholder="每次加价不低于50"  id="input-price" v-model="offerPirce"  autofocus="autofocus" type="tel"></x-input>
+          <x-input title="出价" placeholder=""  id="input-price" v-model="offerPirce"  autofocus="autofocus" type="tel"></x-input>
         </group>
         <div class="f12 text-muted text-right" style="padding-top:5px; ">出价即表示同意《弘真艺拍竞拍服务协议》</div>
         <div style="padding:15px;"> <x-button type="primary" @click.native="offer">出 价</x-button></div>   
@@ -123,6 +123,7 @@ export default {
       hasPaypromise:false,
       historyData:[],
       list:[],
+      moreBtn:false,
        menus1: {
         menu1: '<span style="color:green">支付保证金</span>'
       }
@@ -199,7 +200,7 @@ var token = this.$route.query.token || window.$cookies.get('token')
               //需要交保证金
             }else if(res.data.errno = 3005){
 
-    this.$router.push('/pay_promise/'+res.data.data.security_deposit+'/'+this.$route.params.id)
+              this.$router.push('/pay_promise/'+res.data.data.security_deposit+'/'+this.$route.params.id)
 
             }
 
@@ -226,9 +227,22 @@ var token = this.$route.query.token || window.$cookies.get('token')
 
     },
 
+    getMore(){
+
+       this.$http.get('/api/getGoodOfferList?id='+this.$route.params.id).then((res)=>{
+
+        this.moreBtn = res.data.data.length >5 ? true: false
+
+        this.historyData = JSON.parse(JSON.stringify(res.data.data))
+      })
+
+      this.moreBtn = false
+
+    },
+
     priceHistory(){
       this.$http.get('/api/getGoodOfferList?id='+this.$route.params.id).then((res)=>{
-        this.historyData = JSON.parse(JSON.stringify(res.data.data))
+        this.historyData = JSON.parse(JSON.stringify(res.data.data.slice(0,4)))
       })
     },
 
@@ -252,9 +266,14 @@ var token = this.$route.query.token || window.$cookies.get('token')
 }
 .userList{
   display:flex;justify-content:space-between;
-  padding: 10px 15px;
+  padding: 6px 15px;
   border-bottom:1px solid #ddd;
-  font-size: 12px
+    border-top:1px solid #fff;
+
+  font-size: 12px;
+  .price{
+    color:#d4282d;
+  }
 
 }
 .bottomLayer{
