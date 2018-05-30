@@ -81,7 +81,7 @@
 }
 
 .text-red {
-  color: #d4282d;
+  color: #d4282d !important; 
 }
 
 .text-default {

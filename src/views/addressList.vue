@@ -1,7 +1,7 @@
 <template>
   <div class="main-body">
     <div class="header" style="position: fixed;background: #fff;">
-      <x-header :left-options="{backText: ''}">收货地址</x-header>
+      <x-header :left-options="{backText: ''}">收货地址<router-link to="/address" slot="right" class="text-red">新增地址</router-link></x-header>
     </div>
     <div class="container">
       <group >
@@ -9,7 +9,7 @@
 +item.area_name+item.address' :value="item.telephone
 "  v-for='(item,index) in address'></cell>
       </group>
-      <div style="padding:20px 15px;"><x-button link="/address">新增地址</x-button></div> 
+<!--       <div style="padding:20px 15px;"><x-button link="">新增地址</x-button></div>  -->
     </div>
     <footer-bar/>
   </div>
