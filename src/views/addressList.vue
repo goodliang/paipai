@@ -7,7 +7,7 @@
       <group >
         <cell :title="item.name" :inline-desc='item.province_name +item.city_name
 +item.area_name+item.address' :value="item.telephone
-"  v-for='(item,index) in address'></cell>
+"  v-for='(item,index) in address' :key="item.name"></cell>
       </group>
       <div style="padding:20px 15px;"><x-button link="/address">新增地址</x-button></div> 
     </div>
