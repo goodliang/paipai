@@ -17,7 +17,7 @@ export default {
       buttons: [{
         type: 'primary',
         text: '继续出价',
-        onClick: null
+        onClick: this.updateOrder
       }, {
         type: 'default',
         text: '返回商品',
@@ -31,6 +31,19 @@ export default {
   mounted() {
   },
   methods: {
+    updateOrder(){
+      var token = window.$cookies.get('token')  || ''
+var params = new URLSearchParams();
+params.append('order_number', this.$route.params.id);       //你要传给后台的参数值 key/
+params.append('status', 1);
+
+      this.$http.post('/pay/updateOrder?3rd_session=AGLrj9NRAms0bKI3c_qXTtWKJatDfqld',params).then((res)=>{
+        console.log(res)
+        alert(res.data.errno)
+        alert(res.data.message)
+
+      })
+    }
   },
   computed: {
   },
