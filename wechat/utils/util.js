@@ -3,7 +3,7 @@ function serviceHOST() {
   // return "https://pai.arthongzhen.com"
 }
 function httpHost(){
-  return "http://localhost:8080"; //本地开发
+  return "http://localhost:8080/index"; //本地开发
   // return "https://pai.arthongzhen.com"
 }
 

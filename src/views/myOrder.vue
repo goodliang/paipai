@@ -1,6 +1,6 @@
 <template>
   <div>
-     <div class="header" style="position: fixed;background: #fff;">
+    <div class="header" style="position: fixed;background: #fff;">
       <x-header :left-options="{backText: ''}">我的拍卖</x-header>
       <div class="button-box vux-1px-t">
         <button-tab>
@@ -9,7 +9,6 @@
           <button-tab-item @on-item-click="createdDate">未拍中</button-tab-item>
         </button-tab>
       </div>
-       
     </div>
     <div class="container" style="padding-top: 96px;">
       <div class="goods-list" v-if="hasContent" style="margin-top: 0;">
@@ -17,10 +16,10 @@
           <div class="goods-item-head">
             <img :src="item.pic_url" width="100%">
             <template v-if="stateActive === '0'">
-              <span class="goodsStatus" :class="offerColor" v-html="offer_status(item.offer_status)"></span>
+              <span class="goodsStatus" :class="offer_Color(item.offer_status)" v-html="offer_status(item.offer_status)"></span>
             </template>
             <template v-if="stateActive === '1'">
-              <span class="goodsStatus" :class="offerColor" v-html="pay_status(item.pay_status)"></span>
+              <span class="goodsStatus" :class="pay_Color(item.pay_status)" v-html="pay_status(item.pay_status)"></span>
             </template>
             <div class="countDown" v-if="stateActive === '0'">
               <span class="countDownTit">距结束：
@@ -55,7 +54,7 @@
   </div>
 </template>
 <script>
-import { LoadMore, Tab, TabItem,ButtonTab, ButtonTabItem } from 'vux'
+import { LoadMore, Tab, TabItem, ButtonTab, ButtonTabItem } from 'vux'
 import tabBar from '../conponent/tabbar.vue'
 
 export default {
@@ -69,8 +68,8 @@ export default {
       page: 0,
       fetching: true,
       noMore: false,
-      offerColor: '',
-      payColor: '',
+      offerColor: ['red', 'green'],
+      payColor: ['red', 'green'],
       offerStatus: ['已出局', '暂领先'],
       payStatus: ['未付款', '已付款']
     }
@@ -90,7 +89,7 @@ export default {
       document.body.scrollTop = 0;
       this.isLoading = true
       this.stateActive = this.state[index]
-      this.$http.get('/api/myPai?status=' + this.stateActive + '&page=' + this.page + '&3rd_session=JB2aQRC0isx1UBRVRpmVM4k8eKz6s7A9')
+      this.$http.get('/api/myPai?status=' + this.stateActive + '&page=' + this.page)
         .then((res) => {
           this.goods = res.data.data
           this.isLoading = false
@@ -114,7 +113,7 @@ export default {
           // 将开关关闭  
           this.fetching = false;
           this.page++
-            this.$http.get('/api/getGoodList?status=' + this.stateActive + '&page=' + this.page + '&3rd_session=JB2aQRC0isx1UBRVRpmVM4k8eKz6s7A9')
+            this.$http.get('/api/getGoodList?status=' + this.stateActive + '&page=' + this.page)
             .then(function(res) {
               if (res.data.data.length > 0) {
                 that.goods = that.goods.concat(res.data.data)
@@ -131,23 +130,17 @@ export default {
       }
     },
     offer_status(data) {
-      if (data === 0) {
-        this.offerColor = 'red'
-      }
-      if (data === 1) {
-        this.offerColor = 'green'
-      }
       return this.offerStatus[data]
     },
+    offer_Color(data) {
+      return this.offerColor[data]
+    },
     pay_status(data) {
-      if (data === 0) {
-        this.payColor = 'red'
-      }
-      if (data === 1) {
-        this.payColor = 'green'
-      }
       return this.payStatus[data]
-    }
+    },
+    pay_Color(data) {
+      return this.payColor[data]
+    },
   },
   computed: {
 
@@ -169,8 +162,10 @@ export default {
 .no-content {
   margin-top: 100px
 }
-.button-box{
+
+.button-box {
   padding: 10px 10%;
   margin: 0 auto;
 }
+
 </style>

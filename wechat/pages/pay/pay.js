@@ -96,7 +96,7 @@ Page({
     }
     return {
       title: '弘真艺拍',
-      path: 'pages/login/login',
+      path: 'pages/index/index',
       success: function (res) {
         // 转发成功
       },
