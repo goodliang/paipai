@@ -18,9 +18,8 @@ Page({
       success: function (res) {
         //session_key 未过期，并且在本生命周期一直有效
         if (options.return_url) {
-          _this.data.url = decodeURIComponent(options.return_url)
+          _this.data.url = util.parsePath(options.return_url, wx.getStorageSync('3rd_session'))
         } else {
-          _this.data.url = util.httpHost();
           _this.data.url = util.httpHost() + "?token=" + wx.getStorageSync('3rd_session');
         }
         //加载web-view
