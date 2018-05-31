@@ -40,25 +40,22 @@ Vue.component('load-more', LoadMore)
 Vue.component('button-tab', ButtonTab)
 Vue.component('button-tab-item', ButtonTabItem)
 
-//检测登录
-router.beforeEach((to, from, next) => {
-  if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
-    if (store.state.token) { // 通过vuex state获取当前的token是否存在
-      next();
+
+if (window.__wxjs_environment) {
+  router.beforeEach((to, from, next) => {
+    if (store.state.token) {
+      next()
     } else {
       if (to.query.token) {
         store.commit('addToken', to.query.token);
         next()
       } else {
-        // 将跳转的路由path作为参数，登录成功后跳转到该路由  
-        wx.miniProgram.navigateTo({ url: '/pages/login/login?return_url=' + encodeURIComponent(to.fullPath) })
+        wx.miniProgram.navigateTo({ url: '/pages/login/login?return_url=' + decodeURIComponent(to.fullPath) })
       }
     }
-  } else {
-    next();
-  }
+  })
+}
 
-})
 Vue.prototype.$http.interceptors.request.use(
   config => {
     if (store.state.token) { // 判断是否存在token，如果存在的话，则每个http header都加上token。废弃cookie

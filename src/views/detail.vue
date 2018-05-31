@@ -152,10 +152,11 @@ export default {
   created() {},
   mounted() {
 
-        alert(location.href)
 
 
     this.priceHistory()
+
+    alert(location.href)
 
 
 
@@ -212,9 +213,9 @@ var params = new URLSearchParams();
 params.append('id', this.$route.params.id);       //你要传给后台的参数值 key/value
 params.append('price', this.offerPirce);
 
-var token = this.$route.query.token || window.$cookies.get('token') 
-      
-     this.$http.post('/api/setGoodOffer?3rd_session='+token,params).then((res)=>{
+
+this.$http.post('/api/setGoodOffer',params).then((res)=>{
+
 
             //重刷出价记录
             if(res.data.errno == 1000){
@@ -239,7 +240,6 @@ var token = this.$route.query.token || window.$cookies.get('token')
 
             else{
              this.$vux.toast.text(res.data.message, 'top')
-
 
             }
             
