@@ -57,13 +57,6 @@ Vue.component('group', Group)
 Vue.component('x-input', XInput)
 Vue.component('popup', Popup)
 Vue.component('load-more', LoadMore)
-//title
-Vue.directive('title', {
-  inserted: function(el, binding) {
-    document.title = el.dataset.title
-  }
-})
-
 
 //检测登录
 router.beforeEach((to, from, next) => {
