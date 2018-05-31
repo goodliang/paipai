@@ -10,41 +10,21 @@ import { sync } from 'vuex-router-sync'
 sync(store, router)
 
 Vue.component('footer-bar', footerBar)
-// AjaxPlugin 插件依赖于 axios，组件内使用this.$http 调用
+
 
 // 微信JSDK
 import { WechatPlugin } from 'vux'
 Vue.use(WechatPlugin)
 
-// cookie
-Vue.use(require('vue-cookies'))
+import { AjaxPlugin, TransferDom, Card, Toast, ToastPlugin, Countup, Clocker, Loading, XHeader, XButton, Actionsheet, Group, CellBox, Cell, XInput, Popup, LoadMore ,ButtonTab, ButtonTabItem } from 'vux'
 
-function getQueryString(name) {
-  var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-  var r = window.location.search.substr(1).match(reg);
-  if (r != null) return unescape(r[2]);
-  return null;
-}
-let token = getQueryString('token')
-
-import { ButtonTab, ButtonTabItem } from 'vux'
-
-Vue.component('button-tab', ButtonTab)
-Vue.component('button-tab-item', ButtonTabItem)
-
-import { AjaxPlugin, TransferDom, Card, Toast, ToastPlugin, Countup, Clocker, Loading, XHeader, XButton, Actionsheet, Group, CellBox, Cell, XInput, Popup, LoadMore } from 'vux'
-
-
+// AjaxPlugin 插件依赖于 axios，组件内使用this.$http 调用
 Vue.use(AjaxPlugin)
-
-//Vue.prototype.$http.defaults.headers.common['3rd_session'] = token;
 
 Vue.use(ToastPlugin)
 Vue.component('toast', Toast)
 Vue.component('card', Card)
-
 Vue.component('actionsheet', Actionsheet)
-
 Vue.directive('transfer-dom', TransferDom)
 Vue.component('countup', Countup)
 Vue.component('clocker', Clocker)
@@ -57,6 +37,8 @@ Vue.component('group', Group)
 Vue.component('x-input', XInput)
 Vue.component('popup', Popup)
 Vue.component('load-more', LoadMore)
+Vue.component('button-tab', ButtonTab)
+Vue.component('button-tab-item', ButtonTabItem)
 
 //检测登录
 router.beforeEach((to, from, next) => {
@@ -69,7 +51,6 @@ router.beforeEach((to, from, next) => {
     } else {
       // 将跳转的路由path作为参数，登录成功后跳转到该路由  
       wx.miniProgram.navigateTo({ url: '/pages/login/login?return_url=' + encodeURIComponent(to.fullPath) })
-
     }
   }
 })
