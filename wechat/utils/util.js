@@ -45,10 +45,37 @@ function getRdSession(callback, code) {
   })
 }
 
+function parsePath(url,token){
+  url = decodeURIComponent(url);
+  var hash = url.split("#")[1];
+  var passname = url.split("#")[0];
+
+  if (/(\?|&)token=/.test(url)) {
+    var pathArr = passname.split("?");
+    var path = pathArr[0];
+    var paramsArr = pathArr[1].split("&");
+    for (var i = 0; i < paramsArr.length; i++) {
+      if (paramsArr[i].split("=")[0] == "token") {
+        paramsArr[i] = "token=" + token;
+      }
+    }
+    params = paramsArr.join("&");
+    url = path + "?" + params
+  } else if (/\?/.test(url)) {
+    url = passname + "&token=" + token
+  } else {
+    url = passname + "?token=" + token;
+  }
+
+  return url + (hash ? "#" + hash : "")
+}
+
+
 
 module.exports = {
   httpHost: httpHost,
   serviceHOST: serviceHOST,
-  loginIn: loginIn
+  loginIn: loginIn,
+  parsePath: parsePath
 
 }

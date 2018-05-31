@@ -1,5 +1,4 @@
 var util = require('../../utils/util.js');
-var timer = '';
 Page({
   data: {
     order_number: '',        //订单号
@@ -93,7 +92,7 @@ Page({
     }
     return {
       title: '弘真艺拍',
-      path: 'pages/index/index',
+      path: 'pages/login/login',
       success: function (res) {
         // 转发成功
       },
