@@ -6,6 +6,7 @@ Page({
   },
   onLoad: function (options) {
     var _this = this;
+    console.log('index onLoad',options.return_url)
     if (options.return_url) {
       _this.data.url = decodeURIComponent(options.return_url)
     } else {

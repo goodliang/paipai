@@ -40,20 +40,23 @@ Vue.component('load-more', LoadMore)
 Vue.component('button-tab', ButtonTab)
 Vue.component('button-tab-item', ButtonTabItem)
 
-//检测登录
-router.beforeEach((to, from, next) => {
+if(window.__wxjs_environment){
+
+  router.beforeEach((to, from, next) => {
   if (store.state.token) {
-    next();
+    next()
   } else {
     if (to.query.token) {
       store.commit('addToken', to.query.token);
       next()
     } else {
-      // 将跳转的路由path作为参数，登录成功后跳转到该路由  
-      wx.miniProgram.navigateTo({ url: '/pages/login/login?return_url=' + encodeURIComponent(to.fullPath) })
+      wx.miniProgram.navigateTo({ url: '/pages/login/login?return_url=' + decodeURIComponent(to.fullPath) })
     }
   }
 })
+
+}
+
 Vue.prototype.$http.interceptors.request.use(
   config => {
     if (store.state.token) { // 判断是否存在token，如果存在的话，则每个http header都加上token。废弃cookie
