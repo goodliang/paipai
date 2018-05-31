@@ -49,6 +49,8 @@ Page({
           'paySign': _res.data.paySign,
           'success': function (res) {
             //支付成功
+            _this.data.tips = "支付成功"
+            console.log(_this.data.return_url)
             _this.setData({
               tips: "支付成功"
             })

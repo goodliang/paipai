@@ -1,7 +1,7 @@
 <template>
   <div class="main-body">
     <div class="header" style="position: fixed;background: #fff;">
-      <x-header :left-options="{backText: ''}">收货地址</x-header>
+      <x-header :left-options="{backText: ''}">收货地址<a @click="postAddress" slot="right" class="text-red">保存</a></x-header>
     </div>
     <div class="container">
       <group>
@@ -10,9 +10,9 @@
         <x-address title="收货地址" v-model="addressValue" :raw-value=false :list="addressData" value-text-align="right" label-align="justify" placeholder="请选择城市" disabled=true></x-address>
         <x-input type="tel" placeholder="详细地址（如街道门牌号）" v-model="address" :required="true"></x-input>
       </group>
-      <div class="p-md">
+     <!--  <div class="p-md">
         <x-button type="warn" @click.native="postAddress">确定</x-button>
-      </div>
+      </div> -->
       <toast v-model="toastValue" type="text" :time="800" is-show-mask :text="msg" @on-hide="addressList"></toast>
     </div>
     <footer-bar/>
@@ -48,13 +48,16 @@ export default {
         .then((res) => {
           this.toastValue = true;
           this.msg = res.data.message
+          if(res.data.errno == 1000){
+
+          }
         })
         .catch((err) => {
           console.log(err)
         })
     },
     addressList(){
-      console.log('444')
+      // this.$router.go(-1)
     }
   },
   computed: {},

@@ -56,7 +56,7 @@ var token = this.$route.query.token || window.$cookies.get('token')
              //跳转到小程序支付
              //.....
              //
-             wx.miniProgram.navigateTo({url: '/pages/pay/pay?shopid='+this.good_id+'order_number='+order_number+'&return_url='+encodeURIComponent(location.protocol +'//'+location.host +'/detail/146')})
+             wx.miniProgram.navigateTo({url: '/pages/pay/pay?order_number='+order_number+'&return_url='+decodeURIComponent(location.protocol +'//'+location.host +'/detail/'+this.good_id+'?order_number='+order_number)})
 
           }
 

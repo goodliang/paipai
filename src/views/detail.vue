@@ -93,9 +93,9 @@
 
     <toast v-model="novali" type="warn" text="请填写出价金额"></toast>
 
-     <actionsheet @on-click-menu="menuClick" v-model="ispromise" :menus="menus1"  show-cancel>
+     <!-- <actionsheet @on-click-menu="menuClick" v-model="ispromise" :menus="menus1"  show-cancel>
       <p slot="header" > 保证金{{security_deposit}}元<br/>将扣除并赔付给卖家保证金将扣除并赔付给卖家</p>
-    </actionsheet>
+    </actionsheet> -->
 
 
 
@@ -152,11 +152,44 @@ export default {
   created() {},
   mounted() {
 
+        alert(location.href)
+
+
     this.priceHistory()
+
+
+
+
+   if(this.$route.query.order_number){
+
+    this.$vux.toast.show({
+               text: '保证金支付成功，正在出价...'
+              })
+
+      this.updateOrder()
+   }
 
 
   },
   methods: {
+   updateOrder(){
+      var token = window.$cookies.get('token')  || ''
+var params = new URLSearchParams();
+params.append('order_number', this.$route.query.order_number);     
+params.append('status', 1);
+
+      this.$http.post('/pay/updateOrder?3rd_session=AGLrj9NRAms0bKI3c_qXTtWKJatDfqld',params).then((res)=>{
+        if(res.data.errno == 1000){
+          this.$vux.toast.show({
+               text: '出价成功！'
+              })
+          this.priceHistory()
+        }else{
+             this.$vux.toast.text(res.data.message, 'top')
+        }
+
+      })
+    },
 
     menuClick(key){
       if('menu1' == key){
