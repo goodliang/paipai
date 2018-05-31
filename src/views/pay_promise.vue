@@ -46,9 +46,8 @@ export default {
 var params = new URLSearchParams();
 params.append('type', 1);       //你要传给后台的参数值 key/value
 params.append('good_id', this.good_id);
-var token = this.$route.query.token || window.$cookies.get('token') 
 
-        this.$http.post('/pay/createOrder?3rd_session='+token,params).then((res)=>{
+        this.$http.post('/pay/createOrder',params).then((res)=>{
 
           if(res.data.errno ==1000){
 
@@ -56,7 +55,7 @@ var token = this.$route.query.token || window.$cookies.get('token')
              //跳转到小程序支付
              //.....
              //
-             wx.miniProgram.navigateTo({url: '/pages/pay/pay?order_number='+order_number+'&return_url='+decodeURIComponent(location.protocol +'//'+location.host +'/detail/'+this.good_id+'?order_number='+order_number)})
+             wx.miniProgram.navigateTo({url: '/pages/pay/pay?order_number='+order_number+'&return_url='+encodeURIComponent(location.protocol +'//'+location.host +'/detail/'+this.good_id+'?order_number='+order_number)})
 
           }
 

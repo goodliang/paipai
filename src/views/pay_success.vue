@@ -37,7 +37,7 @@ var params = new URLSearchParams();
 params.append('order_number', this.$route.params.id);       //你要传给后台的参数值 key/
 params.append('status', 1);
 
-      this.$http.post('/pay/updateOrder?3rd_session=AGLrj9NRAms0bKI3c_qXTtWKJatDfqld',params).then((res)=>{
+      this.$http.post('/pay/updateOrder',params).then((res)=>{
         console.log(res)
         alert(res.data.errno)
         alert(res.data.message)

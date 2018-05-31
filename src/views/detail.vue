@@ -7,7 +7,8 @@
         </router-link>
         <img :src="detail.pic_url" width="100%">
         <div class="countDown">
-          <span class="countDownTit" v-if="detail.pai_status === 0">距结束：
+          <span class="countDownTit demo-icon demo-icon-big" v-if="detail.pai_status === 0"><i class="iconfont">&#xe648;</i>
+距离结束：
               <clocker :time="detail.end_time_fmt" format='%D 天 %H 时 %M 分 %S 秒 '></clocker>
             </span>
           <span class="countDownTit" v-if="detail.pai_status === 1">距开始：
@@ -76,6 +77,16 @@
             </li>
           </ul>
 <a href="javascript:" v-if="moreBtn" @click="getMore" class="weui-cell weui-cell_access weui-cell_link"><div class="weui-cell__bd" align="center">查看更多</div></a>        </div>
+
+
+<div>
+  <h3>拍卖说明</h3>
+  <ul>
+ <li>   限时拍卖 谁出价高就归谁</li>
+ <li> 担保交易 为您的出价保"价"护航</li>
+ <li> 珠宝鉴定 拍卖无忧</li>
+  </ul>
+</div>
 
 
   <!--   <div v-transfer-dom>
@@ -152,40 +163,42 @@ export default {
   created() {},
   mounted() {
 
-        alert(location.href)
 
 
     this.priceHistory()
+
+    console.log(location.href)
 
 
 
 
    if(this.$route.query.order_number){
-
     this.$vux.toast.show({
                text: '保证金支付成功，正在出价...'
               })
 
-      this.updateOrder()
+    this.updateOrder()
+
+    
    }
 
 
   },
   methods: {
    updateOrder(){
-      var token = window.$cookies.get('token')  || ''
+    console.log('updateOrder')
 var params = new URLSearchParams();
 params.append('order_number', this.$route.query.order_number);     
 params.append('status', 1);
 
-      this.$http.post('/pay/updateOrder?3rd_session=AGLrj9NRAms0bKI3c_qXTtWKJatDfqld',params).then((res)=>{
+      this.$http.post('/pay/updateOrder',params).then((res)=>{
         if(res.data.errno == 1000){
           this.$vux.toast.show({
                text: '出价成功！'
               })
           this.priceHistory()
         }else{
-             this.$vux.toast.text(res.data.message, 'top')
+           this.$vux.toast.text(res.data.message, 'top')
         }
 
       })
@@ -212,9 +225,9 @@ var params = new URLSearchParams();
 params.append('id', this.$route.params.id);       //你要传给后台的参数值 key/value
 params.append('price', this.offerPirce);
 
-var token = this.$route.query.token || window.$cookies.get('token') 
-      
-     this.$http.post('/api/setGoodOffer?3rd_session='+token,params).then((res)=>{
+
+this.$http.post('/api/setGoodOffer',params).then((res)=>{
+
 
             //重刷出价记录
             if(res.data.errno == 1000){
@@ -231,7 +244,7 @@ var token = this.$route.query.token || window.$cookies.get('token')
               this.showPrice = false;
               wx.miniProgram.navigateTo({url: '/pages/index/index?return_url='+encodeURIComponent(location.href)})
               //需要交保证金
-            }else if(res.data.errno = 3005){
+            }else if(res.data.errno == 3005){
 
               this.$router.push('/pay_promise/'+res.data.data.security_deposit+'/'+this.$route.params.id)
 
@@ -239,7 +252,6 @@ var token = this.$route.query.token || window.$cookies.get('token')
 
             else{
              this.$vux.toast.text(res.data.message, 'top')
-
 
             }
             

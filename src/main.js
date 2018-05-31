@@ -16,7 +16,7 @@ Vue.component('footer-bar', footerBar)
 import { WechatPlugin } from 'vux'
 Vue.use(WechatPlugin)
 
-import { AjaxPlugin, TransferDom, Card, Toast, ToastPlugin, Countup, Clocker, Loading, XHeader, XButton, Actionsheet, Group, CellBox, Cell, XInput, Popup, LoadMore ,ButtonTab, ButtonTabItem } from 'vux'
+import { AjaxPlugin, TransferDom, Card, Toast, ToastPlugin, Countup, Clocker, Loading, XHeader, XButton, Actionsheet, Group, CellBox, Cell, XInput, Popup, LoadMore, ButtonTab, ButtonTabItem } from 'vux'
 
 // AjaxPlugin 插件依赖于 axios，组件内使用this.$http 调用
 Vue.use(AjaxPlugin)
@@ -40,20 +40,22 @@ Vue.component('load-more', LoadMore)
 Vue.component('button-tab', ButtonTab)
 Vue.component('button-tab-item', ButtonTabItem)
 
-//检测登录
-router.beforeEach((to, from, next) => {
-  if (store.state.token) {
-    next();
-  } else {
-    if (to.query.token) {
-      store.commit('addToken', to.query.token);
+
+if (window.__wxjs_environment) {
+  router.beforeEach((to, from, next) => {
+    if (store.state.token) {
       next()
     } else {
-      // 将跳转的路由path作为参数，登录成功后跳转到该路由  
-      wx.miniProgram.navigateTo({ url: '/pages/login/login?return_url=' + encodeURIComponent(to.fullPath) })
+      if (to.query.token) {
+        store.commit('addToken', to.query.token);
+        next()
+      } else {
+        wx.miniProgram.navigateTo({ url: '/pages/login/login?return_url=' + decodeURIComponent(to.fullPath) })
+      }
     }
-  }
-})
+  })
+}
+
 Vue.prototype.$http.interceptors.request.use(
   config => {
     if (store.state.token) { // 判断是否存在token，如果存在的话，则每个http header都加上token。废弃cookie

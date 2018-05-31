@@ -8,6 +8,7 @@ Page({
     error_url:""
   },
   onLoad: function (option) {
+    console.log(option)
     var _this = this;
     _this.data.return_url = option.return_url;//支付成功回调路径
     _this.data.error_url = option.error_url;//支付失败返回路径

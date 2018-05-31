@@ -7,6 +7,12 @@ Page({
   },
   onLoad: function (options) {
     var _this = this;
+    console.log('index onLoad',options.return_url)
+    if (options.return_url) {
+      _this.data.url = decodeURIComponent(options.return_url)
+    } else {
+      _this.data.url = util.httpHost() + "/index";
+    }
     if (!_this.data.canIUse) { //低版本兼容处理
       wx.showModal({
         content: '您的微信客户端版本过低，请升级到最新版本',

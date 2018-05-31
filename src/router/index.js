@@ -72,27 +72,42 @@ export default new Router({
     {
       path: '/userCenter',
       name: 'userCenter',
-      component: userCenter
+      component: userCenter,
+      meta: {
+        requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+      }
     },
     {
       path: '/myOrder',
       name: 'myOrder',
-      component: myOrder
+      component: myOrder,
+      meta: {
+        requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+      }
     },
     {
       path: '/waitPay',
       name: 'waitPay',
-      component: waitPay
+      component: waitPay,
+      meta: {
+        requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+      }
     },
     {
       path: '/address',
       name: 'address',
-      component: address
+      component: address,
+      meta: {
+        requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+      }
     },
     {
       path: '/addressList',
       name: 'addressList',
-      component: addressList
+      component: addressList,
+      meta: {
+        requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+      }
     },
     {
       path: '/vip',
@@ -114,7 +129,7 @@ export default new Router({
       name: 'paySuccess',
       component: paySuccess
     },
-     {
+    {
       path: '*',
       name: 'noPage',
       component: noPage
