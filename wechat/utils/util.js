@@ -8,11 +8,13 @@ function httpHost(){
 }
 
 //login in
-function loginIn(callback) {
+function loginIn(callback,userInfo) {
   wx.login({//登录
     success: function (res) {
       if (res.code) {//发起网络请求
-        getRdSession(callback, res.code);
+        var data = userInfo ? userInfo : {};
+        data.code = res.code;
+        getRdSession(callback, data);
       } else {
         console.log('获取用户登录态失败！' + res.errMsg)
       }
@@ -21,13 +23,12 @@ function loginIn(callback) {
 }
 
 //code 换取_sid 3rd_session
-function getRdSession(callback, code) {
+function getRdSession(callback,data) {
+  console.log(data)
   wx.request({
     url: serviceHOST() + '/passport/wxLogin',
     method: "POST",
-    data: {
-      "code": code
-    },
+    data: data,
     header: {
       'content-type': 'application/x-www-form-urlencoded'
     },
@@ -77,5 +78,4 @@ module.exports = {
   serviceHOST: serviceHOST,
   loginIn: loginIn,
   parsePath: parsePath
-
 }

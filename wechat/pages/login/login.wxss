@@ -1,1 +1,25 @@
 /**index.wxss**/
+.containter{
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.tips{
+  text-align: center;
+  padding-bottom: 200rpx;
+}
+.wx-pay-icon{
+  height: 200rpx;
+  width: 200rpx;
+  max-height: 200px;
+  max-width: 200px;
+  padding-bottom: 120px;
+}
+.txt{
+  line-height: 100rpx;
+}

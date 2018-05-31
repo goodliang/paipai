@@ -1,2 +1,8 @@
 <!--index.wxml-->
-<web-view src="{{url}}"></web-view>
+<view class="containter">
+  <view class='tips'>
+    <image class='wx-pay-icon' mode="aspectFit" src="../../img/hz-icon.jpg"></image>
+    <view class='txt'>{{tips}}</view>
+    <button open-type="getUserInfo" bindgetuserinfo="getUserInfo">{{loadingtip}}</button>
+  </view>
+</view>

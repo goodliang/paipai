@@ -29,20 +29,23 @@ Page({
       },
       fail: function (res) {
         // session_key 已经失效，需要重新执行登录流程
-        wx.showLoading()
-        util.loginIn(function (token) {
-          if (options.return_url) {
-            _this.data.url = util.parsePath(options.return_url, token)
-          } else {
-            _this.data.url = util.httpHost() + "?token=" + token;
-          }
-          wx.hideLoading()
+        wx.redirectTo({
+          url: '../login/login?return_url=' + options.return_url
+        })
+        // wx.showLoading()
+        // util.loginIn(function (token) {
+        //   if (options.return_url) {
+        //     _this.data.url = util.parsePath(options.return_url, token)
+        //   } else {
+        //     _this.data.url = util.httpHost() + "?token=" + token;
+        //   }
+        //   wx.hideLoading()
 
-          //加载web-view
-          _this.setData({
-            url: _this.data.url
-          })
-        });
+        //   //加载web-view
+        //   _this.setData({
+        //     url: _this.data.url
+        //   })
+        // });
       }
     })
   },
