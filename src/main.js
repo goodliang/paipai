@@ -37,7 +37,7 @@ import { AjaxPlugin, TransferDom, Card, Toast, ToastPlugin, Countup, Clocker, Lo
 
 Vue.use(AjaxPlugin)
 
-Vue.prototype.$http.defaults.headers.common['3rd_session'] = token;
+//Vue.prototype.$http.defaults.headers.common['3rd_session'] = token;
 
 Vue.use(ToastPlugin)
 Vue.component('toast', Toast)
@@ -67,11 +67,6 @@ Vue.directive('title', {
 
 //检测登录
 router.beforeEach((to, from, next) => {
-  // if (store.state.token) {
-  //   window.$cookies.set('token', token)
-  //   window.$cookies.set('3rd_session', token)
-  //   store.commit('addToken', to.query.token)
-  // }
   if (store.state.token) {
     next();
   } else {
@@ -80,10 +75,8 @@ router.beforeEach((to, from, next) => {
       next()
     } else {
       // 将跳转的路由path作为参数，登录成功后跳转到该路由  
-      // next({
-      //   path: '/login',//等书星定登录页
-      //   query: { redirect: to.fullPath } 
-      // })
+      wx.miniProgram.navigateTo({ url: '/pages/login/login?return_url=' + encodeURIComponent(to.fullPath) })
+
     }
   }
 })
@@ -97,15 +90,11 @@ Vue.prototype.$http.interceptors.request.use(
   err => {
     return Promise.reject(err);
   });
-
 Vue.prototype.$http.interceptors.response.use(
   response => {
-    if (response.data.errno == 4002) {
-      store.commit('addToken', 'JB2aQRC0isx1UBRVRpmVM4k8eKz6s7A9');
-      // router.replace({
-      //   path: 'login',//等书星定登录页
-      //   query: { redirect: router.currentRoute.fullPath }
-      // })
+    if (response.data.errno == 4002) { //未登录为4002,4002时清除token，跳转到登录页
+      store.commit('addToken', '');
+      wx.miniProgram.navigateTo({ url: '/pages/login/login?return_url=' + encodeURIComponent(router.currentRoute.fullPath) })
     }
     return response
   },
