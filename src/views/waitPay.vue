@@ -30,7 +30,7 @@
         <group title="收货地址">
           <x-input title="姓名" type="text" placeholder="必填" v-model="address.name"></x-input>
           <x-input title="手机号码" type="tel" placeholder="必填" v-model="address.telephone"></x-input>
-         <!--  <x-address title="收货地址" v-model="addressValue" raw-value :list="addressData" value-text-align="right" label-align="justify"></x-address> -->
+          <!--  <x-address title="收货地址" v-model="addressValue" raw-value :list="addressData" value-text-align="right" label-align="justify"></x-address> -->
           <x-input type="tel" placeholder="详细地址（如街道门牌号）" v-model="address.address"></x-input>
         </group>
         <group>
@@ -59,7 +59,7 @@ export default {
       page: 0,
       fetching: true,
       noMore: false,
-      address:'',
+      address: '',
     }
   },
   created() {
@@ -67,7 +67,7 @@ export default {
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
-  },  
+  },
   methods: {
     createdDate() {
       this.page = 0;
@@ -76,7 +76,7 @@ export default {
       document.documentElement.scrollTop = 0;
       document.body.scrollTop = 0;
       this.isLoading = true
-      this.$http.get('/api/waitingPay?page=' + this.page+'&3rd_session='+this.$store.state.token)
+      this.$http.get('/api/waitingPay?page=' + this.page)
         .then((res) => {
           this.goods = res.data.data
           this.isLoading = false
@@ -114,7 +114,7 @@ export default {
         }
       }
     },
-    addressInfo(data){
+    addressInfo(data) {
       this.show = true;
       this.address = data
     }

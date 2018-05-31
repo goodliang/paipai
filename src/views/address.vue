@@ -13,7 +13,7 @@
      <!--  <div class="p-md">
         <x-button type="warn" @click.native="postAddress">确定</x-button>
       </div> -->
-      <toast v-model="toastValue" type="text" :time="800" is-show-mask :text="msg" @on-hide="addressList"></toast>
+      <toast v-model="toastValue" type="text" :time="800" is-show-mask :text="msg"></toast>
     </div>
     <footer-bar/>
   </div>
@@ -37,6 +37,7 @@ export default {
   mounted() {},
   methods: {
     postAddress() {
+      let that = this
       const params = new URLSearchParams();
       params.append('name', this.name);
       params.append('telephone', this.telephone);
@@ -44,20 +45,19 @@ export default {
       params.append('province_id', this.addressValue[0]);
       params.append('city_id', this.addressValue[1]);
       params.append('area_id', this.addressValue[2]);
-      this.$http.post('/api/address?3rd_session=JB2aQRC0isx1UBRVRpmVM4k8eKz6s7A9', params)
+      this.$http.post('/api/address', params)
         .then((res) => {
           this.toastValue = true;
           this.msg = res.data.message
           if(res.data.errno == 1000){
-
+            setTimeout(function(){
+              that.$router.go(-1)
+            },1000);
           }
         })
         .catch((err) => {
           console.log(err)
         })
-    },
-    addressList(){
-      // this.$router.go(-1)
     }
   },
   computed: {},

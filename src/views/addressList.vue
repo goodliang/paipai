@@ -1,15 +1,17 @@
 <template>
   <div class="main-body">
     <div class="header" style="position: fixed;background: #fff;">
-      <x-header :left-options="{backText: ''}">收货地址<router-link to="/address" slot="right" class="text-red">新增地址</router-link></x-header>
+      <x-header :left-options="{backText: ''}">收货地址
+        <router-link to="/address" slot="right" class="text-red">新增地址</router-link>
+      </x-header>
     </div>
     <div class="container">
-      <group >
+      <group>
         <cell :title="item.name" :inline-desc='item.province_name +item.city_name
 +item.area_name+item.address' :value="item.telephone
-"  v-for='(item,index) in address' :key="index"></cell>
+" v-for='(item,index) in address' :key="index"></cell>
       </group>
-<!--       <div style="padding:20px 15px;"><x-button link="">新增地址</x-button></div>  -->
+      <!--       <div style="padding:20px 15px;"><x-button link="">新增地址</x-button></div>  -->
     </div>
     <footer-bar/>
   </div>
@@ -18,16 +20,15 @@
 export default {
   data() {
     return {
-      address:[],
+      address: [],
     }
   },
   beforeCreate() {
     this.$http.get('/api/address')
       .then((res) => {
-        
+
         if (res.data.data.length) {
           this.address = res.data.data
-          console.log(this.address)
         }
       })
       .catch((err) => {
@@ -36,11 +37,9 @@ export default {
   },
   created() {},
   mounted() {},
-  methods: {
-  },
+  methods: {},
   computed: {},
-  components: {
-  }
+  components: {}
 }
 
 </script>
