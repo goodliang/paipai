@@ -21,7 +21,7 @@ Page({
       if (options.return_url) {
         _this.data.url = util.parsePath(options.return_url,token)
       } else {
-        _this.data.url = util.httpHost() + "/index?token=" + token;
+        _this.data.url = util.httpHost() + "?token=" + token;
       }
       wx.hideLoading()
 
@@ -37,7 +37,7 @@ Page({
     
     return {
       title: this.data.title,
-      path: '/pages/login/login?return_url=' + webViewUrl,
+      path: '/pages/index/index?return_url=' + webViewUrl,
       success: function (res) {
         // 转发成功
       },
