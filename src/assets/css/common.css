@@ -344,7 +344,7 @@ body {
   display: inline-block;
   color: #999;
   font-size: 24px;
-  vertical-align: top;
+  vertical-align: middle;
 }
 
 .group-area .weui-cells {
