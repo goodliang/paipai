@@ -1,5 +1,7 @@
 <template>
   <div class="container">
+          <x-header :left-options="{backText: ''}">艺讯</x-header>
+
     <div class="p-sm">
     <card>
       <img slot="header" src="http://placeholder.qiniudn.com/640x300" style="width:100%;display:block;">
@@ -23,6 +25,8 @@
       </div>
     </card>
     </div>
+        <footer-bar/>
+
   </div>
 </template>
 <script>

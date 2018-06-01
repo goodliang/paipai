@@ -4,18 +4,18 @@
       <i class="iconfont f20 icon-paimaijilu"></i>
       <p>拍卖</p>
     </router-link>
-    <router-link to="/price" class="item">
+    <!-- <router-link to="/price" class="item">
       <i class="iconfont f20 icon-yikoujia"></i>
       <p>一口价</p>
-    </router-link>
+    </router-link> -->
     <router-link to="/info" class="item">
       <i class="iconfont f20 icon-zixun"></i>
       <p>艺讯</p>
     </router-link>
-    <router-link to="/found" class="item">
+  <!--   <router-link to="/found" class="item">
       <i class="iconfont f20 icon-faxian-fuben"></i>
       <p>发现</p>
-    </router-link>
+    </router-link> -->
     <router-link to="/userCenter" class="item">
       <i class="iconfont f20 icon-wode"></i>
       <p>我的</p>
@@ -40,6 +40,7 @@ export default {
   bottom: 0;
   width: 100%;
   background-color: #F7F7FA;
+  padding-bottom: 4px;
   &:before {
     content: " ";
     position: absolute;
