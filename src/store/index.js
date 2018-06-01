@@ -7,7 +7,7 @@ const state = {
   isLoading: false,
   direction: 'forward',
   defaultAddress:{},
-  token:'PRkFTrOvW0Zpq9dAHPSr14iJglD-2GiL'
+  token:''
 }
 export default new Vuex.Store({
   state,

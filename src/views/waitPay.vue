@@ -151,16 +151,17 @@ export default {
       this.pay_price = data.pay_price
     },
     pay() {
+      let that = this
       const params = new URLSearchParams();
-      params.append('order_number', this.order_number);
-      params.append('id', this.addressData.id);
+      console.log(parseInt(this.order_number))
+      params.append('order_number', parseInt(this.order_number));
+      params.append('address_id', this.addressData.id);
       this.$http.post('/api/address', params)
         .then(function(res) {
-
+          if (res.data.errno == 1000) {
+            wx.miniProgram.navigateTo({ url: '/pages/pay/pay?order_number=' + that.order_number + '&return_url=' + encodeURIComponent(location.protocol + '//' + location.host + '/promise_success/' + that.order_number) })
+          }
         })
-        .catch(function(error) {
-          console.log(error);
-        });
     }
   },
   computed: {
@@ -183,4 +184,6 @@ export default {
 
 </script>
 <style lang="less" rel="stylesheet/less" scoped>
+
+
 </style>
