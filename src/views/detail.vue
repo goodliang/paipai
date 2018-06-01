@@ -69,8 +69,8 @@
                  <p class="price">¥{{user.price}}</p>
               </div>
                <div class="time">
-                <p v-if="0 === index"> <img width="30" src="/static/img/first.jpg"></p>
-                <p v-else><img width="30" src="/static/img/out.jpg"></p>
+                <p v-if="0 === index"> <img width="40" src="/static/img/first.png"></p>
+                <p v-else><img width="30" src="/static/img/out.png"></p>
                  <p style="color: #666">{{user.offer_time_fmt}}</p>
               </div>
 
@@ -79,9 +79,9 @@
 <a href="javascript:" v-if="moreBtn" @click="getMore" class="weui-cell weui-cell_access weui-cell_link"><div class="weui-cell__bd" align="center">查看更多</div></a>        </div>
 
 
-<div>
-  <h3>拍卖说明</h3>
-  <ul>
+<div class="weui-panel">
+  <h3 class="weui-panel__hd">拍卖说明</h3>
+  <ul class="weui-panel__bd">
  <li>   限时拍卖 谁出价高就归谁</li>
  <li> 担保交易 为您的出价保"价"护航</li>
  <li> 珠宝鉴定 拍卖无忧</li>
@@ -320,6 +320,30 @@ this.$http.post('/api/setGoodOffer',params).then((res)=>{
     color:#d4282d;
   }
 
+}
+
+.weui-panel {
+    background-color: #FFFFFF;
+    margin-top: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.weui-panel__hd {
+    padding: 14px 15px 10px;
+    color: #999999;
+    font-size: 13px;
+    position: relative;
+    border-bottom: 1px solid #ddd
+}
+.weui-panel__bd{
+  padding: 15px;
+  line-height: 1.8;
+  font-size: 13px;
+  color: #666;
+  ul,li{
+    list-style: none;
+  }
 }
 .bottomLayer{
   position: fixed;
