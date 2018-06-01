@@ -4,7 +4,7 @@
     
     <div class="p-sm" v-for="(item,index) in list" :key="item.id">
     <card>
-      <a :href="'/info_detail/'+item.id">
+      <a :href="'/infoView/'+item.id">
       <img slot="header" :src="item.pic_url" style="width:100%;display:block;">
       <div slot="content" class="p-sm">
         <p class="text-info">{{item.title}} <small>{{item.create_time_fmt}}</small></p>
@@ -22,16 +22,17 @@ import { Card } from 'vux'
 export default {
   data() {
     return {
-      list:[]
+      list:[],
+      page:0
 
     }
   },
   beforeCreate() {},
   created() {},
   mounted() {
-     this.$http.get('/api/api/getNewsList' + '&page=' + this.page)
+     this.$http.get('/api/api/getNewsList' + '?page=' + this.page)
         .then((res) => {
-          //
+          this.list = res.data.data
         })
         .catch((err) => {
           console.log(err)
