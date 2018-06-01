@@ -60,7 +60,6 @@ export default {
     -webkit-flex: 1;
     flex: 1;
     height: 54px;
-    padding-top: 6px;
     box-sizing: border-box;
     color: #999999;
     text-align: center;

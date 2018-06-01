@@ -6,8 +6,8 @@ Vue.use(Vuex)
 const state = {
   isLoading: false,
   direction: 'forward',
-  user:{},
-  token:'sL6RTOIYaCxfZR8HtM7iAXu_kJ_megLR'
+  defaultAddress:{},
+  token:'PRkFTrOvW0Zpq9dAHPSr14iJglD-2GiL'
 }
 export default new Vuex.Store({
   state,
@@ -17,6 +17,9 @@ export default new Vuex.Store({
     },
     addToken(state, payload){
     	state.token = payload
+    },
+    setAddress(state, payload){
+      state.defaultAddress = payload
     }
   },
   action: {}

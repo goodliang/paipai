@@ -5,7 +5,7 @@
     </div>
     <div class="container" style="padding-bottom: 0">
       <div class="" v-if="hasContent">
-        <div class="goods-item" @click="addressInfo(item.address)" v-for='(item,index) in goods' :key='index'>
+        <div class="goods-item" @click="addressInfo(item)" v-for='(item,index) in goods' :key='index'>
           <div class="goods-item-head"><img :src="item.pic_url" width="100%">
           </div>
           <div class="goods-item-footer">
@@ -31,21 +31,22 @@
       </div>
       <div v-transfer-dom>
         <popup v-model="show">
-          <group title="收货地址">
-            <x-input title="姓名" type="text" placeholder="必填" v-model="address.name"></x-input>
-            <x-input title="手机号码" type="tel" placeholder="必填" v-model="address.telephone"></x-input>
-            <!--  <x-address title="收货地址" v-model="addressValue" raw-value :list="addressData" value-text-align="right" label-align="justify"></x-address> -->
-            <x-input type="tel" placeholder="详细地址（如街道门牌号）" v-model="address.address"></x-input>
+          <group title="收货地址" v-if="addAddress">
+            <cell :title="addressData.name" :inline-desc='addressData.province_name +addressData.city_name
+                +addressData.area_name+addressData.address' :value="addressData.telephone" :link="'/addressList?tabAddress='+order_number"></cell>
+          </group>
+          <group title="暂无收货地址" v-else>
+            <cell title="添加收货地址" link='/address'></cell>
           </group>
           <group>
-            <cell title="成交价：" value="¥1000"></cell>
-            <cell title="服务费：" value="¥50"></cell>
+            <cell title="成交价：" :value="'¥'+pay_price"></cell>
+            <cell title="服务费：" :value="'¥'+fee"></cell>
             <cell title="合计：">
-              <div class="text-red">¥1050</div>
+              <div class="text-red" v-text="sumPrice"></div>
             </cell>
           </group>
           <div class="p-sm">
-            <x-button type="primary">立即支付</x-button>
+            <x-button type="primary" @click.native="pay" :disabled="payBtn">立即支付</x-button>
           </div>
         </popup>
       </div>
@@ -65,16 +66,38 @@ export default {
       page: 0,
       fetching: true,
       noMore: false,
-      address: '',
+      fee: 0,
+      pay_price: 0,
+      order_number: '',
+      addAddress: true,
+      payBtn: false
     }
   },
   created() {
+    this.getAddress()
     this.createdDate()
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
   },
   methods: {
+    getAddress() {
+      let that = this
+      if (Object.keys(that.$store.state.defaultAddress).length == 0) {
+        this.$http.get('/api/address')
+          .then(function(res) {
+            if (res.data.data.length) {
+              that.$store.commit('setAddress', res.data.data[0])
+            } else {
+              that.addAddress = false
+              that.payBtn = true
+            }
+          })
+          .catch(function(error) {
+            console.log(error);
+          });
+      }
+    },
     createdDate() {
       this.page = 0;
       this.fetching = true;
@@ -121,12 +144,32 @@ export default {
       }
     },
     addressInfo(data) {
-      this.show = true;
-      this.address = data
+      console.log(data.order_number)
+      this.show = true
+      this.order_number = data.order_number
+      this.fee = data.fee
+      this.pay_price = data.pay_price
+    },
+    pay() {
+      const params = new URLSearchParams();
+      params.append('order_number', this.order_number);
+      params.append('id', this.addressData.id);
+      this.$http.post('/api/address', params)
+        .then(function(res) {
+
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     }
   },
   computed: {
-
+    sumPrice() {
+      return this.fee + this.pay_price
+    },
+    addressData() {
+      return this.$store.state.defaultAddress
+    }
   },
   components: {
     Selector,
@@ -140,6 +183,4 @@ export default {
 
 </script>
 <style lang="less" rel="stylesheet/less" scoped>
-
-
 </style>

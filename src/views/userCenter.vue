@@ -1,9 +1,9 @@
 <template>
   <div class="main-body">
     <div class="container">
-      <blur blur-amount=40 :url="headPic">
+      <blur :blur-amount=40 :url="headPic">
         <div class="head-main">
-          <img src="headPic" class="user-head">
+          <img :src="headPic" class="user-head">
           <p class="user-name">{{nickname}}</p>
         </div>
       </blur>
@@ -41,9 +41,22 @@
 import { Blur } from 'vux'
 export default {
   data() {
-    return {}
+    return {
+      headPic: 'static/img/head_pic.jpg',
+      nickname:'弘真艺拍'
+    }
   },
-  beforeCreate() {},
+  beforeCreate() {
+     this.$http.get('/api/userinfo')
+      .then((res) => {
+        if (res.data.data) {
+          console.log(res.data.data)
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  },
 
   methods: {},
   computed: {
