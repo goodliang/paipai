@@ -1,19 +1,20 @@
 <template>
   <div class="container">
-          <x-header >艺讯</x-header>
-    
-    <div class="p-sm" v-for="(item,index) in list" :key="item.id">
+          <x-header >返回图标  分享图标</x-header>
+             <h1>{{title}}</h1>
+             <hr>
+             <div>
+               来源：{{source}}
+               日期：{{create_time_fmt}}
+             </div>
+    <div class="p-sm">
     <card>
-      <a :href="'/info_detail/'+item.id">
-      <img slot="header" :src="item.pic_url" style="width:100%;display:block;">
+     
       <div slot="content" class="p-sm">
-        <p class="text-info">{{item.title}} <small>{{item.create_time_fmt}}</small></p>
-        <p class="f12 text-default">{{item.content_fmt}}...</p>
+        {{content}}
       </div>
-      </a>
     </card>
     </div>
-        <footer-bar/>
 
   </div>
 </template>
@@ -22,16 +23,17 @@ import { Card } from 'vux'
 export default {
   data() {
     return {
-      list:[]
+      a:{},
+      page:0
 
     }
   },
   beforeCreate() {},
   created() {},
   mounted() {
-     this.$http.get('/api/api/getNewsList' + '&page=' + this.page)
+    this.$http.get('/api/api/getNewsInfo?id='this.$route.params.id)
         .then((res) => {
-          //
+          this.a = res.data.data
         })
         .catch((err) => {
           console.log(err)
