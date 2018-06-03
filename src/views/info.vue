@@ -1,11 +1,8 @@
 <template>
   <div class="main-body">
-    <div class="header" style="position: fixed;background: #fff;">
-      <x-header :left-options="{backText: ''}">艺讯</x-header>
-    </div>
     <div class="container">
       <div class="p-sm">
-        <router-link v-for="(item,index) in list" :key="index" :to="'/infoView/'+item.id">
+        <router-link v-for="(item,index) in list" :key="index" :to="'/infoView/'+item.id" class="infoCard">
           <card>
             <div slot="header" style="max-height: 200px;overflow: hidden;">
               <img :src="item.pic_url" style="width:100%;display:block;">
@@ -57,6 +54,8 @@ export default {
 
 </script>
 <style lang="less" rel="stylesheet/less" scoped>
-
-
+.infoCard{
+  display: block;
+  margin-bottom: 10px;
+}
 </style>

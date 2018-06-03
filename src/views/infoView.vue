@@ -4,7 +4,7 @@
       <x-header :left-options="{backText: ''}">艺讯</x-header>
     </div>
     <div class="container">
-      <div class="p-sm text-center">
+      <div class="p-sm text-center" style="margin-top: 10px;">
         <h3>{{title}}</h3>
         <p class="text-muted f12">来源：{{source}} / {{time}}</p>
       </div>
