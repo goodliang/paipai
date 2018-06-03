@@ -9,9 +9,10 @@ Page({
   },
   onLoad: function (options) {
     var _this = this;
-    _this.data.return_url = options.return_url;
+    _this.data.return_url = decodeURIComponent(options.return_url);
+
     if (_this.data.return_url == "undefined" || !_this.data.return_url) {
-      _this.data.return_url = util.httpHost()
+      _this.data.return_url = "https://pai.arthongzhen.com/index"
     }
     // 获取用户信息
     wx.getSetting({
@@ -79,6 +80,7 @@ function loginInTo(_this,userInfo){
       province: userInfo.province,
     }
   }
+
   util.loginIn(function () {
     wx.redirectTo({
       url: '../index/index?return_url=' + encodeURIComponent(_this.data.return_url)

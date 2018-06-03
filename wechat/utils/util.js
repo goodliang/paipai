@@ -4,7 +4,7 @@ function serviceHOST() {
 }
 function httpHost(){
   // return "http://localhost:8080/index"; //本地开发
-  return "https://pai.arthongzhen.com"
+  return "https://pai.arthongzhen.com/index"
 }
 
 //login in
@@ -47,7 +47,8 @@ function getRdSession(callback,data) {
 }
 
 function parsePath(url,token){
-  url = decodeURIComponent(url);
+  url = decodeURIComponent(url)
+  
   var hash = url.split("#")[1];
   var passname = url.split("#")[0];
 
@@ -55,6 +56,7 @@ function parsePath(url,token){
     var pathArr = passname.split("?");
     var path = pathArr[0];
     var paramsArr = pathArr[1].split("&");
+    var params = "";
     for (var i = 0; i < paramsArr.length; i++) {
       if (paramsArr[i].split("=")[0] == "token") {
         paramsArr[i] = "token=" + token;

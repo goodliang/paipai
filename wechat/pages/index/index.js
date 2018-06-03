@@ -7,14 +7,6 @@ Page({
   },
   onLoad: function (options) {
     var _this = this;
-    console.log('index onLoad',typeof(options.return_url))
-    if (options.return_url) {
-      console.log(1)
-      _this.data.url = decodeURIComponent(options.return_url)
-    } else {
-      console.log(2)
-      _this.data.url = util.httpHost();
-    }
     if (!_this.data.canIUse) { //低版本兼容处理
       wx.showModal({
         content: '您的微信客户端版本过低，请升级到最新版本',
@@ -22,43 +14,44 @@ Page({
         success: function (res) { }
       })
     }
+    wx.showLoading()
+    
+    if (options.return_url && options.return_url != "undefined") {
+      var return_url = decodeURIComponent(options.return_url);
+      if (/\/{2}/.test(return_url)){
+        var arr = return_url.split("//")[1].split("/");
+        arr.shift();
+        return_url = "/" + arr.join('/')
+      }
+      _this.data.url = util.parsePath(return_url, wx.getStorageSync('3rd_session'))
+    } else {
+      _this.data.url = "/index?token=" + wx.getStorageSync('3rd_session');
+    }
+    
     wx.checkSession({
       success: function (res) {
         //session_key 未过期，并且在本生命周期一直有效
-        if (options.return_url) {
-          _this.data.url = util.parsePath(options.return_url, wx.getStorageSync('3rd_session'))
-        } else {
-          _this.data.url = util.httpHost() + "?token=" + wx.getStorageSync('3rd_session');
-        }
         //加载web-view
         _this.setData({
-          url: _this.data.url
+          url: "https://pai.arthongzhen.com" + _this.data.url
         })
       },
       fail: function (res) {
         // session_key 已经失效，需要重新执行登录流程
-        wx.redirectTo({
-          url: '../login/login?return_url=' + options.return_url
-        })
-        // wx.showLoading()
-        // util.loginIn(function (token) {
-        //   if (options.return_url) {
-        //     _this.data.url = util.parsePath(options.return_url, token)
-        //   } else {
-        //     _this.data.url = util.httpHost() + "?token=" + token;
-        //   }
-        //   wx.hideLoading()
 
-        //   //加载web-view
-        //   _this.setData({
-        //     url: _this.data.url
-        //   })
-        // });
+        wx.redirectTo({
+          url: '../login/login?return_url=' + encodeURIComponent(_this.data.url)
+        })
+        
+      },
+      complete: function(){
+        wx.hideLoading()
       }
     })
   },
 
   onShareAppMessage: function (res) { //转发
+  console.log(res)
     var webViewUrl = encodeURIComponent(res.webViewUrl);
     
     return {
