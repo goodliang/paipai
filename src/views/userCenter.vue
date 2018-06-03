@@ -50,7 +50,8 @@ export default {
      this.$http.get('/api/userinfo')
       .then((res) => {
         if (res.data.data) {
-          console.log(res.data.data)
+          this.headPic = res.data.data.pic 
+          this.nickname = res.data.data.nick
         }
       })
       .catch((err) => {

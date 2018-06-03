@@ -41,7 +41,7 @@
     <div v-transfer-dom>
       <loading v-model="isLoading"></loading>
     </div>
-   <footer-bar/>
+    <footer-bar/>
   </div>
 </template>
 <script>
@@ -82,6 +82,8 @@ export default {
           this.isLoading = false
           if (this.goods.length) {
             this.hasContent = true
+          } else {
+            this.hasContent = false
           }
         })
         .catch((err) => {
@@ -98,8 +100,7 @@ export default {
           // 将开关关闭  
           this.fetching = false;
           this.page++
-            console.log(this.goods)
-          this.$http.get('/api/getGoodList?status=' + this.stateActive + '&page=' + this.page)
+            this.$http.get('/api/getGoodList?status=' + this.stateActive + '&page=' + this.page)
             .then(function(res) {
               if (res.data.data.length > 0) {
                 that.goods = that.goods.concat(res.data.data)
