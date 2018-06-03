@@ -43,6 +43,10 @@ Vue.component('button-tab-item', ButtonTabItem)
 
 if (window.__wxjs_environment) {
   router.beforeEach((to, from, next) => {
+    let title = '弘真艺拍'
+    title = to.meta && to.meta.title ? to.meta.title + ' - ' + title : title;
+    document.title = title;
+    
     if (store.state.token) {
       next()
     } else {
