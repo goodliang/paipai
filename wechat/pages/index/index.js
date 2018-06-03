@@ -7,11 +7,13 @@ Page({
   },
   onLoad: function (options) {
     var _this = this;
-    console.log('index onLoad',options.return_url)
+    console.log('index onLoad',typeof(options.return_url))
     if (options.return_url) {
+      console.log(1)
       _this.data.url = decodeURIComponent(options.return_url)
     } else {
-      _this.data.url = util.httpHost() + "/index";
+      console.log(2)
+      _this.data.url = util.httpHost();
     }
     if (!_this.data.canIUse) { //低版本兼容处理
       wx.showModal({

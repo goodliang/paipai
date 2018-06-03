@@ -1,10 +1,10 @@
 function serviceHOST() {
-  return "http://test.apa7.cc"  //测试
-  // return "https://pai.arthongzhen.com"
+  // return "http://test.apa7.cc"  //测试
+  return "https://pai.arthongzhen.com"
 }
 function httpHost(){
-  return "http://localhost:8080/index"; //本地开发
-  // return "https://pai.arthongzhen.com"
+  // return "http://localhost:8080/index"; //本地开发
+  return "https://pai.arthongzhen.com"
 }
 
 //login in
