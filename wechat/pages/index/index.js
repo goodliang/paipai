@@ -2,7 +2,7 @@ var util = require('../../utils/util.js');
 Page({
   data: {
     url: "",
-    title: "弘真艺拍1111",
+    title: "弘真艺拍111189898",
     canIUse: wx.canIUse('web-view'),
   },
   onLoad: function (options) {
