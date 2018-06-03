@@ -86,7 +86,12 @@
   justify-content: space-between;
   align-items: center;
 }
-
+.text-hide{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+}
 .text-red {
   color: #d4282d !important; 
 }

@@ -1,21 +1,17 @@
 <template>
-  <div class="container">
-          <x-header >返回图标  分享图标</x-header>
-             <h1>{{title}}</h1>
-             <hr>
-             <div>
-               来源：{{source}}
-               日期：{{create_time_fmt}}
-             </div>
-    <div class="p-sm">
-    <card>
-     
-      <div slot="content" class="p-sm">
-        {{content}}
-      </div>
-    </card>
+  <div class="main-body">
+    <div class="header" style="position: fixed;background: #fff;">
+      <x-header :left-options="{backText: ''}">艺讯</x-header>
     </div>
-
+    <div class="container">
+      <div class="p-sm text-center">
+        <h3>{{title}}</h3>
+        <p class="text-muted f12">来源：{{source}} / {{time}}</p>
+      </div>
+      <div class="infoMain" v-html="content">
+      </div>
+    </div>
+    <footer-bar/>
   </div>
 </template>
 <script>
@@ -23,23 +19,31 @@ import { Card } from 'vux'
 export default {
   data() {
     return {
-      a:{},
-      page:0
-
+      title: '',
+      content: '',
+      time: '',
+      source: ''
     }
   },
   beforeCreate() {},
-  created() {},
-  mounted() {
-    this.$http.get('/api/api/getNewsInfo?id='+this.$route.params.id)
+  created() {
+    this.creatInfo()
+  },
+  mounted() {},
+  methods: {
+    creatInfo() {
+      this.$http.get('/api/getNewsInfo?id=' + this.$route.params.id)
         .then((res) => {
-          this.a = res.data.data
+          this.title = res.data.data.title
+          this.content = res.data.data.content
+          this.time = res.data.data.create_time_fmt
+          this.source = res.data.data.source
         })
         .catch((err) => {
           console.log(err)
         })
+    }
   },
-  methods: {},
   computed: {},
   components: {
     Card
@@ -48,6 +52,11 @@ export default {
 
 </script>
 <style lang="less" rel="stylesheet/less" scoped>
-
+.infoMain {
+  padding: 10px;
+  line-height: 1.8;
+  color: #666;
+  font-size: 14px;
+}
 
 </style>

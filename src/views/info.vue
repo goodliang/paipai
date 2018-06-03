@@ -1,20 +1,25 @@
 <template>
-  <div class="container">
-          <x-header >艺讯</x-header>
-    
-    <div class="p-sm" v-for="(item,index) in list" :key="item.id">
-    <card>
-      <a :href="'/infoView/'+item.id">
-      <img slot="header" :src="item.pic_url" style="width:100%;display:block;">
-      <div slot="content" class="p-sm">
-        <p class="text-info">{{item.title}} <small>{{item.create_time_fmt}}</small></p>
-        <p class="f12 text-default">{{item.content_fmt}}...</p>
-      </div>
-      </a>
-    </card>
+  <div class="main-body">
+    <div class="header" style="position: fixed;background: #fff;">
+      <x-header :left-options="{backText: ''}">艺讯</x-header>
     </div>
-        <footer-bar/>
-
+    <div class="container">
+      <div class="p-sm">
+        <router-link v-for="(item,index) in list" :key="index" :to="'/infoView/'+item.id">
+          <card>
+            <div slot="header" style="max-height: 200px;overflow: hidden;">
+              <img :src="item.pic_url" style="width:100%;display:block;">
+            </div>
+            <div slot="content" class="p-sm">
+              <p class="f12 text-muted "><span>来源：{{item.source}}</span> / <span>{{item.create_time_fmt}}</span></p>
+              <p class="text-default text-hide" style="padding-bottom: 4px;">{{item.title}}</p>
+              <p class="f12 text-info">{{item.content_fmt}}...</p>
+            </div>
+          </card>
+        </router-link>
+      </div>
+    </div>
+    <footer-bar/>
   </div>
 </template>
 <script>
@@ -22,23 +27,28 @@ import { Card } from 'vux'
 export default {
   data() {
     return {
-      list:[],
-      page:0
-
+      list: [],
+      page: 0
     }
   },
   beforeCreate() {},
-  created() {},
+  created() {
+    this.creatInfo()
+  },
   mounted() {
-     this.$http.get('/api/api/getNewsList' + '?page=' + this.page)
+  
+  },
+  methods: {
+    creatInfo() {
+      this.$http.get('/api/getNewsList' + '?page=' + this.page)
         .then((res) => {
           this.list = res.data.data
         })
         .catch((err) => {
           console.log(err)
         })
+    }
   },
-  methods: {},
   computed: {},
   components: {
     Card
