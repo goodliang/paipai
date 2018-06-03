@@ -39,7 +39,7 @@ Vue.component('popup', Popup)
 Vue.component('load-more', LoadMore)
 Vue.component('button-tab', ButtonTab)
 Vue.component('button-tab-item', ButtonTabItem)
-
+alert(window.__wxjs_environment)
 
 if (window.__wxjs_environment) {
   router.beforeEach((to, from, next) => {
@@ -65,10 +65,10 @@ Vue.prototype.$http.interceptors.request.use(
     if (store.state.token) { // 判断是否存在token，如果存在的话，则每个http header都加上token。废弃cookie
       
 
-      alert('接口请求之前store.state.token',store.state.token)
+      alert('接口请求之前store.state.token'+store.state.token)
 
       config.headers.Authorization = `${store.state.token}`;
-      alert('config.headers.Authorization',config.headers.Authorization)
+      alert('config.headers.Authorization'+config.headers.Authorization)
     }
     return config;
   },
