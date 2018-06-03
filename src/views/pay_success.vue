@@ -39,8 +39,6 @@ params.append('status', 1);
 
       this.$http.post('/pay/updateOrder',params).then((res)=>{
         console.log(res)
-        alert(res.data.errno)
-        alert(res.data.message)
 
       })
     }
