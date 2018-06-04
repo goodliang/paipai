@@ -48,15 +48,17 @@ export default {
       this.$http.post('/api/address', params)
         .then((res) => {
           this.toastValue = true;
-          this.msg = res.data.message
           if(res.data.errno == 1000){
+             this.msg = '保存成功'
             setTimeout(function(){
               that.$router.go(-1)
             },1000);
+          }else{
+              this.msg = res.data.message
           }
         })
         .catch((err) => {
-          console.log(err)
+          this.msg = err;
         })
     }
   },
