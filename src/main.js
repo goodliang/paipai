@@ -40,22 +40,22 @@ Vue.component('load-more', LoadMore)
 Vue.component('button-tab', ButtonTab)
 Vue.component('button-tab-item', ButtonTabItem)
 
-  router.beforeEach((to, from, next) => {
-    let title = '弘真艺拍'
-    title = to.meta && to.meta.title ? to.meta.title + ' - ' + title : title;
-    document.title = title;
+//   router.beforeEach((to, from, next) => {
+//     let title = '弘真艺拍'
+//     title = to.meta && to.meta.title ? to.meta.title + ' - ' + title : title;
+//     document.title = title;
     
-    if (store.state.token) {
-      next()
-    } else {
-      if (to.query.token) {
-        store.commit('addToken', to.query.token);
-        next()
-      } else {
-        wx.miniProgram.navigateTo({ url: '/pages/login/login?return_url=' + decodeURIComponent(to.fullPath) })
-      }
-    }
-  })
+//     if (store.state.token) {
+//       next()
+//     } else {
+//       if (to.query.token) {
+//         store.commit('addToken', to.query.token);
+//         next()
+//       } else {
+//         wx.miniProgram.navigateTo({ url: '/pages/login/login?return_url=' + decodeURIComponent(to.fullPath) })
+//       }
+//     }
+//   })
 
 
 Vue.prototype.$http.interceptors.request.use(

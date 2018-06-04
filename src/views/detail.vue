@@ -29,8 +29,7 @@
         <div class="goods-item-price">
           <div class="item vux-1px-r"><span class="text-info">¥{{detail.incr_price}}</span>
             <br><span class="text-muted f13">加价</span></div>
-          <div class="item vux-1px-r"><span class="text-red">¥
-           <countup :end-val="detail.last_price" :duration="0.5" ></countup>
+          <div class="item vux-1px-r"><span class="text-red">¥<countup :end-val="detail.last_price" :duration="0.5" ></countup>
           </span>
             <br><span class="text-muted f13">当前价</span>
           </div>
@@ -52,8 +51,9 @@
         </div>
       </div>
     </div>
-    <div class="price_history">
+    <div class="price_history weui-panel">
       <divider>出价记录</divider>
+
       <ul v-if="historyData.length" v-cloak>
         <li class="userList" v-for="(user,index) in historyData" :key="user.id">
           <div class="avatar">
@@ -70,12 +70,13 @@
           </div>
         </li>
       </ul>
+      <p v-else align="center" style="padding: 4px; color: #888">暂时还没有人出价</p>
       <a href="javascript:" v-if="moreBtn" @click="getMore" class="weui-cell weui-cell_access weui-cell_link">
         <div class="weui-cell__bd" align="center">查看更多</div>
       </a>
     </div>
-    <div class="weui-panel">
-      <h3 class="weui-panel__hd">拍卖说明</h3>
+    <div class="weui-panel ">
+      <h3 class="weui-panel__hd vux-1px-b">拍卖说明</h3>
       <ul class="weui-panel__bd">
         <li> 限时拍卖 谁出价高就归谁</li>
         <li> 担保交易 为您的出价保"价"护航</li>
@@ -89,11 +90,14 @@
     <popup v-model="showPrice">
       <group>
         <group-title slot="title">当前价：¥{{detail.last_price}}</group-title>
-        <x-input title="出价" placeholder="" id="input-price" v-model="offerPirce" autofocus="autofocus" type="tel"></x-input>
+
+    <x-number title="出价" button-style="round" :min="offerPirce" width="120px" :step=" detail.incr_price" v-model="offerPirce"></x-number>
+
+ <!--        <x-input title="出价" placeholder="" id="input-price" v-model="offerPirce" autofocus="autofocus" type="tel"></x-input> -->
       </group>
       <div class="f12 text-muted text-right" style="padding-top:5px; ">出价即表示同意《弘真艺拍竞拍服务协议》</div>
       <div style="padding:15px;">
-        <x-button type="primary" @click.native="offer">出 价</x-button>
+        <x-button type="primary" @click.native="offer" >出 价</x-button>
       </div>
     </popup>
     <toast v-model="novali" type="warn" text="请填写出价金额"></toast>
@@ -104,6 +108,7 @@
 </template>
 <script>
 import { Divider, Popup, GroupTitle } from 'vux'
+import { XNumber } from 'vux'
 
 export default {
   data() {
@@ -287,7 +292,8 @@ export default {
   components: {
     Divider,
     Popup,
-    GroupTitle
+    GroupTitle,
+    XNumber
   }
 }
 
@@ -318,11 +324,10 @@ export default {
 }
 
 .weui-panel__hd {
-  padding: 14px 15px 10px;
-  color: #999999;
-  font-size: 13px;
+  padding: 10px 10px 10px 15px;
+  color: #666;
+  font-size: 14px;
   position: relative;
-  border-bottom: 1px solid #ddd
 }
 
 .weui-panel__bd {
