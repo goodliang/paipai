@@ -91,7 +91,7 @@
       <group>
         <group-title slot="title">当前价：¥{{detail.last_price}}</group-title>
 
-    <x-number title="出价" button-style="round" :min="offerPirce" width="120px" :step=" detail.incr_price" v-model="offerPirce"></x-number>
+    <x-number title="出价" button-style="round"  width="120px" :step=" detail.incr_price" v-model="offerPirce"></x-number>
 
  <!--        <x-input title="出价" placeholder="" id="input-price" v-model="offerPirce" autofocus="autofocus" type="tel"></x-input> -->
       </group>
