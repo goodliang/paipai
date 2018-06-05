@@ -234,6 +234,11 @@ export default {
           this.showPrice = false;
 
           this.priceHistory()
+          if(typeof res.data.end_time_fmt !== 'undefined'){
+
+            this.detail.end_time_fmt = res.data.end_time_fmt
+
+          }
           //未登录
         } else if (res.data.errno == 4002) {
 
