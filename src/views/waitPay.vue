@@ -5,23 +5,27 @@
     </div>
     <div class="container" style="padding-bottom: 0">
       <div class="" v-if="hasContent">
-        <div class="goods-item" @click="addressInfo(item)" v-for='(item,index) in goods' :key='index'>
-          <div class="goods-item-head"><img :src="item.pic_url" width="100%">
-          </div>
-          <div class="goods-item-footer">
-            <div class="goods-item-info vux-1px-b">
-              <h3 class="text-justify"><span class="text-default">{{item.author}}</span><small class="text-muted f12 fwn">{{item.category}}</small></h3>
-              <p>{{item.title}}</p>
-            </div>
-            <div class="goods-item-price">
-              <div class="item vux-1px-r"><span class="text-muted f14">成交价：</span><span class="text-red">¥
-          <span>{{item.last_price}}</span></span>
-              </div>
-              <div class="item"><span class="text-muted f14">起拍价：</span><span class="text-info">¥{{item.start_price}}</span></div>
-            </div>
-          </div>
+        <div style="display: none">
+          <panel></panel>
         </div>
-        <p class="text-muted p-sm text-center" v-show="noMore">没有更多了</p>
+        <div class="goods-list" v-if="hasContent" style="margin-top: 0;">
+          <div class="weui-panel weui-panel_access" @click="addressInfo(item)" v-for='(item,index) in goods' :key='index'>
+            <div class="weui-panel__bd">
+              <div class="weui-media-box weui-media-box_appmsg">
+                <div class="weui-media-box__hd"><img :src="item.pic_url" class="weui-media-box__thumb"></div>
+                <div class="weui-media-box__bd">
+                  <h4 class="weui-media-box__title f14 text-default">{{item.title}}</h4>
+                  <div class="f12 text-red">已拍下,去支付</div>
+                  <div class="text-justify f14">
+                    <div class="item"><span class="text-muted f12">成交价：</span><span class="text-info"><countup :start-val="item.start_price" :end-val="item.last_price" :duration="1" class="demo1"></countup></span></div>
+                    <div class="item"><span class="text-muted f12">起拍价：</span><span class="text-muted">¥{{item.start_price}}</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p class="text-muted p-sm text-center" v-show="noMore">没有更多了</p>
+        </div>
       </div>
       <div class="no-content" v-else>
         暂无内容
@@ -144,7 +148,6 @@ export default {
       }
     },
     addressInfo(data) {
-      console.log(data.order_number)
       this.show = true
       this.order_number = data.order_number
       this.fee = data.fee
@@ -153,7 +156,6 @@ export default {
     pay() {
       let that = this
       const params = new URLSearchParams();
-      console.log(parseInt(this.order_number))
       params.append('order_number', parseInt(this.order_number));
       params.append('address_id', this.addressData.id);
       this.$http.post('/api/address', params)
