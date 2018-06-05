@@ -16,7 +16,7 @@ Vue.component('footer-bar', footerBar)
 import { WechatPlugin } from 'vux'
 Vue.use(WechatPlugin)
 
-import { AjaxPlugin, TransferDom, Card, Toast, ToastPlugin, Countup, Clocker, Loading, XHeader, XButton, Actionsheet, Group, CellBox, Cell, XInput, Popup, LoadMore, ButtonTab, ButtonTabItem } from 'vux'
+import { AjaxPlugin, TransferDom, Card, Toast, ToastPlugin, Countup, Clocker, Loading, XHeader, XButton, Actionsheet, Group, CellBox, Cell, XInput, Popup, LoadMore, ButtonTab, ButtonTabItem ,Panel} from 'vux'
 
 // AjaxPlugin 插件依赖于 axios，组件内使用this.$http 调用
 Vue.use(AjaxPlugin)
@@ -39,6 +39,7 @@ Vue.component('popup', Popup)
 Vue.component('load-more', LoadMore)
 Vue.component('button-tab', ButtonTab)
 Vue.component('button-tab-item', ButtonTabItem)
+Vue.component('panel', Panel)
 
 let isWx=navigator.userAgent.indexOf('MicroMessage')=== -1 ? false : true;
   router.beforeEach((to, from, next) => {

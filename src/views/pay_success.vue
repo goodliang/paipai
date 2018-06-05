@@ -1,14 +1,18 @@
 <template>
-<div>
-   <div class="text-center p-sm text-info">
-         
-  <msg :title="'支付成功'" :description="'保证金支付成功！您可以出价了'" :buttons="buttons" :icon="icon"></msg>
-
-   </div>
-</div>
+  <div class="main-body">
+    <!-- <div class="header" style="background: #fff;">
+      <x-header :left-options="{backText: ''}">待付款</x-header>
+    </div> -->
+    <div class="container">
+      <div class="text-center p-sm text-info">
+        <msg :title="'支付成功'" :description="'我们将很快为你发货，请耐心等待'" :buttons="buttons" :icon="icon"></msg>
+      </div>
+    </div>
+    <footer-bar/>
+  </div>
 </template>
 <script>
-import { Msg ,XButton} from 'vux'
+import { Msg, XButton } from 'vux'
 
 export default {
   data() {
@@ -16,35 +20,18 @@ export default {
       icon: 'success',
       buttons: [{
         type: 'primary',
-        text: '继续出价',
-        onClick: this.updateOrder
-      }, {
-        type: 'default',
-        text: '返回商品',
-        link: '/demo'
+        text: '返回个人中心',
+        link: '/userCenter'
       }]
     }
   },
-  beforeCreate() {
-  },
+  beforeCreate() {},
   created() {},
-  mounted() {
-  },
+  mounted() {},
   methods: {
-    updateOrder(){
-      var token = window.$cookies.get('token')  || ''
-var params = new URLSearchParams();
-params.append('order_number', this.$route.params.id);       //你要传给后台的参数值 key/
-params.append('status', 1);
-
-      this.$http.post('/pay/updateOrder',params).then((res)=>{
-        console.log(res)
-
-      })
-    }
+    
   },
-  computed: {
-  },
+  computed: {},
   components: {
     Msg,
     XButton
@@ -53,5 +40,6 @@ params.append('status', 1);
 
 </script>
 <style lang="less" rel="stylesheet/less" scoped>
+
 
 </style>
