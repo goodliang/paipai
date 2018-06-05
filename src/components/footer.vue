@@ -40,7 +40,6 @@ export default {
   bottom: 0;
   width: 100%;
   background-color: #F7F7FA;
-  padding-bottom: 4px;
   &:before {
     content: " ";
     position: absolute;
@@ -61,7 +60,6 @@ export default {
     -webkit-flex: 1;
     flex: 1;
     height: 54px;
-    padding-top: 5px;
     box-sizing: border-box;
     color: #999999;
     text-align: center;

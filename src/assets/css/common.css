@@ -95,7 +95,9 @@
 .text-red {
   color: #d4282d !important; 
 }
-
+.text-green {
+  color: #1AAD19 !important; 
+}
 .text-default {
   color: #333;
 }
@@ -382,4 +384,7 @@ body {
 .bottomLayer .weui-btn {
   border-radius: 0px;
   line-height: 50px;
+}
+.weui-panel{
+  display: block;
 }
