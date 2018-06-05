@@ -20,6 +20,7 @@ import info from '@/views/info'
 import found from '@/views/found'
 import userCenter from '@/views/userCenter'
 import paySuccess from '@/views/pay_success'
+import moreHistory from '@/views/more_history'
 
 
 Vue.use(Router)
@@ -123,6 +124,11 @@ export default new Router({
       path: '/infoView/:id',
       name: 'infoView',
       component: infoView
+    },
+     {
+      path: '/moreHistory/:id',
+      name: 'moreHistory',
+      component: moreHistory
     },
     {
       path: '/promise_success/:id',
