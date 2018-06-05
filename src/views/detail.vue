@@ -41,7 +41,7 @@
     <div class="goods-detail">
       <div class="goods-detail-content" v-html="detail.description">
       </div>
-      <div class="bottomLayer">
+      <div class="bottomLayer" v-if="detail.pai_status === 0">
         <div class="price">
           <span class="text-red">
             ¥<countup :end-val="detail.last_price" :duration="0.5" ></countup> 
