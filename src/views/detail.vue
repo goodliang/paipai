@@ -166,7 +166,7 @@ export default {
 
     setInterval(()=>{
       this.priceHistory()
-    },30000)
+    },5000)
 
 
 
@@ -283,7 +283,7 @@ export default {
     priceHistory() {
       this.$http.get('/api/getGoodOfferList?id=' + this.$route.params.id).then((res) => {
         this.historyData = JSON.parse(JSON.stringify(res.data.data.slice(0, 4)))
-        this.last_price = this.historyData[0].price
+        this.detail.last_price = this.historyData[0].price
       })
     },
 
