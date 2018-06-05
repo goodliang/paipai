@@ -11,34 +11,45 @@
       </div>
     </div>
     <div class="container" style="padding-top: 96px;">
+      <div style="display: none">
+        <panel></panel>
+      </div>
       <div class="goods-list" v-if="hasContent" style="margin-top: 0;">
-        <router-link :to="'/detail/'+item.id" class="goods-item" v-for='(item,index) in goods' :key='index'>
-          <div class="goods-item-head">
-            <img :src="item.pic_url" width="100%">
-            <template v-if="stateActive === '0'">
-              <span class="goodsStatus" :class="offer_Color(item.offer_status)" v-html="offer_status(item.offer_status)"></span>
-            </template>
-            <template v-if="stateActive === '1'">
-              <span class="goodsStatus" :class="pay_Color(item.pay_status)" v-html="pay_status(item.pay_status)"></span>
-            </template>
-            <div class="countDown" v-if="stateActive === '0'">
-              <span class="countDownTit">距结束：
-              <clocker :time="new Date(item.end_time*1000).toLocaleDateString()" format='%D 天 %H 时 %M 分 %S 秒 '></clocker>
-            </span>
-            </div>
-          </div>
-          <div class="goods-item-footer">
-            <div class="goods-item-info vux-1px-b">
-              <h3 class="text-justify"><span class="text-default">{{item.author}}</span></h3>
-              <p>{{item.title}}</p>
-            </div>
-            <div class="goods-item-price">
-              <div class="item vux-1px-r"><span class="text-muted f14" v-if="stateActive === '2'">成交价：</span><span class="text-muted f14" v-else>当前价：</span><span class="text-red">¥
+        <router-link :to="'/detail/'+item.id" class="weui-panel weui-panel_access" v-for='(item,index) in goods' :key='index'>
+          <div class="weui-panel__bd">
+            <div class="weui-media-box weui-media-box_appmsg">
+              <div class="weui-media-box__hd"><img :src="item.pic_url" class="weui-media-box__thumb"></div>
+              <div class="weui-media-box__bd">
+                <h4 class="weui-media-box__title f14 text-default">{{item.title}}</h4>
+                
+                <div class="f12">
+                <template v-if="stateActive === '0'">
+                  <span :class="offer_Color(item.offer_status)" v-html="offer_status(item.offer_status)"></span>
+                </template>
+                <template v-if="stateActive === '1'">
+                  <span :class="pay_Color(item.pay_status)" v-html="pay_status(item.pay_status)"></span>
+                </template>
+                <template v-if="stateActive === '2'">
+                  <span class="text-muted">已拍结</span>
+                </template>
+                </div>
+                <div class="text-justify f14">
+                  <div class="item"><span class="text-muted f12" v-if="stateActive === '2'">成交价：</span><span class="text-muted f12" v-else>当前价：</span><span class="text-red">¥
             <countup :start-val="item.start_price" :end-val="item.last_price" :duration="1" class="demo1"></countup></span>
+                  </div>
+                  <div class="item"><span class="text-muted f12">起拍价：</span><span class="text-info">¥{{item.start_price}}</span></div>
+                </div>
               </div>
-              <div class="item"><span class="text-muted f14">起拍价：</span><span class="text-info">¥{{item.start_price}}</span></div>
             </div>
           </div>
+          <a class="weui-panel__ft" v-if="stateActive === '0'">
+            <div class="weui-cell weui-cell_access weui-cell_link">
+              <div class="weui-cell__bd f12 text-muted">
+                距结束：
+                <clocker :time="new Date(item.end_time*1000).toLocaleDateString()" format='%D 天 %H 时 %M 分 %S 秒 '></clocker>
+              </div>
+            </div>
+          </a>
         </router-link>
         <p class="text-muted p-sm text-center" v-show="noMore">没有更多了</p>
       </div>
@@ -68,8 +79,8 @@ export default {
       page: 0,
       fetching: true,
       noMore: false,
-      offerColor: ['red', 'green'],
-      payColor: ['red', 'green'],
+      offerColor: ['text-red', 'text-green'],
+      payColor: ['text-red', 'text-green'],
       offerStatus: ['已出局', '暂领先'],
       payStatus: ['未付款', '已付款']
     }

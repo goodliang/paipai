@@ -8,7 +8,7 @@
         <x-input title="姓名" type="text" placeholder="必填" v-model="name" :required="true" is-type="china-name"></x-input>
         <x-input title="手机号码" type="tel" placeholder="必填" v-model="telephone" :required="true" is-type="china-mobile"></x-input>
         <x-address title="收货地址" v-model="addressValue" :raw-value=false :list="addressData" value-text-align="right" label-align="justify" placeholder="请选择城市" disabled=true></x-address>
-        <x-input type="tel" placeholder="详细地址（如街道门牌号）" v-model="address" :required="true"></x-input>
+        <x-input type="text" placeholder="详细地址（如街道门牌号）" v-model="address" :required="true"></x-input>
       </group>
      <!--  <div class="p-md">
         <x-button type="warn" @click.native="postAddress">确定</x-button>
