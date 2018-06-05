@@ -164,7 +164,7 @@ export default {
 }
 
 .button-box {
-  padding: 10px 10%;
+  padding: 10px 3%;
   margin: 0 auto;
 }
 

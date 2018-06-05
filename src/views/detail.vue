@@ -29,9 +29,9 @@
         <div class="goods-item-price">
           <div class="item vux-1px-r"><span class="text-info">¥{{detail.incr_price}}</span>
             <br><span class="text-muted f13">加价</span></div>
-          <div class="item vux-1px-r"><span class="text-red">¥<countup :end-val="detail.last_price" :duration="0.5" ></countup>
+          <div class="item vux-1px-r"><span class="text-info">¥{{detail.market_price}}
           </span>
-            <br><span class="text-muted f13">当前价</span>
+            <br><span class="text-muted f13">参考价</span>
           </div>
           <div class="item"><span class="text-info">¥{{detail.start_price}}</span>
             <br><span class="text-muted f13">起拍价</span></div>
@@ -43,7 +43,9 @@
       </div>
       <div class="bottomLayer">
         <div class="price">
-          <span class="text-red">¥{{detail.last_price }} </span>
+          <span class="text-red">
+            ¥<countup :end-val="detail.last_price" :duration="0.5" ></countup> 
+          </span>
           <p class="text-muted f14">当前价</p>
         </div>
         <div class="button">
@@ -55,7 +57,7 @@
       <divider>出价记录</divider>
 
       <ul v-if="historyData.length" v-cloak>
-        <li class="userList" v-for="(user,index) in historyData" :key="user.id">
+        <li class="userList vux-1px-b" v-for="(user,index) in historyData" :key="user.id">
           <div class="avatar">
             <img width="40" height="40" :src="user.u_head_fmt">
           </div>
@@ -65,7 +67,7 @@
           </div>
           <div class="time">
             <p v-if="0 === index"> <img width="40" src="/static/img/first.png"></p>
-            <p v-else><img width="30" src="/static/img/out.png"></p>
+            <p v-else><img width="40" src="/static/img/out.png"></p>
             <p style="color: #666">{{user.offer_time_fmt}}</p>
           </div>
         </li>
@@ -307,9 +309,6 @@ export default {
   display: flex;
   justify-content: space-between;
   padding: 6px 15px;
-  border-bottom: 1px solid #ddd;
-  border-top: 1px solid #fff;
-
   font-size: 12px;
   .price {
     color: #d4282d;
@@ -354,9 +353,10 @@ export default {
     flex-grow: 1;
     line-height: 1.2;
     padding-left: 10px;
+    text-align: center;
     span {
       font-size: 16px;
-      padding: 5px 0;
+      padding: 5px 0 0 0;
       display: inline-block;
     }
   }

@@ -12,10 +12,10 @@
         <div class="goods-item-head">
           <img :src="item.pic_url" width="100%">
           <div class="countDown">
-            <span class="countDownTit" v-if="stateActive === '0'"><i class="iconfont">&#xe648;</i>距离结束：
+            <span class="countDownTit" v-if="stateActive === '0'"><i class="iconfont">&#xe648;</i> 距离结束：
               <clocker :time="new Date(item.end_time*1000).toLocaleDateString()" format='%D 天 %H 时 %M 分 %S 秒 '></clocker>
             </span>
-            <span class="countDownTit" v-if="stateActive === '1'"><i class="iconfont">&#xe648;</i>距开始：
+            <span class="countDownTit" v-if="stateActive === '1'"><i class="iconfont">&#xe648;</i> 距离开始：
     <clocker :time="new Date(item.start_time*1000).toLocaleDateString()" format='%D 天 %H 时 %M 分 %S 秒'></clocker>
             </span>
             <span class="countDownTit" v-if="stateActive === '2'">已拍结</span>

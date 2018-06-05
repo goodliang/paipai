@@ -262,7 +262,7 @@ body {
 .goods-item-head:after {
   content: '';
   display: block;
-  margin-top: 66.6666%;
+  margin-top:55%;
 }
 
 .goods-item-head>img {
