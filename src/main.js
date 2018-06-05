@@ -40,6 +40,7 @@ Vue.component('load-more', LoadMore)
 Vue.component('button-tab', ButtonTab)
 Vue.component('button-tab-item', ButtonTabItem)
 
+let isWx=navigator.userAgent.indexOf('MicroMessage')=== -1 ? false : true;
   router.beforeEach((to, from, next) => {
     let title = '弘真艺拍'
     title = to.meta && to.meta.title ? to.meta.title + ' - ' + title : title;
@@ -52,7 +53,16 @@ Vue.component('button-tab-item', ButtonTabItem)
         store.commit('addToken', to.query.token);
         next()
       } else {
-        wx.miniProgram.navigateTo({ url: '/pages/login/login?return_url=' + decodeURIComponent(to.fullPath) })
+
+        if(isWx){
+
+          wx.miniProgram.navigateTo({ url: '/pages/login/login?return_url=' + decodeURIComponent(to.fullPath) })
+        }else{
+          //浏览器模拟登录
+          //
+         store.commit('addToken', 'iqJhMfnNJZzyGmZLAP_OXD2Xmddr_Qcm');
+          next()
+        }
       }
     }
   })

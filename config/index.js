@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
           '/api': {
-            target: 'http://test.apa7.cc',
+            target: 'https://pai.arthongzhen.com',
 
         changeOrigin:true,
             pathRewrite: {
@@ -20,7 +20,7 @@ module.exports = {
             }
           },
                 '/pay': {
-            target: 'http://test.apa7.cc',
+            target: 'https://pai.arthongzhen.com',
 
         changeOrigin:true,
             pathRewrite: {
