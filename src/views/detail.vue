@@ -150,6 +150,10 @@ export default {
 
         this.offerPirce = this.detail.last_price + this.detail.incr_price
 
+           let ctime = new Date().getTime()
+    const etime = new Date(this.detail.end_time*1000).getTime();
+    console.log((etime-ctime)/1000)
+
         // this.hasPaypromise = true
       })
       .catch((err) => {
@@ -163,10 +167,20 @@ export default {
 
 
     this.priceHistory()
+    //最后5分钟，5秒刷新一次
+    //
+    //
+    //
 
-    setInterval(()=>{
+    // setTimeout(()=>{
+    //   alert(this.inlastFiveMini)
+    // },3000)
+
+   
+
+    this.timer = setInterval(()=>{
       this.priceHistory()
-    },5000)
+    },50000)
 
 
 
@@ -191,9 +205,11 @@ export default {
 
       this.$http.post('/pay/updateOrder', params).then((res) => {
         if (res.data.errno == 1000) {
+
           this.$vux.toast.show({
             text: '出价成功！'
           })
+
           this.priceHistory()
         } else {
           this.$vux.toast.text(res.data.message, 'top')
@@ -222,21 +238,32 @@ export default {
       params.append('id', this.$route.params.id); //你要传给后台的参数值 key/value
       params.append('price', this.offerPirce);
 
+      this.showPrice = false;
+
+      this.$vux.toast.show({
+            text: '出价中...'
+          })
 
       this.$http.post('/api/setGoodOffer', params).then((res) => {
 
 
         //重刷出价记录
         if (res.data.errno == 1000) {
+
           this.$vux.toast.show({
             text: '出价成功'
           })
-          this.showPrice = false;
 
           this.priceHistory()
-          if(typeof res.data.end_time_fmt !== 'undefined'){
+          if(res.data.data !==null && typeof res.data.data.end_time_fmt !== 'undefined'){
 
-            this.detail.end_time_fmt = res.data.end_time_fmt
+            this.detail.end_time_fmt = res.data.data.end_time_fmt
+
+            this.timer = null
+
+              this.timer = setInterval(()=>{
+                this.priceHistory()
+              },5e4)
 
           }
           //未登录
@@ -274,21 +301,21 @@ export default {
 
     getMore() {
 
-      this.$http.get('/api/getGoodOfferList?id=' + this.$route.params.id).then((res) => {
+      
 
-        this.moreBtn = res.data.data.length > 5 ? true : false
-
-        this.historyData = JSON.parse(JSON.stringify(res.data.data))
-      })
-
-      this.moreBtn = false
+      this.$router.push('/moreHistory/'+this.$route.params.id)
 
     },
 
     priceHistory() {
       this.$http.get('/api/getGoodOfferList?id=' + this.$route.params.id).then((res) => {
+
+        if (res.data.data){
+         this.moreBtn = res.data.data !==null && res.data.data.length > 5 ? true : false
         this.historyData = JSON.parse(JSON.stringify(res.data.data.slice(0, 4)))
         this.detail.last_price = this.historyData[0].price
+        }
+
       })
     },
 
@@ -296,6 +323,9 @@ export default {
   computed: {
     isNum() {
       return parseInt(this.detail.incr_price);
+    },
+    inlastFiveMini(){
+      return typeof this.detail.end_time_fmt !=='undefined' || this.detail.end_time_fmt !== null || this.detail.end_time_fmt !==''
     }
   },
   components: {
@@ -387,7 +417,8 @@ export default {
 }
 
 .time {
-  flex-grow: 1.5
+  flex-grow: 1.5;
+  text-align: right;
 }
 
 .w40 {

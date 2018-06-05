@@ -23,8 +23,8 @@
         </div>
         <div class="goods-item-footer">
           <div class="goods-item-info vux-1px-b">
-            <h3 class="text-justify"><span class="text-default">{{item.author}}</span><small class="text-muted f12 fwn">{{item.type}}</small></h3>
-            <p>{{item.title}}</p>
+            <h3 class="text-justify"><span class="text-default">{{item.title}}</span><small class="text-muted f12 fwn">{{item.type}}</small></h3>
+            <p>{{item.author}}</p>
           </div>
           <div class="goods-item-price">
             <div class="item vux-1px-r"><span class="text-muted f14" v-if="stateActive === '2'">成交价：</span><span class="text-muted f14" v-else>当前价：</span><span class="text-red">¥<countup :start-val="item.start_price" :end-val="item.last_price" :duration="1" class="demo1"></countup></span>
