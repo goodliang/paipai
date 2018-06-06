@@ -33,7 +33,7 @@
           </span>
             <br><span class="text-muted f13">参考价</span>
           </div>
-          <div class="item"><span class="text-info">¥{{detail.start_price}}</span>
+          <div class="item" style="text-align: center;"><span class="text-info">¥{{detail.start_price}}</span>
             <br><span class="text-muted f13">起拍价</span></div>
         </div>
       </div>
@@ -223,10 +223,13 @@ export default {
     //最后5分钟5s刷新一次
     //
     setTimer5s(){
+      clearInterval(this.timer)
       this.timer = null
+      console.log('setTimer5s')
       this.timer = setInterval(()=>{
+        console.log(5)
                 this.priceHistory()
-              },5e4)
+              },5e3)
 
     },
 
@@ -316,6 +319,7 @@ export default {
          this.moreBtn = res.data.data !==null && res.data.data.length > 5 ? true : false
         this.historyData = JSON.parse(JSON.stringify(res.data.data.slice(0, 4)))
         this.detail.last_price = this.historyData[0].price
+        this.offerPirce = this.detail.last_price + this.detail.incr_price
 
         if(typeof res.data.data[0].end_time_fmt !== 'undefined'){
 
