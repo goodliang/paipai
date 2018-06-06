@@ -150,10 +150,7 @@ export default {
 
         this.offerPirce = this.detail.last_price + this.detail.incr_price
 
-           let ctime = new Date().getTime()
-    const etime = new Date(this.detail.end_time*1000).getTime();
-    console.log((etime-ctime)/1000)
-
+  
         // this.hasPaypromise = true
       })
       .catch((err) => {
@@ -223,6 +220,15 @@ export default {
         this.$router.push('/pay_promise/' + this.$route.params.id + '/' + this.$route.params.good_id)
       }
     },
+    //最后5分钟5s刷新一次
+    //
+    setTimer5s(){
+      this.timer = null
+      this.timer = setInterval(()=>{
+                this.priceHistory()
+              },5e4)
+
+    },
 
     //出价动作
     offer() {
@@ -240,9 +246,9 @@ export default {
 
       this.showPrice = false;
 
-      this.$vux.toast.show({
-            text: '出价中...'
-          })
+
+      this.$vux.toast.text('出价中...', 'top')
+
 
       this.$http.post('/api/setGoodOffer', params).then((res) => {
 
@@ -259,11 +265,7 @@ export default {
 
             this.detail.end_time_fmt = res.data.data.end_time_fmt
 
-            this.timer = null
-
-              this.timer = setInterval(()=>{
-                this.priceHistory()
-              },5e4)
+            this.setTimer5s()
 
           }
           //未登录
@@ -314,6 +316,15 @@ export default {
          this.moreBtn = res.data.data !==null && res.data.data.length > 5 ? true : false
         this.historyData = JSON.parse(JSON.stringify(res.data.data.slice(0, 4)))
         this.detail.last_price = this.historyData[0].price
+
+        if(typeof res.data.data[0].end_time_fmt !== 'undefined'){
+
+            this.detail.end_time_fmt = res.data.data[0].end_time_fmt
+
+            this.setTimer5s()
+
+          }
+
         }
 
       })
