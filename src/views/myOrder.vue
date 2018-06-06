@@ -46,7 +46,7 @@
             <div class="weui-cell weui-cell_access weui-cell_link">
               <div class="weui-cell__bd f12 text-muted">
                 距结束：
-                <clocker :time="new Date(item.end_time*1000).toLocaleDateString()" format='%D 天 %H 时 %M 分 %S 秒 '></clocker>
+                <clocker :time="item.end_time_fmt" format='%D 天 %H 时 %M 分 %S 秒 '></clocker>
               </div>
             </div>
           </a>
