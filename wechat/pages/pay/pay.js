@@ -55,7 +55,7 @@ Page({
             _this.setData({
               tips: "支付成功"
             })
-            wx.redirectTo({
+            wx.reLaunch({
               url: '../index/index?return_url=' + decodeURIComponent(_this.data.return_url)
             })
 
@@ -120,7 +120,7 @@ function errorAlertMsg(msg,callback){
 //失败回调
 function errorPay(error_url){
   if (error_url) {
-    wx.redirectTo({
+    wx.reLaunch({
       url: '../index/index?return_url=' + decodeURIComponent(error_url)
     })
   }

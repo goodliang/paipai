@@ -82,7 +82,7 @@ function loginInTo(_this,userInfo){
   }
 
   util.loginIn(function () {
-    wx.redirectTo({
+    wx.reLaunch({
       url: '../index/index?return_url=' + encodeURIComponent(_this.data.return_url)
     })
   },_userInfo);
