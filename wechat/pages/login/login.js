@@ -54,7 +54,7 @@ Page({
     var webViewUrl = encodeURIComponent(res.webViewUrl);
     
     return {
-      title: this.data.title,
+      title: "  ",
       path: '/pages/index/index?return_url=' + webViewUrl,
       success: function (res) {
         // 转发成功

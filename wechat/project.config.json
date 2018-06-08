@@ -8,7 +8,7 @@
 		"newFeature": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.0.4",
+	"libVersion": "2.0.9",
 	"appid": "wx7141d579769155cb",
 	"projectname": "paipai-xiaochengxu",
 	"condition": {
