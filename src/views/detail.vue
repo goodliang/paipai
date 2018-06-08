@@ -6,10 +6,21 @@
           <x-icon type="ios-arrow-back" size="30"></x-icon>
         </router-link>
         <img :src="detail.pic_url" width="100%">
+         <div style="position: absolute;padding: 1px 10px;border-radius:5px; background:#333;right: 10px;top: 16px;color: #fff"> 
+
+           <small v-if="detail.last_price == 0">暂无出价 等你一马当先</small>
+
+          <small v-else> <img style="border-radius: 40%" width="15" height="15" :src="detail.last_u_head_fmt">  {{detail.last_u_nick}} 
+              <span class="text-red">¥{{detail.last_price}}</span> 领先
+          </small>
+
+            </div>
+
         <div class="countDown">
           <span class="countDownTit demo-icon demo-icon-big" v-if="detail.pai_status === 0"><i class="iconfont">&#xe648;</i>
 距离结束：
-              <clocker :time="detail.end_time_fmt" format='%D 天 %H 时 %M 分 %S 秒 '></clocker>
+              <clocker :time="detail.end_time_fmt" format='%D天%H时%M分%S秒 '></clocker>
+             
             </span>
           <span class="countDownTit" v-if="detail.pai_status === 1">距开始：
     <clocker :time="detail.start_time_fmt" format='%D 天 %H 时 %M 分 %S 秒'></clocker>
@@ -24,17 +35,24 @@
       <div class="goods-item-footer">
         <div class="goods-item-info vux-1px-b">
           <h3 class="text-justify"><span>{{detail.title}}</span><small class="text-muted f12 fwn">{{detail.type}}</small></h3>
-          <p>{{detail.author}}</p>
+          <p style="overflow: hidden;">
+            <strong style="float: left;">{{detail.author}}</strong>
+            <span v-if="detail.last_price == 0">暂无出价 等你一马当先</span>
+            <span style="float: right;"> <img style="border-radius: 40%" width="15" height="15" :src="detail.last_u_head_fmt">{{detail.last_u_nick}} 
+              <small class="text-red">¥{{detail.last_price}}</small> 领先</span>
+          </p>
         </div>
         <div class="goods-item-price">
+          <div class="item vux-1px-r" style="text-align: center;"><span class="text-info">¥{{detail.start_price}}</span>
+            <br><span class="text-muted f13">起拍价</span></div>
+
           <div class="item vux-1px-r"><span class="text-info">¥{{detail.incr_price}}</span>
             <br><span class="text-muted f13">加价</span></div>
-          <div class="item vux-1px-r"><span class="text-info">¥{{detail.market_price}}
+          <div class="item "><span class="text-info">¥{{detail.market_price}}
           </span>
             <br><span class="text-muted f13">参考价</span>
           </div>
-          <div class="item" style="text-align: center;"><span class="text-info">¥{{detail.start_price}}</span>
-            <br><span class="text-muted f13">起拍价</span></div>
+          
         </div>
       </div>
     </div>
@@ -321,6 +339,9 @@ export default {
          this.moreBtn = res.data.data !==null && res.data.data.length > 5 ? true : false
         this.historyData = JSON.parse(JSON.stringify(res.data.data.slice(0, 4)))
         this.detail.last_price = this.historyData[0].price
+        this.detail.last_u_head_fmt = this.historyData[0].u_head_fmt
+        this.detail.last_u_nick = this.historyData[0].u_nick
+
         this.offerPirce = this.detail.last_price + this.detail.incr_price
 
         if(typeof res.data.data[0].end_time_fmt !== 'undefined'){

@@ -6,7 +6,12 @@
         <tab-item @on-item-click="createdDate">预拍</tab-item>
         <tab-item @on-item-click="createdDate">已拍结</tab-item>
       </tab>
+   <!--   <div class="tipsbar">
+      7个出局  1个领先  2个待付款
+    </div> -->
     </div>
+  
+
     <div class="goods-list" v-if="hasContent">
       <router-link :to="'/detail/'+item.id" class="goods-item" v-for='(item,index) in goods' :key='index'>
         <div class="goods-item-head">

@@ -4,7 +4,8 @@
       <x-header :left-options="{backText: ''}">支付保证金</x-header>
     </div>
     <div class="container">
-      <card :header="{title: '支付保证金 (保证金可在拍卖结束后申请退款或用于下次竞拍)' }">
+      <h2 align="color">支付保证金</h2>
+      <card :header="{title: ' (保证金可在拍卖结束后申请退款或用于下次竞拍)' }">
         <p slot="content" class="card-padding" style="padding: 20px">
           金额：<span style="color: #f00">¥{{money}}.00</span>
         </p>
