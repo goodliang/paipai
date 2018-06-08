@@ -148,7 +148,9 @@ export default {
         document.title = this.detail.title +'_弘真艺拍';
         this.isLoading = false
 
-        this.offerPirce = this.detail.last_price + this.detail.incr_price
+        var currtenPrice = this.detail.last_price === 0 ? this.detail.start_price : this.detail.last_price
+        this.offerPirce = currtenPrice + this.detail.incr_price
+
 
   
         // this.hasPaypromise = true
