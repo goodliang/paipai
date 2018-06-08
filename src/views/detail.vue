@@ -34,7 +34,7 @@
 
           <small v-else> <img style="border-radius: 40%;position: relative;top: 3px" width="15" height="15" :src="last_u_head_fmt">  {{last_u_nick}} 
               <span class="text-red">¥{{detail.last_price}}</span> 
-             <span v-if="detail.pai_status==1">领先</span>
+             <span v-if="detail.pai_status==0">领先</span>
              <span v-if="detail.pai_status==2">拍中</span>
 
           </small>
