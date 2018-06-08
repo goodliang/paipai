@@ -33,9 +33,13 @@ Page({
     }
 
     if(rd_session){
-        _this.setData({
-          url: "https://pai.arthongzhen.com" + _this.data.url
-        })
+      _this.setData({
+        url: "https://pai.arthongzhen.com" + _this.data.url
+      })
+    }else{
+      wx.redirectTo({
+        url: '../login/login?return_url=' + encodeURIComponent(_this.data.url)
+      })
     }
     
     wx.checkSession({
