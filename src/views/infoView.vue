@@ -5,8 +5,8 @@
     </div>
     <div class="container">
       <div class="p-sm text-center" style="margin-top: 10px;">
-        <h3>{{title}}</h3>
-        <p class="text-muted f12">来源：{{source}} / {{time}}</p>
+        <h2>{{title}}</h2>
+        <p class="text-muted f12">来源：{{source}} &nbsp;&nbsp;&nbsp;&nbsp; 时间：{{time}}</p>
       </div>
       <div class="infoMain" v-html="content">
       </div>

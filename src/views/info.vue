@@ -8,9 +8,10 @@
               <img :src="item.pic_url" style="width:100%;display:block;">
             </div>
             <div slot="content" class="p-sm">
-              <p class="f12 text-muted "><span>来源：{{item.source}}</span> / <span>{{item.create_time_fmt}}</span></p>
-              <p class="text-default text-hide" style="padding-bottom: 4px;">{{item.title}}</p>
-              <p class="f12 text-info">{{item.content_fmt}}...</p>
+              
+              <h3 class="text-default text-hide" style="padding-bottom: 4px;">{{item.title}}</h3>
+              <p class="f14 text-info">{{item.content_fmt}}...</p>
+              <p class="f12 text-muted " style="padding: 5px 0"><span>来源：{{item.source}} </span> &nbsp;&nbsp;&nbsp;&nbsp; 时间：<span>{{item.create_time_fmt}}</span></p>
             </div>
           </card>
         </router-link>

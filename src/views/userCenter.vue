@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       headPic: 'static/img/head_pic.jpg',
-      nickname:'弘真艺拍'
+      nickname:'未登录'
     }
   },
   beforeCreate() {

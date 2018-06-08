@@ -1,7 +1,7 @@
 <template>
   <div class="main-body">
     <div class="header" style="position: fixed;background: #fff;">
-      <x-header :left-options="{backText: ''}">收货地址<a @click="postAddress" slot="right" class="text-red">保存</a></x-header>
+      <x-header :left-options="{backText: ''}">增加收货地址<a @click="postAddress" slot="right" class="text-red">保存</a></x-header>
     </div>
     <div class="container">
       <group>

@@ -23,8 +23,8 @@
       </div>
       <div class="goods-item-footer">
         <div class="goods-item-info vux-1px-b">
-          <h3 class="text-justify"><span>{{detail.author}}</span><small class="text-muted f12 fwn">{{detail.type}}</small></h3>
-          <p>{{detail.title}}</p>
+          <h3 class="text-justify"><span>{{detail.title}}</span><small class="text-muted f12 fwn">{{detail.type}}</small></h3>
+          <p>{{detail.author}}</p>
         </div>
         <div class="goods-item-price">
           <div class="item vux-1px-r"><span class="text-info">¥{{detail.incr_price}}</span>
