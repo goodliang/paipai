@@ -6,20 +6,11 @@
           <x-icon type="ios-arrow-back" size="30"></x-icon>
         </router-link>
         <img :src="detail.pic_url" width="100%">
-         <div style="position: absolute;padding: 1px 10px;border-radius:5px; background:#333;right: 10px;top: 16px;color: #fff"> 
-
-           <small v-if="detail.last_price == 0">暂无出价 等你一马当先</small>
-
-          <small v-else> <img style="border-radius: 40%" width="15" height="15" :src="detail.last_u_head_fmt">  {{detail.last_u_nick}} 
-              <span class="text-red">¥{{detail.last_price}}</span> 领先
-          </small>
-
-            </div>
-
+       
         <div class="countDown">
           <span class="countDownTit demo-icon demo-icon-big" v-if="detail.pai_status === 0"><i class="iconfont">&#xe648;</i>
 距离结束：
-              <clocker :time="detail.end_time_fmt" format='%D天%H时%M分%S秒 '></clocker>
+              <clocker :time="detail.end_time_fmt" format='%D 天 %H 时 %M 分 %S 秒 '></clocker>
              
             </span>
           <span class="countDownTit" v-if="detail.pai_status === 1">距开始：
@@ -35,12 +26,20 @@
       <div class="goods-item-footer">
         <div class="goods-item-info vux-1px-b">
           <h3 class="text-justify"><span>{{detail.title}}</span><small class="text-muted f12 fwn">{{detail.type}}</small></h3>
-          <p style="overflow: hidden;">
+          <div class="text-justify">
             <strong style="float: left;">{{detail.author}}</strong>
-            <span v-if="detail.last_price == 0">暂无出价 等你一马当先</span>
-            <span style="float: right;"> <img style="border-radius: 40%" width="15" height="15" :src="detail.last_u_head_fmt">{{detail.last_u_nick}} 
-              <small class="text-red">¥{{detail.last_price}}</small> 领先</span>
-          </p>
+          <span style="float: right;">
+          <small v-if="detail.last_price == 0 && detail.pai_status==1">暂无出价 等你一马当先</small>
+
+
+          <small v-else> <img style="border-radius: 40%;position: relative;top: 3px" width="15" height="15" :src="last_u_head_fmt">  {{last_u_nick}} 
+              <span class="text-red">¥{{detail.last_price}}</span> 
+             <span v-if="detail.pai_status==0">领先</span>
+             <span v-if="detail.pai_status==2">拍中</span>
+
+          </small>
+          </span>
+          </div>
         </div>
         <div class="goods-item-price">
           <div class="item vux-1px-r" style="text-align: center;"><span class="text-info">¥{{detail.start_price}}</span>
@@ -62,7 +61,7 @@
       <div class="bottomLayer" v-if="detail.pai_status === 0">
         <div class="price">
           <span class="text-red">
-            ¥<countup :end-val="detail.last_price" :duration="0.5" ></countup> 
+            ¥{{detail.last_price}}
           </span>
           <p class="text-muted f14">当前价</p>
         </div>
@@ -150,11 +149,11 @@ export default {
       historyData: [],
       list: [],
       moreBtn: false,
+      last_u_head_fmt:'',
+      last_u_nick:'',
       menus1: {
         menu1: '<span style="color:green">支付保证金</span>'
       }
-
-
     }
   },
   beforeCreate() {
@@ -269,9 +268,7 @@ export default {
 
       this.showPrice = false;
 
-
       this.$vux.toast.text('出价中...', 'top')
-
 
       this.$http.post('/api/setGoodOffer', params).then((res) => {
 
@@ -320,10 +317,6 @@ export default {
 
     },
 
-    gavePrice() {
-
-    },
-
     getMore() {
 
       
@@ -339,8 +332,8 @@ export default {
          this.moreBtn = res.data.data !==null && res.data.data.length > 5 ? true : false
         this.historyData = JSON.parse(JSON.stringify(res.data.data.slice(0, 4)))
         this.detail.last_price = this.historyData[0].price
-        this.detail.last_u_head_fmt = this.historyData[0].u_head_fmt
-        this.detail.last_u_nick = this.historyData[0].u_nick
+        this.last_u_head_fmt = this.historyData[0].u_head_fmt
+        this.last_u_nick = this.historyData[0].u_nick
 
         this.offerPirce = this.detail.last_price + this.detail.incr_price
 

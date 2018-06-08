@@ -331,9 +331,6 @@ body {
   flex: 1;
 }
 
-.goods-item-price .item:last-child {
-  text-align: right;
-}
 
 .goods-detail-content img {
   display: block;
