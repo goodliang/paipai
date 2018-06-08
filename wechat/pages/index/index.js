@@ -69,7 +69,7 @@ Page({
     var webViewUrl = encodeURIComponent(res.webViewUrl);
     
     return {
-      title: this.data.title,
+      title: '发现一个好作品快来看看吧',
       path: '/pages/index/index?return_url=' + webViewUrl,
       success: function (res) {
         // 转发成功
