@@ -14,7 +14,9 @@ Page({
         success: function (res) { }
       })
     }
-    wx.showLoading()
+    wx.showLoading({
+      title: '加载中',
+    })
     
     if (options.return_url && options.return_url != "undefined") {
       var return_url = decodeURIComponent(options.return_url);

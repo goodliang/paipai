@@ -16,7 +16,9 @@ Page({
     // _this.data.order_number = 201805290736421553;
     _this.data.token = wx.getStorageSync('3rd_session');
 
-    wx.showLoading()
+    wx.showLoading({
+      title: '加载中',
+    })
 
     //去支付
     _this.topayMoney();
