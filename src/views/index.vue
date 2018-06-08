@@ -140,5 +140,7 @@ export default {
 .no-content {
   margin-top: 100px
 }
-
+.goods-item-price .item:last-child {
+  text-align: right;
+}
 </style>

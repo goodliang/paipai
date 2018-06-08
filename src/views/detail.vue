@@ -26,7 +26,7 @@
       <div class="goods-item-footer">
         <div class="goods-item-info vux-1px-b">
           <h3 class="text-justify"><span>{{detail.title}}</span><small class="text-muted f12 fwn">{{detail.type}}</small></h3>
-          <p style="overflow: hidden;">
+          <div class="text-justify">
             <strong style="float: left;">{{detail.author}}</strong>
           <span style="float: right;">
           <small v-if="detail.last_price == 0 && detail.pai_status==1">暂无出价 等你一马当先</small>
@@ -39,7 +39,7 @@
 
           </small>
           </span>
-          </p>
+          </div>
         </div>
         <div class="goods-item-price">
           <div class="item vux-1px-r" style="text-align: center;"><span class="text-info">¥{{detail.start_price}}</span>
