@@ -96,7 +96,7 @@ Page({
       // 来自页面内转发按钮
     }
     return {
-      title: '弘真艺拍',
+      title: '  ',
       path: 'pages/index/index',
       success: function (res) {
         // 转发成功
