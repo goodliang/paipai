@@ -73,11 +73,12 @@ Vue.prototype.$http.interceptors.request.use(
   config => {
     if (store.state.token) { // 判断是否存在token，如果存在的话，则每个http header都加上token。废弃cookie
 
-      config.headers.Authorization = `${store.state.token}`;
+      config.headers.Authorization = store.state.token;
     }
     return config;
   },
   err => {
+    alert(err)
     return Promise.reject(err);
   });
 Vue.prototype.$http.interceptors.response.use(

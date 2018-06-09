@@ -255,7 +255,6 @@ export default {
     //出价动作
     offer() {
 
-      alert('您点击了出价按钮')
 
 
       if (this.offerPirce.length < 1) {
@@ -273,9 +272,6 @@ export default {
       this.$vux.toast.text('出价中...', 'top')
 
       this.$http.post('/api/setGoodOffer', params).then((res) => {
-
-        alert(res.data.errno)
-
 
         //重刷出价记录
         if (res.data.errno == 1000) {
