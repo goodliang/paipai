@@ -6,13 +6,15 @@
         <tab-item @on-item-click="createdDate">预拍</tab-item>
         <tab-item @on-item-click="createdDate">已拍结</tab-item>
       </tab>
-   <!--   <div class="tipsbar">
-      7个出局  1个领先  2个待付款
-    </div> -->
+    
     </div>
   
 
     <div class="goods-list" v-if="hasContent">
+       <router-link class="tipsbar button-box vux-1px" to="/myOrder">
+      <span class="text-red">7 </span>个出局 &nbsp;&nbsp;   <span class="text-red">7 </span>个领先 &nbsp;&nbsp; <span class="text-red">7 </span>个待付款
+    </router-link>
+
       <router-link :to="'/detail/'+item.id" class="goods-item" v-for='(item,index) in goods' :key='index'>
         <div class="goods-item-head">
           <img :src="item.pic_url" width="100%">
@@ -137,6 +139,15 @@ export default {
 
 </script>
 <style lang="less" rel="stylesheet/less" scoped>
+.tipsbar{
+  text-align: center;
+  margin: 0 3%;
+  background: #fff7d6;
+  font-size: 12px;
+  padding: 3px 0;
+  display: block;
+  color: #666
+}
 .no-content {
   margin-top: 100px
 }

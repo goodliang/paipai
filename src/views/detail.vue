@@ -305,7 +305,7 @@ export default {
         }
 
 
-      }).error(function(err) {
+      }).catch(function(err) {
 
         alert('出价接口错误'+err)
         // body...
