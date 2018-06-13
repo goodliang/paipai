@@ -75,6 +75,8 @@ Page({
   onShareAppMessage: function (res) { //转发
     var webViewUrl = this.data.shareUrl ? this.data.shareUrl : res.webViewUrl
 
+    
+    return {
       title: "  ",
       path: '/pages/index/index?return_url=' + encodeURIComponent(webViewUrl),
       success: function (res) {
