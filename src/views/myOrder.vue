@@ -34,8 +34,7 @@
                 </template>
                 </div>
                 <div class="text-justify f14">
-                  <div class="item"><span class="text-muted f12" v-if="stateActive === '2'">成交价：</span><span class="text-muted f12" v-else>当前价：</span><span class="text-red">¥
-            <countup :start-val="item.start_price" :end-val="item.last_price" :duration="1" class="demo1"></countup></span>
+                  <div class="item"><span class="text-muted f12" v-if="stateActive === '2'">成交价：</span><span class="text-muted f12" v-else>当前价：</span><span class="text-red">¥{{item.last_price}}</span>
                   </div>
                   <div class="item"><span class="text-muted f12">起拍价：</span><span class="text-info">¥{{item.start_price}}</span></div>
                 </div>

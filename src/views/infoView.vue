@@ -53,7 +53,7 @@ export default {
 </script>
 <style lang="less" rel="stylesheet/less" >
 .infoMain {
-  padding:10px;
+  padding:10px 2%;
   line-height: 1.8;
   color: #666;
   font-size: 14px;
@@ -63,8 +63,8 @@ export default {
 }
 
 
-
-.infoMain img{max-width:90%; height: auto;}
+.infoMain p{margin: 0; padding: 0}
+.infoMain img{max-width:100%; height: auto; margin: 10px auto; display: block;}
 
 
 </style>

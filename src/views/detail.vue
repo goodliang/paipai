@@ -123,6 +123,10 @@
     <!-- <actionsheet @on-click-menu="menuClick" v-model="ispromise" :menus="menus1"  show-cancel>
       <p slot="header" > 保证金{{security_deposit}}元<br/>将扣除并赔付给卖家保证金将扣除并赔付给卖家</p>
     </actionsheet> -->
+      <div v-transfer-dom>
+        <loading v-model="isLoading"></loading>
+      </div>
+      
   </div>
 </template>
 <script>

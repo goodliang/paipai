@@ -18,6 +18,9 @@
       </div>
     </div>
     <footer-bar/>
+      <div v-transfer-dom>
+        <loading v-model="isLoading"></loading>
+      </div>
   </div>
 </template>
 <script>
@@ -26,7 +29,8 @@ export default {
   data() {
     return {
       list: [],
-      page: 0
+      page: 0,
+      isLoading:true
     }
   },
   beforeCreate() {},
@@ -40,6 +44,7 @@ export default {
     creatInfo() {
       this.$http.get('/api/getNewsList' + '?page=' + this.page)
         .then((res) => {
+          this.isLoading = false
           this.list = res.data.data
         })
         .catch((err) => {
