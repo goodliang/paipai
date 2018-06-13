@@ -46,7 +46,6 @@ let isWx=navigator.userAgent.indexOf('MicroMessage')=== -1 ? false : true;
     let title = '弘真艺拍'
     title = to.meta && to.meta.title ? to.meta.title + ' - ' + title : title;
     document.title = title;
-    wx.miniProgram.postMessage({ data: {shareUrl: location.href} })
     
     if (store.state.token) {
       next()
@@ -67,6 +66,9 @@ let isWx=navigator.userAgent.indexOf('MicroMessage')=== -1 ? false : true;
         }
       }
     }
+
+    wx.miniProgram.postMessage({ data: {shareUrl: to.fullPath} })
+
   })
 
 

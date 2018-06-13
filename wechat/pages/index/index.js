@@ -66,8 +66,10 @@ Page({
     })
   },
   bindmsg: function(e){
-    console.log(e.detail.data[0].shareUrl)
-    this.data.shareUrl = e.detail.data[0].shareUrl;
+    var data = e.detail.data;
+    console.log(e.detail.data)
+    this.data.shareUrl = e.detail.data[data.length - 1].shareUrl;
+    console.log(this.data.shareUrl)
   },
 
   onShareAppMessage: function (res) { //转发
