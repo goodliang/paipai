@@ -51,12 +51,20 @@ export default {
 }
 
 </script>
-<style lang="less" rel="stylesheet/less" scoped>
+<style lang="less" rel="stylesheet/less" >
 .infoMain {
-  padding: 10px;
+  padding:10px;
   line-height: 1.8;
   color: #666;
   font-size: 14px;
+  overflow: hidden;
+  width: 100%
+
 }
+
+
+
+.infoMain img{max-width:90%; height: auto;}
+
 
 </style>
