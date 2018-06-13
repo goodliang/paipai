@@ -7,7 +7,7 @@
         </router-link>
         <img :src="detail.pic_url" width="100%">
        
-        <div class="countDown">
+        <div class="countDown" v-if="detail.status !== 4 ">
           <span class="countDownTit demo-icon demo-icon-big" v-if="detail.pai_status === 0"><i class="iconfont">&#xe648;</i>
 距离结束：
               <clocker :time="detail.end_time_fmt" format='%D 天 %H 时 %M 分 %S 秒 '></clocker>
@@ -28,7 +28,7 @@
           <h3 class="text-justify"><span>{{detail.title}}</span><small class="text-muted f12 fwn">{{detail.type}}</small></h3>
           <div class="text-justify">
             <strong style="float: left;">{{detail.author}}</strong>
-          <span style="float: right;">
+          <span style="float: right;" v-if="detail.status !== 4 ">
           <small v-if="detail.last_price == 0 && detail.pai_status==1">暂无出价 等你一马当先</small>
 
 
@@ -70,7 +70,7 @@
         </div>
       </div>
     </div>
-    <div class="price_history weui-panel">
+    <div class="price_history weui-panel" v-if="detail.status !== 4 ">
       <divider>出价记录</divider>
 
       <ul v-if="historyData.length" v-cloak>
@@ -126,7 +126,7 @@
       <div v-transfer-dom>
         <loading v-model="isLoading"></loading>
       </div>
-      
+
   </div>
 </template>
 <script>
