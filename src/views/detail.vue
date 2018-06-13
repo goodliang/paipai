@@ -200,21 +200,20 @@ export default {
 
 
 
-    if (this.$route.query.order_number) {
-      this.$vux.toast.show({
-        text: '保证金支付成功，正在出价...'
-      })
+    // if (this.$route.query.order_number) {
+    //   this.$vux.toast.show({
+    //     text: '保证金支付成功，正在出价...'
+    //   })
 
-      this.updateOrder()
+    //   this.updateOrder()
 
 
-    }
+    // }
 
 
   },
   methods: {
     updateOrder() {
-      console.log('updateOrder')
       var params = new URLSearchParams();
       params.append('order_number', this.$route.query.order_number);
       params.append('status', 1);
@@ -269,7 +268,7 @@ export default {
 
       this.showPrice = false;
 
-      this.$vux.toast.text('出价中...', 'top')
+      // this.$vux.toast.text('出价中...', 'top')
 
       this.$http.post('/api/setGoodOffer', params).then((res) => {
 

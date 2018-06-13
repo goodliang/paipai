@@ -4,8 +4,7 @@
       <x-header :left-options="{backText: ''}">支付保证金</x-header>
     </div>
     <div class="container">
-      <h2 align="color">支付保证金</h2>
-      <card :header="{title: ' (保证金可在拍卖结束后申请退款或用于下次竞拍)' }">
+      <card :header="{title: ' 保证金可在拍卖结束后申请退款或用于下次竞拍' }">
         <p slot="content" class="card-padding" style="padding: 20px">
           金额：<span style="color: #f00">¥{{money}}.00</span>
         </p>
@@ -47,7 +46,7 @@ export default {
           //跳转到小程序支付
           //.....
           //
-          wx.miniProgram.navigateTo({ url: '/pages/pay/pay?order_number=' + order_number + '&return_url=' + encodeURIComponent(location.protocol + '//' + location.host + '/detail/' + this.good_id + '?order_number=' + order_number) })
+          wx.miniProgram.navigateTo({ url: '/pages/pay/pay?order_number=' + order_number + '&return_url=' + encodeURIComponent(location.protocol + '//' + location.host + '/promise_pay_success/' + this.good_id) })
 
         }
 

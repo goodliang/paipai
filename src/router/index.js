@@ -22,6 +22,9 @@ import userCenter from '@/views/userCenter'
 import paySuccess from '@/views/pay_success'
 import moreHistory from '@/views/more_history'
 
+import promisepaySuccess from '@/views/promise_pay_success'
+
+
 
 Vue.use(Router)
 
@@ -134,6 +137,11 @@ export default new Router({
       path: '/promise_success/:id',
       name: 'paySuccess',
       component: paySuccess
+    },
+       {
+      path: '/promise_pay_success/:id',
+      name: 'promisepaySuccess',
+      component: promisepaySuccess
     },
     {
       path: '*',
