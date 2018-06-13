@@ -67,13 +67,14 @@ Page({
   },
   bindmsg: function(e){
     var data = e.detail.data;
-    console.log(e.detail.data)
+    console.log('bindmsg',e.detail.data)
     this.data.shareUrl = e.detail.data[data.length - 1].shareUrl;
     console.log(this.data.shareUrl)
   },
 
   onShareAppMessage: function (res) { //转发
     var webViewUrl = this.data.shareUrl ? this.data.shareUrl : res.webViewUrl
+    console.log('onShareAppMessage',this.data.shareUrl)
 
     
     return {

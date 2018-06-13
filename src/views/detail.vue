@@ -185,7 +185,7 @@ export default {
   mounted() {
 
 
-if(detail.status !== 4 ){
+if(this.detail.status !== 4 ){
 
     this.priceHistory()
 
