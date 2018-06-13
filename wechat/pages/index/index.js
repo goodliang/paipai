@@ -4,6 +4,7 @@ Page({
     url: "",
     title: "弘真艺拍",
     canIUse: wx.canIUse('web-view'),
+    shareUrl:"",
   },
   onLoad: function (options) {
     var _this = this;
@@ -35,6 +36,7 @@ Page({
     if(rd_session){
       _this.setData({
         url: "https://pai.arthongzhen.com" + _this.data.url
+        // url: "http://10.11.23.178:8080" + _this.data.url
       })
     }else{
       wx.redirectTo({
@@ -63,14 +65,24 @@ Page({
       }
     })
   },
+  bindmsg: function(e){
+    console.log(e.detail.data[0].shareUrl)
+    this.data.shareUrl = e.detail.data[0].shareUrl;
+  },
 
   onShareAppMessage: function (res) { //转发
-  console.log(res)
-    var webViewUrl = encodeURIComponent(res.webViewUrl);
+    console.log(res)
+    var webViewUrl = "";
+
+    if(this.data.shareUrl && this.data.shareUrl != "undefined"){
+      webViewUrl = this.data.shareUrl;
+    }else{
+      webViewUrl = res.webViewUrl;
+    }
     
     return {
       title: "  ",
-      path: '/pages/index/index?return_url=' + webViewUrl,
+      path: '/pages/index/index?return_url=' + encodeURIComponent(webViewUrl),
       success: function (res) {
         // 转发成功
       },

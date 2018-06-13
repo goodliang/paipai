@@ -1,0 +1,5 @@
+<!--index.wxml-->
+<view style="height:100rpx;text-align:center; line-height:60rpx; font-size:40rpx; font-weight:bold;">这里是标题</view>
+<button open-type="share">分享</button>
+
+<rich-text nodes="{{nodes}}" bindtap="tap"></rich-text>

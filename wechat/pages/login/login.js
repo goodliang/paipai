@@ -12,6 +12,7 @@ Page({
     _this.data.return_url = decodeURIComponent(options.return_url);
 
     if (_this.data.return_url == "undefined" || !_this.data.return_url) {
+      // _this.data.return_url = "http://10.11.23.178:8080/index"
       _this.data.return_url = "https://pai.arthongzhen.com/index"
     }
     // 获取用户信息
