@@ -185,22 +185,15 @@ export default {
   mounted() {
 
 
+if(detail.status !== 4 ){
 
     this.priceHistory()
-    //最后5分钟，5秒刷新一次
-    //
-    //
-    //
-
-    // setTimeout(()=>{
-    //   alert(this.inlastFiveMini)
-    // },3000)
-
-   
 
     this.timer = setInterval(()=>{
       this.priceHistory()
     },50000)
+
+}
 
 
 
