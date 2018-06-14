@@ -9,12 +9,13 @@
     
     </div>
   
-
     <div class="goods-list" v-if="hasContent">
-       <router-link class="tipsbar button-box vux-1px" to="/myOrder">
-      <span class="text-red">7 </span>个出局 &nbsp;&nbsp;   <span class="text-red">7 </span>个领先 &nbsp;&nbsp; <span class="text-red">7 </span>个待付款
-    </router-link>
 
+      <div v-if="hasUnum">
+       <router-link class="tipsbar button-box vux-1px" to="/myOrder" >
+      <span class="text-red">{{uNum.out}} </span>个出局 &nbsp;&nbsp;   <span class="text-red">{{uNum.head}} </span>个领先 &nbsp;&nbsp; <span class="text-red">{{uNum.paying}} </span>个待付款
+    </router-link>
+</div>
       <router-link :to="'/detail/'+item.id" class="goods-item" v-for='(item,index) in goods' :key='index'>
         <div class="goods-item-head">
           <img :src="item.pic_url" width="100%">
@@ -60,21 +61,41 @@ export default {
     return {
       isLoading: true,
       hasContent: false,
+      hasUnum:false,
       state: ['0', '1', '2'], //进行中，预拍，已结束
       goods: [],
       stateActive: '',
       page: 0,
       fetching: true,
       noMore: false,
+      uNum:{}
     }
   },
   created() {
     this.createdDate(0)
+    this.getUserPaiNumer()
+
+    // /api/statPai
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
   },
   methods: {
+    getUserPaiNumer(){
+      this.$http.get('/api/statPai')
+        .then((res) => {
+          if(res.data.errno == 1000){
+             this.uNum = res.data.data
+             if(this.uNum.out==0 && this.uNum.head == 0 && this.padding ==0){
+              return this.hasUnum = false
+             }
+             this.hasUnum = true
+          }
+         
+        })
+        .catch((err) => {
+        })
+    },
     createdDate(index) {
       this.page = 0;
       this.fetching = true;
