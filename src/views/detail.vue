@@ -132,6 +132,7 @@
 <script>
 import { Divider, Popup, GroupTitle } from 'vux'
 import { XNumber } from 'vux'
+import 'url-search-params-polyfill';
 
 export default {
   data() {
@@ -270,21 +271,21 @@ if(this.detail.status !== 4 ){
       var params = new URLSearchParams();
       params.append('id', this.$route.params.id); //你要传给后台的参数值 key/value
       params.append('price', this.offerPirce);
-          console.log(this.$http.defaults.headers)
+          // console.log(this.$http.defaults.headers)
 
 
-          testmsg+='\n商品ID:'+this.$route.params.id
-          testmsg+='\n商品price:'+this.offerPirce
-          testmsg+='\n是否支持URLSearchParams:'+ typeof new URLSearchParams()
+          // testmsg+='\n商品ID:'+this.$route.params.id
+          // testmsg+='\n商品price:'+this.offerPirce
+          // testmsg+='\n是否支持URLSearchParams:'+ typeof new URLSearchParams()
           
-          testmsg+='\nthis.$http.post:'+ typeof this.$http.post
-          testmsg+='\ntoast.text:'+ typeof this.$vux.toast.text
-          testmsg+='\nparams:'+  params.toString()
+          // testmsg+='\nthis.$http.post:'+ typeof this.$http.post
+          // testmsg+='\ntoast.text:'+ typeof this.$vux.toast.text
+          // testmsg+='\nparams:'+  params.toString()
 
-          // testmsg+='post/api/setGoodOffer:'+ typeof this.$http.post('/api/setGoodOffer', params)
+          // // testmsg+='post/api/setGoodOffer:'+ typeof this.$http.post('/api/setGoodOffer', params)
 
 
-          alert(testmsg)
+          // alert(testmsg)
 
       this.showPrice = false;
 

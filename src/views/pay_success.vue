@@ -13,6 +13,7 @@
 </template>
 <script>
 import { Msg, XButton } from 'vux'
+import 'url-search-params-polyfill';
 
 export default {
   data() {

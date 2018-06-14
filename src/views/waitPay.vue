@@ -60,6 +60,8 @@
 </template>
 <script>
 import { XAddress, ChinaAddressV4Data, XInput, Selector, PopupPicker } from 'vux'
+import 'url-search-params-polyfill';
+
 export default {
   data() {
     return {

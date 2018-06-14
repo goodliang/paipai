@@ -22,6 +22,8 @@
   </div>
 </template>
 <script>
+import 'url-search-params-polyfill';
+
 export default {
   data() {
     return {

@@ -47,7 +47,6 @@ let isWx=navigator.userAgent.indexOf('MicroMessage')=== -1 ? false : true;
     title = to.meta && to.meta.title ? to.meta.title + ' - ' + title : title;
     document.title = title;
 
-        console.log(to.fullPath)
 
     wx.miniProgram.postMessage({ data: {shareUrl: to.fullPath} })
     
@@ -79,9 +78,9 @@ let isWx=navigator.userAgent.indexOf('MicroMessage')=== -1 ? false : true;
 Vue.prototype.$http.interceptors.request.use(
   config => {
 
-      if(config.url.indexOf('setGoodOffer')>0){
-        alert('请求了出价接口')
-      }
+      // if(config.url.indexOf('setGoodOffer')>0){
+      //   alert('请求了出价接口')
+      // }
 
     if (store.state.token) { // 判断是否存在token，如果存在的话，则每个http header都加上token。废弃cookie
       config.headers.Authorization = store.state.token;
@@ -94,9 +93,9 @@ Vue.prototype.$http.interceptors.request.use(
   });
 Vue.prototype.$http.interceptors.response.use(
   response => {
-   if(response.request.responseURL.indexOf('setGoodOffer')>0){
-    alert('收到出价接口响应')
-   }
+   // if(response.request.responseURL.indexOf('setGoodOffer')>0){
+   //  alert('收到出价接口响应')
+   // }
     if (response.data.errno == 4002) { //未登录为4002,4002时清除token，跳转到登录页
       store.commit('addToken', '');
       wx.miniProgram.navigateTo({ url: '/pages/login/login?return_url=' + encodeURIComponent(router.currentRoute.fullPath) })
