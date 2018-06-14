@@ -86,6 +86,9 @@ export default {
         .then((res) => {
           if(res.data.errno == 1000){
              this.uNum = res.data.data
+             if(this.uNum.out==0 && this.uNum.head == 0 && this.padding ==0){
+              return this.hasUnum = false
+             }
              this.hasUnum = true
           }
          
