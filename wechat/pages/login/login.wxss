@@ -1,25 +1,39 @@
 /**index.wxss**/
 .containter{
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding: 0 20px;
+  font-size: 14px;
 }
-.tips{
+.logo{
   text-align: center;
-  padding-bottom: 200rpx;
+  padding:60px 0 15px 0;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+  font-size: 16px;
 }
 .wx-pay-icon{
-  height: 200rpx;
-  width: 200rpx;
-  max-height: 200px;
-  max-width: 200px;
-  padding-bottom: 120px;
+  height: 160rpx;
+  width: 160rpx;
+  max-height: 100px;
+  max-width: 100px;
+  border-radius: 100%;
 }
-.txt{
-  line-height: 100rpx;
+.tips{
+  line-height: 20px;
+  margin-bottom: 30px;
+}
+.tipicon{
+  margin-left: 14px;
+  position: relative;
+}
+.tipicon::before{
+  position: absolute;
+  left: -10px;
+  top: 8px;
+  height: 4px;
+  width: 4px;
+  content: "";
+  overflow: hidden;
+  background: #333;
+  border-radius: 100%;
+  display: block;
 }
