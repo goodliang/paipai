@@ -1,8 +1,12 @@
 <!--index.wxml-->
 <view class="containter">
-  <view class='tips'>
+  <view class='logo'>
     <image class='wx-pay-icon' mode="aspectFit" src="../../img/hz-icon.jpg"></image>
-    <view class='txt'>{{tips}}</view>
-    <button open-type="getUserInfo" bindgetuserinfo="getUserInfo">{{loadingtip}}</button>
+    <view>弘真艺拍</view>
   </view>
+  <view class='tips'>
+    <view>请同意授权</view>
+    <view class='tipicon'>以便弘真艺拍为你提供更好的服务</view>
+  </view>
+  <view><button type='primary' open-type="getUserInfo" bindgetuserinfo="getUserInfo">{{loadingtip}}</button></view>
 </view>

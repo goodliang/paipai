@@ -4,7 +4,7 @@ Page({
     title: "弘真艺拍",
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     return_url:"",
-    loadingtip:"登录",
+    loadingtip:"确认授权",
     loadFlag:false,
   },
   onLoad: function (options) {
