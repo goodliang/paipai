@@ -34,7 +34,7 @@
 
           <small v-else> <img style="border-radius: 40%;position: relative;top: 3px" width="15" height="15" :src="last_u_head_fmt">  {{last_u_nick}} 
               <span class="text-red">¥{{detail.last_price}}</span> 
-             <span v-if="detail.pai_status==0">领先</span>
+             <span v-if="detail.pai_status==0 && historyData.length ">领先</span>
              <span v-if="detail.pai_status==2">拍中</span>
 
           </small>
@@ -251,6 +251,14 @@ if(this.detail.status !== 4 ){
     //出价动作
     offer() {
 
+         this.$vux.toast.show({
+            text: '正在出价....'
+          })
+
+      var testmsg=''
+
+
+
 
 
       if (this.offerPirce.length < 1) {
@@ -262,6 +270,21 @@ if(this.detail.status !== 4 ){
       var params = new URLSearchParams();
       params.append('id', this.$route.params.id); //你要传给后台的参数值 key/value
       params.append('price', this.offerPirce);
+          console.log(this.$http.defaults.headers)
+
+
+          testmsg+='\n商品ID:'+this.$route.params.id
+          testmsg+='\n商品price:'+this.offerPirce
+          testmsg+='\n是否支持URLSearchParams:'+ typeof new URLSearchParams()
+          
+          testmsg+='\nthis.$http.post:'+ typeof this.$http.post
+          testmsg+='\ntoast.text:'+ typeof this.$vux.toast.text
+          testmsg+='\nparams:'+  params.toString()
+
+          // testmsg+='post/api/setGoodOffer:'+ typeof this.$http.post('/api/setGoodOffer', params)
+
+
+          alert(testmsg)
 
       this.showPrice = false;
 
