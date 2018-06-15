@@ -58,8 +58,8 @@ export default {
   color: #666;
   font-size: 14px;
   overflow: hidden;
-  width: 100%
-
+  width: 100%;
+  box-sizing: border-box;
 }
 
 
